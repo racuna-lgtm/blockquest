@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--grass:#5D8C2E;--gd:#4A7024;--dirt:#8B6914;--dd:#6B4F0E;--sky:#7EC8E3;--sd:#5BA3C9;--gold:#F1C40F;--roblox:#9B59B6;--water:#3498DB;--td:#2C3E50;--tl:#ECF0F1;--bg:#1a1a2e;--red:#E74C3C;--green:#2ecc71;--pb:3px solid #2C3E50}
+:root{--grass:#5D8C2E;--gd:#4A7024;--dirt:#8B6914;--dd:#6B4F0E;--sky:#7EC8E3;--sd:#5BA3C9;--gold:#F1C40F;--water:#3498DB;--td:#2C3E50;--tl:#ECF0F1;--bg:#1a1a2e;--red:#E74C3C;--green:#2ecc71;--purp:#9B59B6;--pb:3px solid #2C3E50}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--td);min-height:100vh;overflow-x:hidden;user-select:none}
 .scr{display:none;min-height:100vh;position:relative}.scr.on{display:flex;flex-direction:column}
@@ -17,111 +17,102 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--td);min-he
 #splash{background:linear-gradient(180deg,var(--sky) 0%,var(--sd) 40%,var(--grass) 40%,var(--gd) 60%,var(--dirt) 60%,var(--dd) 100%);align-items:center;justify-content:center;padding:20px;text-align:center}
 #splash h1{font-family:'Press Start 2P',monospace;font-size:clamp(28px,8vw,48px);color:#fff;text-shadow:4px 4px 0 var(--gd);margin-bottom:8px;animation:bob 2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-#splash .sub{font-family:'Press Start 2P',monospace;font-size:clamp(8px,2.5vw,12px);color:var(--gold);margin-bottom:30px;text-shadow:2px 2px 0 rgba(0,0,0,0.4)}
+.sub{font-family:'Press Start 2P',monospace;font-size:clamp(8px,2.5vw,12px);color:var(--gold);margin-bottom:30px;text-shadow:2px 2px 0 rgba(0,0,0,0.4)}
 .sbox{background:rgba(255,255,255,0.95);border-radius:12px;padding:24px;width:100%;max-width:380px;border:var(--pb)}
 .sbox label{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
-.sbox input[type="text"]{width:100%;padding:12px;border:var(--pb);border-radius:8px;font-family:'Nunito',sans-serif;font-size:16px;margin-bottom:16px;outline:none}
+.sbox input[type="text"]{width:100%;padding:12px;border:var(--pb);border-radius:8px;font-size:16px;margin-bottom:16px;outline:none;font-family:Nunito,sans-serif}
 .avg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.avo{aspect-ratio:1;border:3px solid #ccc;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:36px;transition:all .2s;background:#f9f9f9}
+.avo{aspect-ratio:1;border:3px solid #ccc;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:36px;background:#f9f9f9;transition:all .2s}
 .avo span{font-size:10px;margin-top:4px;font-weight:700}.avo.sel{border-color:var(--grass);background:#e8f5e9;transform:scale(1.08)}
-.btn{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,14px);padding:14px 28px;border:none;border-radius:8px;cursor:pointer;transition:all .15s;border:var(--pb)}
+.btn{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2.5vw,13px);padding:14px 24px;border:none;border-radius:8px;cursor:pointer;border:var(--pb);transition:all .15s}
 .btn:active{transform:scale(0.95)}
-.b1{background:var(--grass);color:#fff}.b2{background:var(--gold);color:var(--td)}.b3{background:#ecf0f1;color:var(--td)}.b4{background:var(--roblox);color:#fff}
+.b1{background:var(--grass);color:#fff}.b2{background:var(--gold);color:var(--td)}.b3{background:#ecf0f1;color:var(--td)}.b4{background:var(--purp);color:#fff}
 
 /* Tutorial */
 .tov{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}.tov.hid{display:none}
-.tcard{background:#fff;border-radius:16px;padding:28px 24px;max-width:360px;width:100%;text-align:center;border:var(--pb)}
-.tcard .te{font-size:56px;margin-bottom:12px}.tcard h3{font-family:'Press Start 2P',monospace;font-size:13px;margin-bottom:12px;line-height:1.6}.tcard p{font-size:15px;color:#555;margin-bottom:20px;line-height:1.6}
+.tc{background:#fff;border-radius:16px;padding:28px 24px;max-width:360px;width:100%;text-align:center;border:var(--pb)}
+.tc .te{font-size:56px;margin-bottom:12px}.tc h3{font-family:'Press Start 2P',monospace;font-size:12px;margin-bottom:12px;line-height:1.6}.tc p{font-size:15px;color:#555;margin-bottom:20px;line-height:1.6}
 .tdots{display:flex;gap:8px;justify-content:center;margin-bottom:16px}.tdot{width:10px;height:10px;border-radius:50%;background:#ddd}.tdot.on{background:var(--grass)}
 
 /* Island */
 #island{background:linear-gradient(180deg,var(--sky) 0%,var(--sd) 35%,transparent 35%);background-color:var(--grass);padding-bottom:20px}
 .ih{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between}
 .pi{display:flex;align-items:center;gap:10px}.pa{font-size:32px}
-.pn{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,14px);color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,0.3)}
+.pn{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,13px);color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,0.3)}
 .sb{font-family:'Press Start 2P',monospace;font-size:11px;background:rgba(0,0,0,0.3);color:var(--gold);padding:6px 12px;border-radius:20px}
 .il{text-align:center;font-size:12px;color:rgba(255,255,255,0.6);padding:4px 0}
 .igw{padding:4px 12px;display:flex;justify-content:center}
 .ig{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:100%;max-width:340px;background:var(--dd);border:4px solid var(--dd);border-radius:8px;padding:2px}
-.ic{background:var(--grass);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(16px,4.5vw,24px);aspect-ratio:1;transition:all .15s}
+.ic{background:var(--grass);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(16px,4.5vw,24px);aspect-ratio:1}
 .ic.hi{background:#4a8c1e}.ic.pl{background:var(--gd);cursor:pointer;animation:pu 1s ease-in-out infinite}
 @keyframes pu{0%,100%{box-shadow:inset 0 0 0 rgba(241,196,15,0)}50%{box-shadow:inset 0 0 8px rgba(241,196,15,0.5)}}
 .ca{padding:16px;display:flex;justify-content:center}
-.dc{background:rgba(255,255,255,0.95);border:4px solid var(--gold);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;max-width:380px;width:100%;box-shadow:0 0 20px rgba(241,196,15,0.3)}
+.dc{background:rgba(255,255,255,0.95);border:4px solid var(--gold);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;max-width:380px;width:100%;box-shadow:0 0 20px rgba(241,196,15,0.3)}
 .dc:active{transform:scale(0.97)}.dc.av{animation:gl 1.5s ease-in-out infinite}.dc.dn{opacity:0.6;cursor:default;animation:none;border-color:#ccc;box-shadow:none}
 @keyframes gl{0%,100%{box-shadow:0 0 15px rgba(241,196,15,0.3)}50%{box-shadow:0 0 35px rgba(241,196,15,0.6)}}
-.ci{font-size:44px}.ct h3{font-family:'Press Start 2P',monospace;font-size:12px;margin-bottom:6px}.ct p{font-size:14px;color:#666}
-.car{margin-left:auto;font-size:28px;animation:ab 1s ease-in-out infinite}
+.ci0{font-size:44px}.ct h3{font-family:'Press Start 2P',monospace;font-size:11px;margin-bottom:6px}.ct p{font-size:14px;color:#666}
+.car{margin-left:auto;font-size:24px;animation:ab 1s ease-in-out infinite}
 @keyframes ab{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
-.inav{padding:12px 16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.inav .btn{font-size:9px;padding:10px 16px;flex:1;max-width:180px}
+.inav{padding:12px 16px;display:flex;gap:8px;justify-content:center}.inav .btn{font-size:9px;padding:10px 16px;flex:1;max-width:180px}
 .pbr{background:var(--gold);color:var(--td);text-align:center;padding:10px;font-family:'Press Start 2P',monospace;font-size:9px;line-height:1.5;display:none}.pbr.on{display:block}
 
-/* BATTLE SCREEN */
-#battle{background:var(--bg);color:var(--tl);padding:16px;align-items:center}
-.battle-arena{max-width:440px;width:100%;margin-top:8px}
-.battle-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px}
-.battle-side{text-align:center}
-.battle-side .bs-label{font-family:'Press Start 2P',monospace;font-size:8px;color:#999;margin-bottom:4px}
-.battle-side .bs-sprite{font-size:48px;transition:all .3s}
-.battle-side .bs-hp{font-size:20px;letter-spacing:2px;margin-top:4px;min-height:24px}
-.bs-sprite.hit{animation:hitShake .4s}
-.bs-sprite.dead{opacity:0.3;filter:grayscale(1)}
-@keyframes hitShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.battle-vs{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);margin-top:8px}
-.battle-round{font-family:'Press Start 2P',monospace;font-size:9px;color:#666;text-align:center;margin-bottom:12px}
-.battle-q{background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.15);border-radius:12px;padding:16px;margin-bottom:12px}
-.battle-q .bq-text{font-size:15px;line-height:1.7;color:#ccc;margin-bottom:14px}
-.battle-q .bq-ask{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);line-height:1.5;margin-bottom:14px}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 18px;font-size:15px;color:#fff;cursor:pointer;transition:all .2s;text-align:left;font-family:'Nunito',sans-serif;font-weight:600}
-.opt:hover{background:rgba(255,255,255,0.18)}
-.opt.ok{background:rgba(46,204,113,0.3)!important;border-color:var(--green)!important}
-.opt.no{background:rgba(231,76,60,0.3)!important;border-color:var(--red)!important;animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.fb{padding:12px;border-radius:10px;margin-top:10px;font-size:13px;line-height:1.5}
-.fb-ok{background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);color:var(--green)}
-.fb-no{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:var(--red)}
-.btn-flee{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);font-size:11px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Nunito',sans-serif;margin-bottom:8px}
-.battle-result{text-align:center;padding:20px}
-.battle-result .br-emoji{font-size:64px;margin-bottom:12px}
-.battle-result h3{font-family:'Press Start 2P',monospace;font-size:14px;margin-bottom:8px;line-height:1.5}
-.battle-result p{font-size:14px;color:#999;margin-bottom:20px}
+/* Game Screen */
+#game{background:var(--bg);color:var(--tl);padding:12px;align-items:center}
+.game-header{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:440px;margin-bottom:8px}
+.game-title{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,13px);color:var(--gold);line-height:1.5}
+.game-lives{font-size:20px;letter-spacing:2px}
+.game-prompt{font-size:14px;color:#ccc;background:rgba(255,255,255,0.08);border-radius:10px;padding:14px;margin-bottom:12px;max-width:440px;width:100%;line-height:1.6;border-left:4px solid var(--gold);text-align:center}
+.game-area{max-width:440px;width:100%}
+.game-fb{text-align:center;padding:16px;font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.8}
+.game-counter{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);text-align:center;margin-bottom:10px}
 
-/* Exploration */
-#explo{background:var(--bg);color:var(--tl);padding:16px;align-items:center}
-.explo-card{max-width:440px;width:100%;margin-top:8px}
-.explo-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.explo-hp{font-size:20px;letter-spacing:2px}
-.explo-step{font-family:'Press Start 2P',monospace;font-size:9px;color:#666}
-.explo-badge{font-family:'Press Start 2P',monospace;font-size:9px;padding:4px 10px;border-radius:12px;display:inline-block;margin-bottom:12px}
-.be{background:var(--roblox);color:#fff}.br{background:var(--water);color:#fff}
-.explo-title{font-family:'Press Start 2P',monospace;font-size:clamp(11px,3vw,14px);margin-bottom:12px;line-height:1.6;color:var(--gold)}
-.explo-text{font-size:15px;line-height:1.7;color:#ccc;background:rgba(0,0,0,0.3);padding:16px;border-radius:10px;border-left:4px solid var(--gold);margin-bottom:14px}
-.explo-clues{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.explo-clue{background:rgba(241,196,15,0.15);border:1px solid rgba(241,196,15,0.3);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--gold)}
+/* Constructor Game */
+.build-grid{display:grid;gap:2px;margin:0 auto 12px;width:fit-content}
+.build-cell{width:clamp(36px,9vw,48px);height:clamp(36px,9vw,48px);background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.12);border-radius:4px;cursor:pointer;transition:all .15s}
+.build-cell.filled{background:var(--grass);border-color:var(--gd);box-shadow:inset 0 -3px 0 var(--gd)}
+.build-cell:hover{border-color:rgba(255,255,255,0.3)}
 
-/* Victory / Game Over */
+/* Ordena Game */
+.ord-sequence{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:56px;padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;border:2px dashed rgba(255,255,255,0.15);margin-bottom:14px}
+.ord-slot{width:clamp(40px,10vw,56px);height:clamp(40px,10vw,56px);background:rgba(255,255,255,0.08);border:2px dashed rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#666;font-family:'Press Start 2P',monospace}
+.ord-slot.filled{background:var(--grass);border:2px solid var(--gd);font-size:20px;cursor:pointer}
+.ord-pool{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.ord-card{background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .2s;text-align:center;min-width:80px}
+.ord-card:hover{background:rgba(255,255,255,0.18)}.ord-card:active{transform:scale(0.95)}
+.ord-card .oc-emoji{font-size:24px;margin-bottom:4px}
+.ord-card .oc-text{font-size:11px;color:#ccc;font-weight:600}
+.ord-card.used{opacity:0.3;pointer-events:none}
+
+/* Memory Game */
+.mem-grid{display:grid;gap:6px;justify-content:center;margin-bottom:12px}
+.mem-card{aspect-ratio:1;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center;padding:4px;transition:all .3s;width:clamp(60px,16vw,80px);line-height:1.3}
+.mem-card.face-down{background:var(--purp);border:2px solid #7d3c98;color:transparent}
+.mem-card.face-down::after{content:'❓';font-size:24px}
+.mem-card.face-up{background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.25);color:#fff}
+.mem-card.matched{background:rgba(46,204,113,0.2);border:2px solid var(--green);color:var(--green)}
+.mem-card.wrong{animation:shake .4s;border-color:var(--red)!important}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* Victory */
 #victory{background:radial-gradient(ellipse at center,#2c1654 0%,var(--bg) 70%);align-items:center;justify-content:center;text-align:center;padding:20px}
 .vch{font-size:80px;animation:vb .8s ease-out}
 @keyframes vb{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.vt{font-family:'Press Start 2P',monospace;font-size:clamp(16px,5vw,24px);color:var(--gold);margin:16px 0 8px;text-shadow:2px 2px 0 rgba(0,0,0,0.5)}
+.vt{font-family:'Press Start 2P',monospace;font-size:clamp(16px,5vw,22px);color:var(--gold);margin:16px 0 8px;text-shadow:2px 2px 0 rgba(0,0,0,0.5)}
 .vi{font-size:56px;margin:16px 0;animation:fl 2s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.vn{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--tl);margin-bottom:4px}
-.vr{font-size:11px;font-weight:700;margin-bottom:24px;padding:4px 12px;border-radius:12px;display:inline-block}
-.vr-r{background:var(--water);color:#fff}.vr-e{background:var(--roblox);color:#fff}
-.vs{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);margin-bottom:20px}
+.vn{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--tl);margin-bottom:20px}
 .vbs{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px}.vbs .btn{width:100%}
 
-/* Inventory, Portal, Admin - compact */
-#inventory{background:linear-gradient(180deg,var(--dirt) 0%,var(--dd) 100%);padding:16px}
+/* Other screens - compact */
+#inventory,#portal,#admin{padding:16px}
+#inventory{background:linear-gradient(180deg,var(--dirt) 0%,var(--dd) 100%)}
 .invh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .invh h2{font-family:'Press Start 2P',monospace;font-size:14px;color:#fff}
 .inv-empty{text-align:center;color:rgba(255,255,255,0.5);font-size:14px;padding:40px 20px;line-height:1.6}
 .invg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .invs{aspect-ratio:1;background:rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.15);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:28px;cursor:pointer}
-.invs .invn{font-size:7px;font-family:'Press Start 2P',monospace;color:rgba(255,255,255,0.7);margin-top:4px;text-align:center;line-height:1.3}
-#portal{background:var(--bg);padding:16px}
+.invn{font-size:7px;font-family:'Press Start 2P',monospace;color:rgba(255,255,255,0.7);margin-top:4px;text-align:center}
+#portal{background:var(--bg)}
 .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .ph h2{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--gold)}
 .wg{display:flex;flex-direction:column;gap:12px}
@@ -129,23 +120,24 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--td);min-he
 .wc:active{transform:scale(0.98)}.wi{font-size:36px}
 .winfo h3{font-family:'Press Start 2P',monospace;font-size:10px;color:#fff;margin-bottom:4px}.winfo p{font-size:12px;color:#999}
 .wp{margin-left:auto;font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold)}
-#admin{background:#1a1a2e;padding:16px;color:#fff}
+#admin{background:#1a1a2e;color:#fff}
 .ah{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.ah h2{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--roblox)}
+.ah h2{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--purp)}
 .as{background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px}
 .as h3{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);margin-bottom:12px}
-.sr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:14px}.sv{font-weight:700;color:var(--gold)}
+.sr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:14px}
+.sv{font-weight:700;color:var(--gold)}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;align-items:center;justify-content:center;padding:20px}.modal.on{display:flex}
 .mbox{background:#fff;border-radius:16px;padding:24px;text-align:center;max-width:340px;width:100%;border:var(--pb)}
 .mbox h3{font-family:'Press Start 2P',monospace;font-size:12px;margin-bottom:8px}.mbox p{font-size:14px;color:#666;margin-bottom:16px}
 .ci2{display:flex;gap:8px;justify-content:center;margin:16px 0}
-.ci2 input{width:48px;height:48px;text-align:center;font-size:20px;font-weight:700;border:var(--pb);border-radius:8px;outline:none;font-family:'Nunito',sans-serif}
+.ci2 input{width:48px;height:48px;text-align:center;font-size:20px;font-weight:700;border:var(--pb);border-radius:8px;outline:none;font-family:Nunito,sans-serif}
 .mbtn{display:flex;gap:8px;justify-content:center}.mbtn .btn{font-size:9px;padding:10px 14px}
+.bflee{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);font-size:11px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:Nunito,sans-serif}
 </style>
 </head>
 <body>
-
-<div class="tov hid" id="tut"><div class="tcard"><div class="te" id="tutE">🎁</div><h3 id="tutT"></h3><p id="tutP"></p><div class="tdots" id="tutD"></div><button class="btn b1" onclick="nxTut()" id="tutB" style="width:100%"></button></div></div>
+<div class="tov hid" id="tut"><div class="tc"><div class="te" id="tutE"></div><h3 id="tutT"></h3><p id="tutP"></p><div class="tdots" id="tutD"></div><button class="btn b1" onclick="nxTut()" id="tutB" style="width:100%"></button></div></div>
 
 <div id="splash" class="scr on">
   <h1>BlockQuest</h1><p class="sub">Tu isla, tus misiones</p>
@@ -157,347 +149,401 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--td);min-he
 </div>
 
 <div id="island" class="scr">
-  <div class="pbr" id="pBnr">📍 Toca una celda para colocar tu item — <span style="font-family:Nunito;cursor:pointer;text-decoration:underline" onclick="cancelPl()">Cancelar</span></div>
+  <div class="pbr" id="pBnr">📍 Toca una celda para colocar — <span style="font-family:Nunito;cursor:pointer;text-decoration:underline" onclick="cancelPl()">Cancelar</span></div>
   <div class="ih"><div class="pi"><span class="pa" id="iAv"></span><span class="pn" id="iNm"></span></div><div class="sb" id="sBdg">🔥 0</div></div>
-  <div class="il" id="iLbl">🏝️ Tu isla</div>
+  <div class="il" id="iLbl"></div>
   <div class="igw"><div class="ig" id="iGr"></div></div>
-  <div class="ca"><div class="dc" id="dCh" onclick="openDaily()"><span class="ci" id="cIc">🎁</span><div class="ct"><h3 id="cTi">👆 TOCA AQUÍ 👆</h3><p id="cSu">Abre tu misión del día</p></div><span class="car" id="cAr">▶</span></div></div>
+  <div class="ca"><div class="dc" id="dCh" onclick="openDaily()"><span class="ci0" id="cIc">🎁</span><div class="ct"><h3 id="cTi">👆 TOCA AQUÍ</h3><p id="cSu">Tu misión del día</p></div><span class="car" id="cAr">▶</span></div></div>
   <div class="inav"><button class="btn b2" onclick="showS('portal')">🌍 Más Misiones</button><button class="btn b3" onclick="showS('inventory')">🎒 Inventario</button></div>
-  <div style="text-align:center;padding:8px"><span style="font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer" id="adTr">BlockQuest v2</span></div>
+  <div style="text-align:center;padding:8px"><span style="font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer" id="adTr">BlockQuest v3</span></div>
 </div>
 
-<div id="battle" class="scr">
-  <button class="btn-flee" onclick="flee()">← Huir</button>
-  <div class="battle-arena" id="bArena"></div>
-</div>
-
-<div id="explo" class="scr">
-  <button class="btn-flee" onclick="flee()">← Huir</button>
-  <div class="explo-card" id="eCard"></div>
+<div id="game" class="scr">
+  <div class="game-header"><button class="bflee" onclick="flee()">← Huir</button><div class="game-lives" id="gLives"></div></div>
+  <div class="game-title" id="gTitle"></div>
+  <div class="game-prompt" id="gPrompt"></div>
+  <div class="game-counter" id="gCounter"></div>
+  <div class="game-area" id="gArea"></div>
 </div>
 
 <div id="victory" class="scr">
   <div class="vch">🎁</div><h2 class="vt">¡Misión Cumplida!</h2>
-  <div class="vi" id="vEm"></div><div class="vn" id="vNm"></div><div class="vr" id="vRr"></div><div class="vs" id="vSt"></div>
+  <div class="vi" id="vEm"></div><div class="vn" id="vNm"></div>
   <div class="vbs"><button class="btn b2" onclick="plVic()">🏝️ Poner en mi isla</button><button class="btn b3" onclick="showS('island')">🎒 Guardar</button></div>
 </div>
 
 <div id="inventory" class="scr">
   <div class="invh"><h2>🎒 Inventario</h2><button class="btn b3" onclick="showS('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div><div id="invC"></div>
 </div>
-
 <div id="portal" class="scr">
-  <div class="ph"><h2>🌍 Portal de Aventuras</h2><button class="btn b3" onclick="showS('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div><div class="wg" id="wGr"></div>
+  <div class="ph"><h2>🌍 Portal</h2><button class="btn b3" onclick="showS('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div><div class="wg" id="wGr"></div>
 </div>
-
 <div id="admin" class="scr">
   <div class="ah"><h2>🔮 Panel Mamá</h2><button class="btn b3" onclick="showS('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div><div id="adC"></div>
 </div>
-
-<div class="modal" id="codeM"><div class="mbox"><h3>🔒 Código Secreto</h3><p>4 dígitos</p><div class="ci2"><input type="number" maxlength="1" class="cd" data-i="0"><input type="number" maxlength="1" class="cd" data-i="1"><input type="number" maxlength="1" class="cd" data-i="2"><input type="number" maxlength="1" class="cd" data-i="3"></div><div class="mbtn"><button class="btn b4" onclick="chkCode()">Entrar</button><button class="btn b3" onclick="clCode()">Cancelar</button></div></div></div>
+<div class="modal" id="codeM"><div class="mbox"><h3>🔒 Código</h3><p>4 dígitos</p><div class="ci2"><input type="number" maxlength="1" class="cd" data-i="0"><input type="number" maxlength="1" class="cd" data-i="1"><input type="number" maxlength="1" class="cd" data-i="2"><input type="number" maxlength="1" class="cd" data-i="3"></div><div class="mbtn"><button class="btn b4" onclick="chkCode()">Entrar</button><button class="btn b3" onclick="clCode()">Cancelar</button></div></div></div>
 
 <script>
-const CODE='2017',AVS=[{id:'creeper',e:'👾',n:'Creeper'},{id:'warrior',e:'⚔️',n:'Guerrera'},{id:'cat',e:'🐱',n:'Gatita'},{id:'star',e:'⭐',n:'Estrella'},{id:'flower',e:'🌸',n:'Flor'},{id:'dragon',e:'🐉',n:'Dragón'}];
-const WS=[{id:'lab',n:'Lab. de Pociones',i:'⚗️',d:'Lógica y números'},{id:'cas',n:'Castillo Antiguo',i:'🏰',d:'Civilizaciones'},{id:'vol',n:'Volcán de Fuego',i:'🌋',d:'Ciencia'},{id:'bib',n:'Biblioteca Encantada',i:'📜',d:'Lenguaje'},{id:'tie',n:'Tierra Desconocida',i:'🗺️',d:'English'}];
-const MOBS={alq:'🧙',crp:'💚',cap:'🏴‍☠️',vir:'🦠',lib:'📖',fan:'👻',tri:'🎭',gol:'🗿',esq:'💀'};
-const TUT=[{e:'🎁',t:'¡Cada día un cofre!',p:'Toca el cofre dorado para empezar tu misión del día.'},{e:'⚔️',t:'Batallas de verdad',p:'Tú y el enemigo tienen 3 ❤️ cada uno. ¡Cada error te quita una vida!'},{e:'🏝️',t:'Construye tu isla',p:'Gana items y ponlos en tu isla. ¡Mírala crecer!'},{e:'🌍',t:'5 mundos',p:'Toca "Más Misiones" para explorar todos los mundos.'}];
-let tS=0;function showTut(){tS=0;$('tut').classList.remove('hid');rTut();}
-function rTut(){const s=TUT[tS];$('tutE').textContent=s.e;$('tutT').textContent=s.t;$('tutP').textContent=s.p;$('tutB').textContent=tS<TUT.length-1?'Siguiente →':'¡A jugar! 🎮';$('tutD').innerHTML=TUT.map((_,i)=>`<div class="tdot ${i===tS?'on':''}"></div>`).join('');}
+const CODE='2017';
+const AVS=[{id:'creeper',e:'👾',n:'Creeper'},{id:'warrior',e:'⚔️',n:'Guerrera'},{id:'cat',e:'🐱',n:'Gatita'},{id:'star',e:'⭐',n:'Estrella'},{id:'flower',e:'🌸',n:'Flor'},{id:'dragon',e:'🐉',n:'Dragón'}];
+const WS=[{id:'lab',n:'Lab. de Pociones',i:'⚗️',d:'Construye con bloques'},{id:'cas',n:'Castillo Antiguo',i:'🏰',d:'Ordena la historia'},{id:'vol',n:'Volcán de Fuego',i:'🌋',d:'Cadenas y ciencia'},{id:'bib',n:'Biblioteca Encantada',i:'📜',d:'Ordena palabras'},{id:'tie',n:'Tierra Desconocida',i:'🗺️',d:'Memory en inglés'}];
+
+// Tutorial
+const TUT=[{e:'🔨',t:'¡Mini-juegos reales!',p:'Construye formas, ordena secuencias y encuentra pares. ¡No es un quiz!'},{e:'❤️',t:'Tienes 3 vidas',p:'Cada error te quita una vida. Si llegas a 0, reinicia la misión.'},{e:'🏝️',t:'Gana items',p:'Completa misiones para ganar items y llenar tu isla.'},{e:'🎁',t:'Cofre diario',p:'Cada día hay una misión nueva. ¡Toca el cofre dorado!'}];
+let tS=0;
+function showTut(){tS=0;$('tut').classList.remove('hid');rTut();}
+function rTut(){const s=TUT[tS];$('tutE').textContent=s.e;$('tutT').textContent=s.t;$('tutP').textContent=s.p;$('tutB').textContent=tS<TUT.length-1?'Siguiente →':'¡A jugar! 🎮';$('tutD').innerHTML=TUT.map((_,i)=>'<div class="tdot '+(i===tS?'on':'')+'"></div>').join('');}
 function nxTut(){tS++;if(tS>=TUT.length){$('tut').classList.add('hid');S.tut=1;save();}else rTut();}
 
 function $(id){return document.getElementById(id);}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function hpStr(cur,max){return '❤️'.repeat(cur)+'🖤'.repeat(max-cur);}
-
-// ===== QUESTION GENERATORS =====
-function qPatterns(){
-  const ops=[
-    ()=>{const m=[2,3,4,5][ri(0,3)],s=ri(2,6),seq=[s];for(let i=0;i<3;i++)seq.push(seq[i]*m);const a=seq[3]*m;return{q:`Secuencia: ${seq.join(', ')}... ¿Siguiente?`,opts:[{tx:''+a,ok:1},{tx:''+(seq[3]+m),ok:0},{tx:''+(seq[3]*2),ok:0}],fb_ok:`Cada número se multiplica por ${m}.`,fb_no:`Fíjate: ${seq[0]}×${m}=${seq[1]}, ${seq[1]}×${m}=${seq[2]}...`};},
-    ()=>{const d=ri(3,8),s=ri(2,9),seq=[s];for(let i=0;i<3;i++)seq.push(seq[i]+d);const a=seq[3]+d;return{q:`Secuencia: ${seq.join(', ')}... ¿Siguiente?`,opts:[{tx:''+a,ok:1},{tx:''+(seq[3]+d+1),ok:0},{tx:''+(seq[3]+d-2),ok:0}],fb_ok:`Se suma ${d} cada vez.`,fb_no:`Fíjate: ${seq[1]}-${seq[0]}=${d}. Se suma ${d} cada vez.`};},
-    ()=>{const s=ri(1,5),seq=[s*s,(s+1)*(s+1),(s+2)*(s+2),(s+3)*(s+3)];const a=(s+4)*(s+4);return{q:`Secuencia: ${seq.join(', ')}... ¿Siguiente?`,opts:[{tx:''+a,ok:1},{tx:''+(seq[3]+seq[3]-seq[2]),ok:0},{tx:''+(seq[3]+2),ok:0}],fb_ok:`Son cuadrados perfectos: ${s}², ${s+1}², ${s+2}²...`,fb_no:`Busca el patrón: ${s}²=${seq[0]}, ${s+1}²=${seq[1]}...`};}
-  ];
-  return ops[ri(0,ops.length-1)]();
-}
-function qDivision(){
-  const dest=ri(1,3),q2=ri(4,7),cofres=q2+dest,r=ri(5,20),tot=r*q2,tr=Math.round(tot/cofres);
-  const wrong2=tr===r?r+dest:tr+dest;
-  return{q:'Tienes '+tot+' bloques para '+cofres+' cofres. Un creeper destruye '+dest+'. Repartes los '+tot+' en los '+q2+' que quedan. ¿Cuántos por cofre?',
-    opts:[{tx:''+r,ok:1},{tx:''+tr,ok:0},{tx:''+wrong2,ok:0}],
-    fb_ok:tot+' ÷ '+q2+' = '+r+'. El truco: los cofres pasaron de '+cofres+' a '+q2+'.',
-    fb_no:'Quedan '+q2+' cofres, no '+cofres+'. Divide '+tot+' ÷ '+q2+'.'};
-}
-function qFractions(){
-  const d=[4,5,6,8,10][ri(0,4)],n1=ri(1,d-2),n2=ri(1,d-n1-1),sum=n1+n2,falta=d-sum;
-  return{q:`Mezclaste ${n1}/${d} de agua lunar y ${n2}/${d} de polvo estelar. ¿Cuánto falta para llegar a ${d}/${d} (un litro completo)?`,
-    opts:[{tx:`${falta}/${d}`,ok:1},{tx:`${sum}/${d}`,ok:0},{tx:`${n1}/${d}`,ok:0}],
-    fb_ok:`${n1}/${d} + ${n2}/${d} = ${sum}/${d}. Falta ${falta}/${d} para ${d}/${d}.`,
-    fb_no:`Suma: ${n1}/${d} + ${n2}/${d} = ${sum}/${d}. Para llegar a ${d}/${d}, falta ${d}-${sum} = ${falta}.`};
-}
-function qDecimals(){
-  const a=ri(10,40)/10,b=ri(10,30)/10,lim=ri(4,6),sum=Math.round((a+b)*10)/10;
-  const sobra=Math.round((lim-sum)*10)/10;
-  const q=sobra>=0?`Inventario: ${a} kg + item de ${b} kg. Límite: ${lim} kg. ¿Cuánto espacio te queda?`:`Tu inventario pesa ${a} kg. Encontraste algo de ${b} kg. Límite: ${lim} kg. ¿Cuánto espacio queda?`;
-  return{q:q,opts:[{tx:`${Math.abs(sobra)} kg ${sobra>=0?'libres':'de más'}`,ok:1},{tx:`${sum} kg`,ok:0},{tx:`${lim} kg`,ok:0}],
-    fb_ok:`${a} + ${b} = ${sum}. ${lim} - ${sum} = ${sobra}.`,fb_no:`Suma: ${a} + ${b} = ${sum}. Compara con el límite de ${lim} kg.`};
-}
-
-const Q_HISTORY=[
-  {q:'¿Cuál civilización construyó Tenochtitlán sobre un lago?',opts:[{tx:'Aztecas',ok:1},{tx:'Mayas',ok:0},{tx:'Incas',ok:0}],fb_ok:'Tenochtitlán se construyó sobre el lago Texcoco.',fb_no:'Tenochtitlán era la capital del imperio azteca.'},
-  {q:'¿Quién gobernaba cada ciudad-estado maya?',opts:[{tx:'El Ahau (rey)',ok:1},{tx:'Un emperador',ok:0},{tx:'Un consejo',ok:0}],fb_ok:'Cada ciudad maya tenía su propio Ahau.',fb_no:'Los mayas no tenían emperador, cada ciudad tenía un Ahau.'},
-  {q:'Los incas registraban datos usando...',opts:[{tx:'Quipus (cuerdas con nudos)',ok:1},{tx:'Jeroglíficos',ok:0},{tx:'Papiros',ok:0}],fb_ok:'Los quipus eran cuerdas con nudos que representaban cantidades.',fb_no:'Los incas NO tenían escritura. Usaban quipus.'},
-  {q:'¿Qué civilización desarrolló el concepto del cero?',opts:[{tx:'Mayas',ok:1},{tx:'Incas',ok:0},{tx:'Aztecas',ok:0}],fb_ok:'Los mayas fueron pioneros del cero en América.',fb_no:'El cero fue un logro matemático de los mayas.'},
-  {q:'El Qhapaq Ñan era...',opts:[{tx:'El sistema de caminos inca',ok:1},{tx:'Un templo azteca',ok:0},{tx:'Una ciudad maya',ok:0}],fb_ok:'40.000 km de caminos conectaban el imperio inca.',fb_no:'Qhapaq Ñan = el gran camino del imperio inca.'},
-  {q:'¿Qué cultivaban los incas en terrazas de montaña?',opts:[{tx:'Papa y maíz',ok:1},{tx:'Trigo y arroz',ok:0},{tx:'Café y cacao',ok:0}],fb_ok:'Las terrazas permitían cultivar en las laderas andinas.',fb_no:'El trigo y arroz son de otros continentes.'},
-  {q:'33° Sur, 70° Oeste está cerca de...',opts:[{tx:'Santiago de Chile',ok:1},{tx:'Buenos Aires',ok:0},{tx:'Lima',ok:0}],fb_ok:'Esas coordenadas apuntan a Santiago.',fb_no:'33°S 70°W = Santiago de Chile.'}
-];
-const Q_SCIENCE=[
-  {q:'Si desaparecen los conejos de la cadena Pasto→Conejo→Zorro→Puma, ¿qué pasa?',opts:[{tx:'Menos zorros Y pasto crece sin control',ok:1},{tx:'Solo mueren los zorros',ok:0},{tx:'No cambia nada',ok:0}],fb_ok:'Afecta hacia arriba (zorros sin comida) y abajo (pasto sin depredador).',fb_no:'La cadena se afecta en las DOS direcciones.'},
-  {q:'¿Por qué el oso polar tiene pelaje GRUESO y BLANCO?',opts:[{tx:'Grueso para calor, blanco para camuflaje',ok:1},{tx:'Porque siempre fue así',ok:0},{tx:'Para verse bonito',ok:0}],fb_ok:'Son adaptaciones al bioma helado.',fb_no:'Es una ADAPTACIÓN al frío que evolucionó durante miles de años.'},
-  {q:'Los zorros del Ártico tienen orejas pequeñas porque...',opts:[{tx:'Orejas chicas conservan calor',ok:1},{tx:'No necesitan oír',ok:0},{tx:'Nacen así por casualidad',ok:0}],fb_ok:'Menos superficie = menos pérdida de calor.',fb_no:'Es una adaptación: menos superficie expuesta al frío.'},
-  {q:'Un terremoto ocurre cuando...',opts:[{tx:'Placas tectónicas liberan energía acumulada',ok:1},{tx:'El núcleo de la Tierra explota',ok:0},{tx:'El viento empuja la tierra',ok:0}],fb_ok:'Las placas se empujan y liberan energía de golpe.',fb_no:'Los terremotos son por movimiento de placas tectónicas.'},
-  {q:'Si un terremoto ocurre bajo el mar, puede provocar un...',opts:[{tx:'Tsunami',ok:1},{tx:'Huracán',ok:0},{tx:'Tornado',ok:0}],fb_ok:'Un sismo submarino desplaza agua y genera una ola gigante.',fb_no:'Los tsunamis se generan por terremotos submarinos.'},
-  {q:'El petróleo es un recurso NO renovable porque...',opts:[{tx:'Tarda millones de años en formarse',ok:1},{tx:'Es de color negro',ok:0},{tx:'Está bajo tierra',ok:0}],fb_ok:'Millones de años supera toda escala humana.',fb_no:'Lo que lo hace no renovable es el TIEMPO que tarda en formarse.'},
-  {q:'Un ecosistema tiene elementos vivos y no vivos. ¿Cuál es NO vivo?',opts:[{tx:'Las rocas y el agua',ok:1},{tx:'Los hongos',ok:0},{tx:'Las bacterias',ok:0}],fb_ok:'Rocas y agua son elementos abióticos (no vivos).',fb_no:'Los hongos y bacterias son seres vivos.'}
-];
-const Q_LANG=[
-  {q:'"El médico dijo que ahí hay una farmácia." ¿Error?',opts:[{tx:'farmácia → farmacia (sin tilde)',ok:1},{tx:'No hay error',ok:0},{tx:'médico → medico',ok:0}],fb_ok:'Farmacia es grave terminada en vocal = sin tilde.',fb_no:'Farmácia NO existe. Es grave terminada en vocal.'},
-  {q:'MURCIÉLAGO es palabra...',opts:[{tx:'Esdrújula (mur-CIÉ-la-go)',ok:1},{tx:'Grave',ok:0},{tx:'Aguda',ok:0}],fb_ok:'La sílaba tónica es CIÉ = esdrújula.',fb_no:'Separa: mur-CIÉ-la-go. La fuerza está en CIÉ = esdrújula.'},
-  {q:'¿Cuál usa ay/hay/ahí correctamente?',opts:[{tx:'Ahí hay algo que dice ¡ay!',ok:1},{tx:'Hay hay algo que dice ¡ahí!',ok:0},{tx:'Ay un perro ahí',ok:0}],fb_ok:'Ahí=lugar, hay=existe, ay=exclamación.',fb_no:'Ahí=lugar, hay=existe (haber), ay=exclamación de dolor.'},
-  {q:'Orden correcto: 1)"Salió del castillo" 2)"Volvió como héroe" 3)"Había una vez..."',opts:[{tx:'3 → 1 → 2',ok:1},{tx:'1 → 3 → 2',ok:0},{tx:'2 → 1 → 3',ok:0}],fb_ok:'Inicio (había una vez) → desarrollo → cierre.',fb_no:'"Había una vez" SIEMPRE es el inicio.'},
-  {q:'"Los dragones _____ sobre el castillo." ¿Qué verbo?',opts:[{tx:'vuelan (plural)',ok:1},{tx:'vuela (singular)',ok:0},{tx:'volando',ok:0}],fb_ok:'Los dragones = plural → vuelan.',fb_no:'El sujeto es "los dragones" (plural), necesita verbo plural.'},
-  {q:'Un texto dice "tallé otra marca, ya son doce" y es "Día 12". ¿Para qué marca?',opts:[{tx:'Para contar los días',ok:1},{tx:'Para decorar',ok:0},{tx:'Para cortar el árbol',ok:0}],fb_ok:'Doce marcas = Día 12. Lleva la cuenta.',fb_no:'12 marcas coincide con Día 12. No es casualidad.'}
-];
-const Q_ENG=[
-  {q:'\"I thought I heard wolves but it might have been the wind.\" Is the writer sure?',opts:[{tx:'No — "might have been" = uncertain',ok:1},{tx:'Yes — they heard wolves',ok:0},{tx:'The wind confirmed it',ok:0}],fb_ok:'"Might" always signals uncertainty.',fb_no:'"MIGHT have been" means they\'re NOT certain.'},
-  {q:'\"I\'ll reach the pass — if the weather holds.\" How confident?',opts:[{tx:'Not sure — depends on weather',ok:1},{tx:'Very confident',ok:0},{tx:'Doesn\'t care',ok:0}],fb_ok:'"IF" introduces a condition they can\'t control.',fb_no:'"IF the weather holds" = condition = uncertainty.'},
-  {q:'"Each of the players _____ a strategy." Which verb?',opts:[{tx:'has (each=singular)',ok:1},{tx:'have',ok:0},{tx:'are having',ok:0}],fb_ok:'"Each" is always singular → "has."',fb_no:'"Each" is singular even before "of the players."'},
-  {q:'"I have cities but no houses, forests but no trees." What am I?',opts:[{tx:'A map',ok:1},{tx:'A dream',ok:0},{tx:'A planet',ok:0}],fb_ok:'A map REPRESENTS those things without having the real ones.',fb_no:'A map shows cities, forests, rivers without actually having them.'},
-  {q:'"The more you take, the more you leave behind." What?',opts:[{tx:'Footsteps',ok:1},{tx:'Coins',ok:0},{tx:'Photos',ok:0}],fb_ok:'Each step you take leaves a footprint behind.',fb_no:'Taking coins means FEWER left. Footsteps CREATE more behind you.'},
-  {q:'"She doesn\'t _____ spiders." Which?',opts:[{tx:'like',ok:1},{tx:'likes',ok:0},{tx:'liking',ok:0}],fb_ok:'After "doesn\'t," use base form: like.',fb_no:'With "doesn\'t," the verb stays in base form (no -s).'}
-];
 
 // ===== MISSIONS =====
-function genMissions(){
-  return[
-    {id:'lab_01',w:'lab',tp:'combat',r:'epico',titulo:'El Patrón del Alquimista',mob:'alq',mobN:'Alquimista',intro:'El Alquimista Loco te desafía a descifrar sus secuencias mágicas. Si no aciertas, ¡sus pociones explotan!',pool:()=>[qPatterns(),qPatterns(),qPatterns(),qPatterns(),qPatterns(),qPatterns()],item:{id:'e1',n:'Estrella Guía',r:'epico',e:'⭐'}},
-    {id:'lab_02',w:'lab',tp:'combat',r:'epico',titulo:'El Inventario Imposible',mob:'crp',mobN:'Creeper Dorado',intro:'Un Creeper Dorado destruye tus cofres. ¡Recalcula rápido antes de que explote todo!',pool:()=>[qDivision(),qDivision(),qDivision(),qDivision(),qDivision(),qDivision()],item:{id:'d1',n:'Huevo de Dragón',r:'epico',e:'🐉'}},
-    {id:'lab_03',w:'lab',tp:'combat',r:'raro',titulo:'La Poción Fraccionaria',mob:'alq',mobN:'Caldero Viviente',intro:'El Caldero Viviente te lanza problemas de fracciones. ¡Resuelve antes de que la poción se desborde!',pool:()=>[qFractions(),qFractions(),qFractions(),qFractions(),qFractions(),qFractions()],item:{id:'c1',n:'Cristal Azul',r:'raro',e:'💎'}},
+function genMissions(){return[
+  // 🔨 CONSTRUCTOR — Matemáticas
+  {id:'lab01',w:'lab',type:'build',titulo:'Rectángulo Secreto',
+   prompt:function(){const a=ri(2,4),b=ri(3,6),area=a*b;return{rows:6,cols:8,goal:'area',target:area,hint:'Construye un RECTÁNGULO con área '+area+' bloques.\nDebe ser un rectángulo perfecto (sin hoyos).'};},
+   item:{id:'e1',n:'Estrella Guía',e:'⭐'}},
+  {id:'lab02',w:'lab',type:'build',titulo:'Perímetro Mágico',
+   prompt:function(){const p=[12,14,16,18][ri(0,3)];return{rows:6,cols:8,goal:'perimeter',target:p,hint:'Construye una forma cuyo PERÍMETRO sea exactamente '+p+'.\nEl perímetro es el borde exterior de tu forma.'};},
+   item:{id:'d1',n:'Huevo de Dragón',e:'🐉'}},
+  {id:'lab03',w:'lab',type:'build',titulo:'Espejo de Bloques',
+   prompt:function(){
+     const rows=5,cols=8,half=4,pattern=Array(rows).fill(null).map(()=>Array(half).fill(0));
+     const blocks=ri(4,7);let placed=0;
+     while(placed<blocks){const r=ri(0,rows-1),c=ri(0,half-1);if(!pattern[r][c]){pattern[r][c]=1;placed++;}}
+     return{rows,cols,goal:'mirror',target:pattern,hint:'Copia el patrón de la IZQUIERDA en el lado DERECHO.\n¡Como un espejo!'};},
+   item:{id:'c1',n:'Cristal Azul',e:'💎'}},
 
-    {id:'cas_01',w:'cas',tp:'combat',r:'epico',titulo:'El Juicio de los Imperios',mob:'cap',mobN:'Guardián del Castillo',intro:'El Guardián custodia el saber de las civilizaciones americanas. ¡Demuestra que las conoces!',pool:()=>shuf(Q_HISTORY).slice(0,6),item:{id:'f1',n:'Huevo de Fénix',r:'epico',e:'🔥'}},
-    {id:'cas_02',w:'cas',tp:'combat',r:'raro',titulo:'El Mapa Viviente',mob:'cap',mobN:'Capitán Fantasma',intro:'El Capitán Fantasma te prueba con preguntas de mapas, coordenadas y civilizaciones.',pool:()=>shuf(Q_HISTORY).slice(0,6),item:{id:'j1',n:'Jardín Encantado',r:'raro',e:'🌺'}},
+  // 📋 ORDENA — Historia
+  {id:'cas01',w:'cas',type:'order',titulo:'Línea del Tiempo',
+   prompt:function(){return{items:shuf([
+     {id:'a',emoji:'🌽',text:'Mayas desarrollan agricultura'},
+     {id:'b',emoji:'🏛️',text:'Mayas construyen Chichén Itzá'},
+     {id:'c',emoji:'⚔️',text:'Aztecas fundan Tenochtitlán'},
+     {id:'d',emoji:'🏔️',text:'Incas expanden el Tahuantinsuyo'},
+     {id:'e',emoji:'🚢',text:'Llegan los españoles a América'}
+   ]),correct:['a','b','c','d','e'],hint:'Ordena estos eventos de MÁS ANTIGUO a MÁS RECIENTE.\nToca las cartas en el orden correcto.'};},
+   item:{id:'f1',n:'Huevo de Fénix',e:'🔥'}},
+  {id:'cas02',w:'cas',type:'order',titulo:'La Cadena Alimentaria',
+   prompt:function(){
+     const chains=[
+       {items:[{id:'a',emoji:'☀️',text:'Sol'},{id:'b',emoji:'🌿',text:'Pasto'},{id:'c',emoji:'🐰',text:'Conejo'},{id:'d',emoji:'🦊',text:'Zorro'},{id:'e',emoji:'🦅',text:'Águila'}],correct:['a','b','c','d','e']},
+       {items:[{id:'a',emoji:'☀️',text:'Sol'},{id:'b',emoji:'🌊',text:'Algas'},{id:'c',emoji:'🐟',text:'Pez chico'},{id:'d',emoji:'🐠',text:'Pez grande'},{id:'e',emoji:'🦈',text:'Tiburón'}],correct:['a','b','c','d','e']},
+       {items:[{id:'a',emoji:'☀️',text:'Sol'},{id:'b',emoji:'🌾',text:'Trigo'},{id:'c',emoji:'🐭',text:'Ratón'},{id:'d',emoji:'🐍',text:'Serpiente'},{id:'e',emoji:'🦉',text:'Búho'}],correct:['a','b','c','d','e']}
+     ];
+     const c=chains[ri(0,2)];return{items:shuf(c.items),correct:c.correct,hint:'Ordena la cadena alimentaria.\n¿Quién da energía a quién? Empieza por la fuente de energía.'};},
+   item:{id:'j1',n:'Jardín Encantado',e:'🌺'}},
 
-    {id:'vol_01',w:'vol',tp:'combat',r:'epico',titulo:'Volcán de Fuego',mob:'gol',mobN:'Golem de Magma',intro:'El Golem de Magma protege los secretos de la naturaleza. ¡Cada error te acerca a la lava!',pool:()=>shuf(Q_SCIENCE).slice(0,6),item:{id:'g1',n:'Gatito Pixelado',r:'epico',e:'🐱'}},
-    {id:'vol_02',w:'vol',tp:'combat',r:'raro',titulo:'La Cadena Rota',mob:'vir',mobN:'Virus Pixelado',intro:'Un virus ataca el ecosistema. Responde sobre cadenas alimentarias, adaptaciones y tectónica.',pool:()=>shuf(Q_SCIENCE).slice(0,6),item:{id:'a1',n:'Árbol Gigante',r:'raro',e:'🌳'}},
+  // 📋 ORDENA — Ciencias
+  {id:'vol01',w:'vol',type:'order',titulo:'Capas de la Tierra',
+   prompt:function(){return{items:shuf([
+     {id:'a',emoji:'🌍',text:'Corteza (exterior, delgada)'},
+     {id:'b',emoji:'🔥',text:'Manto (medio, caliente)'},
+     {id:'c',emoji:'💛',text:'Núcleo externo (líquido)'},
+     {id:'d',emoji:'⚡',text:'Núcleo interno (sólido, centro)'}
+   ]),correct:['a','b','c','d'],hint:'Ordena las capas de la Tierra desde AFUERA hacia ADENTRO.\n¿Cuál es la más externa?'};},
+   item:{id:'g1',n:'Gatito Pixelado',e:'🐱'}},
+  {id:'vol02',w:'vol',type:'order',titulo:'El Ciclo del Terremoto',
+   prompt:function(){return{items:shuf([
+     {id:'a',emoji:'🔄',text:'Placas tectónicas se empujan'},
+     {id:'b',emoji:'💥',text:'Energía se acumula en el borde'},
+     {id:'c',emoji:'🌋',text:'La roca se quiebra y libera energía'},
+     {id:'d',emoji:'🏠',text:'Las ondas sacuden la superficie'},
+     {id:'e',emoji:'🌊',text:'Si es bajo el mar: tsunami'}
+   ]),correct:['a','b','c','d','e'],hint:'Ordena el proceso: ¿qué pasa PRIMERO y qué pasa al FINAL?'};},
+   item:{id:'a1',n:'Árbol Gigante',e:'🌳'}},
 
-    {id:'bib_01',w:'bib',tp:'combat',r:'epico',titulo:'El Diario Misterioso',mob:'fan',mobN:'Fantasma Bibliotecario',intro:'El Fantasma te lanza acertijos de ortografía, comprensión e inferencia. ¡3 errores y te atrapa!',pool:()=>shuf(Q_LANG).slice(0,6),item:{id:'s2',n:'Estrella del Norte',r:'epico',e:'🌟'}},
-    {id:'bib_02',w:'bib',tp:'combat',r:'raro',titulo:'Ortografía de Combate',mob:'lib',mobN:'Libro Volador',intro:'El Libro Volador ataca con reglas de ortografía y gramática. ¡Defiéndete!',pool:()=>shuf(Q_LANG).slice(0,6),item:{id:'ar1',n:'Arcoíris',r:'raro',e:'🌈'}},
+  // 📋 ORDENA — Lenguaje
+  {id:'bib01',w:'bib',type:'order',titulo:'Arma la Oración',
+   prompt:function(){
+     const sentences=[
+       {items:[{id:'a',emoji:'🐉',text:'Los dragones'},{id:'b',emoji:'✨',text:'volaban'},{id:'c',emoji:'🌙',text:'sobre'},{id:'d',emoji:'🏰',text:'el castillo'},{id:'e',emoji:'🌑',text:'cada noche'}],correct:['a','b','c','d','e']},
+       {items:[{id:'a',emoji:'👧',text:'La exploradora'},{id:'b',emoji:'🔍',text:'descubrió'},{id:'c',emoji:'💎',text:'un cristal'},{id:'d',emoji:'✨',text:'mágico'},{id:'e',emoji:'🗺️',text:'en la cueva'}],correct:['a','b','c','d','e']},
+       {items:[{id:'a',emoji:'🐱',text:'Mi gato'},{id:'b',emoji:'😴',text:'duerme'},{id:'c',emoji:'🛋️',text:'en el sillón'},{id:'d',emoji:'☀️',text:'durante'},{id:'e',emoji:'🌅',text:'toda la tarde'}],correct:['a','b','c','d','e']}
+     ];
+     const s=sentences[ri(0,2)];return{items:shuf(s.items),correct:s.correct,hint:'Arma la oración en el orden correcto.\nSujeto → Verbo → Complementos'};},
+   item:{id:'s2',n:'Estrella del Norte',e:'🌟'}},
+  {id:'bib02',w:'bib',type:'order',titulo:'El Cuento en Orden',
+   prompt:function(){return{items:shuf([
+     {id:'a',emoji:'📖',text:'Había una vez una niña que encontró un mapa'},
+     {id:'b',emoji:'🗺️',text:'Siguió las pistas por el bosque'},
+     {id:'c',emoji:'🔑',text:'Encontró una llave escondida bajo una roca'},
+     {id:'d',emoji:'🚪',text:'La llave abrió una puerta secreta'},
+     {id:'e',emoji:'💎',text:'Adentro había un tesoro y volvió a casa feliz'}
+   ]),correct:['a','b','c','d','e'],hint:'Ordena el cuento: ¿qué pasó primero y qué pasó al final?'};},
+   item:{id:'ar1',n:'Arcoíris',e:'🌈'}},
 
-    {id:'tie_01',w:'tie',tp:'combat',r:'epico',titulo:'The Riddle Gate',mob:'tri',mobN:'Trickster Spirit',intro:'The Trickster challenges you with riddles, grammar, and reading comprehension!',pool:()=>shuf(Q_ENG).slice(0,6),item:{id:'t1',n:'Watchtower',r:'epico',e:'🏰'}},
-    {id:'tie_02',w:'tie',tp:'combat',r:'raro',titulo:'The Grammar Trap',mob:'esq',mobN:'Skeleton Scholar',intro:'The Skeleton Scholar tests your English. Three wrong answers and you\'re done!',pool:()=>shuf(Q_ENG).slice(0,6),item:{id:'p1',n:'Mystery Plant',r:'raro',e:'🌿'}},
-  ];
-}
+  // 🃏 MEMORY — Inglés
+  {id:'tie01',w:'tie',type:'memory',titulo:'Riddle Match',
+   prompt:function(){return{pairs:[
+     {a:'I have cities but no houses',b:'A map'},
+     {a:'The more you take, the more you leave behind',b:'Footsteps'},
+     {a:'I have hands but cannot clap',b:'A clock'},
+     {a:'I have keys but no locks',b:'A piano'},
+     {a:'I get wetter the more I dry',b:'A towel'},
+     {a:'I have a neck but no head',b:'A bottle'}
+   ].slice(0,5),hint:'Find the matching pairs!\nFlip two cards — if they match, they stay. You have 18 moves.'};},
+   item:{id:'t1',n:'Watchtower',e:'🏰'}},
+  {id:'tie02',w:'tie',type:'memory',titulo:'Civilization Match',
+   prompt:function(){return{pairs:[
+     {a:'Invented zero 0️⃣',b:'Mayas'},
+     {a:'City on a lake 🏛️',b:'Aztecs'},
+     {a:'Quipus (knot records) 🪢',b:'Incas'},
+     {a:'Qhapaq Ñan (roads) 🛤️',b:'Incas'},
+     {a:'Tenochtitlán 🌊',b:'Aztecs'},
+     {a:'Hieroglyphs ✍️',b:'Mayas'}
+   ].slice(0,5),hint:'Match each achievement with its civilization!\n18 moves. Be careful!'};},
+   item:{id:'p1',n:'Mystery Plant',e:'🌿'}}
+];}
 
 // ===== GAME STATE =====
-let S={},MS=[],curM=null,bState=null,plIt=null;
+let S={},MS=[],curM=null,gState=null,plIt=null;
 function defS(){return{perfil:null,isla:Array(6).fill(null).map(()=>Array(6).fill(null)),inv:[],done:[],racha:{a:0,m:0,u:null},diaria:{f:null,id:null,c:false},tut:0};}
-function load(){try{const s=localStorage.getItem('bq2');S=s?JSON.parse(s):defS();}catch(e){S=defS();}}
-function save(){localStorage.setItem('bq2',JSON.stringify(S));}
+function load(){try{const s=localStorage.getItem('bq3');S=s?JSON.parse(s):defS();}catch(e){S=defS();}}
+function save(){localStorage.setItem('bq3',JSON.stringify(S));}
 
 function init(){
   load();MS=genMissions();
-  if(S.perfil){renderIsland();showS('island');if(!S.tut)showTut();}
+  if(S.perfil){showS('island');if(!S.tut)showTut();}
   else{renderAv();showS('splash');}
   setupAdmin();setupCodeIn();
 }
-
-function renderAv(){$('avG').innerHTML=AVS.map(a=>`<div class="avo" data-id="${a.id}" onclick="selAv('${a.id}')">${a.e}<span>${a.n}</span></div>`).join('');}
+function renderAv(){$('avG').innerHTML=AVS.map(a=>'<div class="avo" data-id="'+a.id+'" onclick="selAv(\''+a.id+'\')">'+a.e+'<span>'+a.n+'</span></div>').join('');}
 let sAv=null;
 function selAv(id){sAv=id;document.querySelectorAll('.avo').forEach(el=>el.classList.toggle('sel',el.dataset.id===id));}
-function startGame(){
-  const n=$('pName').value.trim();if(!n||!sAv)return;
-  S.perfil={nombre:n,avatar:sAv,fi:todayS()};
-  S.isla[2][3]={id:'tree0',n:'Árbol Inicial',e:'🌲'};
-  save();renderIsland();showS('island');showTut();
-}
-function showS(id){
-  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
-  $(id).classList.add('on');
-  if(id==='island')renderIsland();if(id==='inventory')renderInv();if(id==='portal')renderPortal();if(id==='admin')renderAdmin();
-  window.scrollTo(0,0);
-}
+function startGame(){const n=$('pName').value.trim();if(!n||!sAv)return;S.perfil={nombre:n,avatar:sAv};S.isla[2][3]={id:'t0',n:'Árbol',e:'🌲'};save();showS('island');showTut();}
+function showS(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');if(id==='island')renderIsland();if(id==='inventory')renderInv();if(id==='portal')renderPortal();if(id==='admin')renderAdmin();window.scrollTo(0,0);}
 
 // ===== ISLAND =====
 function renderIsland(){
   if(!S.perfil)return;
   const av=AVS.find(a=>a.id===S.perfil.avatar);
-  $('iAv').textContent=av?av.e:'👾';$('iNm').textContent=S.perfil.nombre;
-  $('sBdg').textContent=`🔥 ${S.racha.a}`;
+  $('iAv').textContent=av?av.e:'👾';$('iNm').textContent=S.perfil.nombre;$('sBdg').textContent='🔥 '+S.racha.a;
   const g=$('iGr');g.innerHTML='';
-  for(let r=0;r<6;r++)for(let c=0;c<6;c++){
-    const cell=document.createElement('div');cell.className='ic';
-    const it=S.isla[r][c];
-    if(it){cell.textContent=it.e;cell.classList.add('hi');}
-    if(plIt&&!it){cell.classList.add('pl');cell.onclick=()=>placeOn(r,c);}
-    g.appendChild(cell);
-  }
-  $('pBnr').classList.toggle('on',!!plIt);
-  $('iLbl').textContent=plIt?'':'🏝️ Completa misiones para llenar tu isla';
+  for(let r=0;r<6;r++)for(let c=0;c<6;c++){const cell=document.createElement('div');cell.className='ic';const it=S.isla[r][c];if(it){cell.textContent=it.e;cell.classList.add('hi');}if(plIt&&!it){cell.classList.add('pl');cell.onclick=function(){placeOn(r,c);};}g.appendChild(cell);}
+  $('pBnr').classList.toggle('on',!!plIt);$('iLbl').textContent=plIt?'':'🏝️ Completa misiones para llenar tu isla';
   updateChest();
 }
-
 function updateChest(){
-  const today=todayS(),ch=$('dCh'),ic=$('cIc'),ti=$('cTi'),su=$('cSu'),ar=$('cAr');
+  var today=todayS();
   if(!S.diaria.f||S.diaria.f!==today){
-    const avail=MS.filter(m=>!S.done.find(d=>d.id===m.id));
-    if(!avail.length){ic.textContent='✅';ti.textContent='¡Todo conquistado!';su.textContent='Pide nuevas misiones a mamá 😄';ch.classList.remove('av');ch.classList.add('dn');ar.textContent='';return;}
+    var avail=MS.filter(function(m){return!S.done.find(function(d){return d.id===m.id;});});
+    if(!avail.length){$('cIc').textContent='✅';$('cTi').textContent='¡Todo conquistado!';$('cSu').textContent='Pide misiones a mamá 😄';$('dCh').classList.remove('av');$('dCh').classList.add('dn');$('cAr').textContent='';return;}
     S.diaria={f:today,id:avail[ri(0,avail.length-1)].id,c:false};save();
   }
-  if(S.diaria.c){ic.textContent='✅';ti.textContent='¡Misión cumplida!';su.textContent='Vuelve mañana o toca "Más Misiones"';ch.classList.remove('av');ch.classList.add('dn');ar.textContent='';}
-  else{ic.textContent='🎁';ti.textContent='👆 TOCA AQUÍ 👆';su.textContent='Tu misión del día te espera';ch.classList.add('av');ch.classList.remove('dn');ar.textContent='▶';}
+  if(S.diaria.c){$('cIc').textContent='✅';$('cTi').textContent='¡Misión cumplida!';$('cSu').textContent='Mañana hay otra o toca Más Misiones';$('dCh').classList.remove('av');$('dCh').classList.add('dn');$('cAr').textContent='';}
+  else{$('cIc').textContent='🎁';$('cTi').textContent='👆 TOCA AQUÍ';$('cSu').textContent='Tu misión del día';$('dCh').classList.add('av');$('dCh').classList.remove('dn');$('cAr').textContent='▶';}
 }
-function openDaily(){if(S.diaria.c)return;const m=MS.find(x=>x.id===S.diaria.id);if(m)startBattle(m);}
+function openDaily(){if(S.diaria.c)return;var m=MS.find(function(x){return x.id===S.diaria.id;});if(m)launchGame(m);}
 
-// ===== BATTLE SYSTEM =====
-function startBattle(m){
-  curM=m;
-  const pool=m.pool();
-  bState={pHp:3,mHp:3,pool:shuf(pool),round:0,used:[]};
-  showS('battle');
-  renderBattle();
+// ===== GAME LAUNCHER =====
+function launchGame(m){
+  curM=m;var p=m.prompt();gState={lives:3,puzzle:p};showS('game');
+  $('gTitle').textContent=m.titulo;$('gLives').textContent='❤️❤️❤️';$('gPrompt').textContent=p.hint;
+  if(m.type==='build')initBuild(p);
+  else if(m.type==='order')initOrder(p);
+  else if(m.type==='memory')initMemory(p);
 }
-
-function renderBattle(){
-  const a=$('bArena'),s=bState,m=curM;
-  const mob=MOBS[m.mob]||'👾';
-  const av=AVS.find(x=>x.id===S.perfil.avatar);
-
-  // Check win/lose
-  if(s.mHp<=0){a.innerHTML=`<div class="battle-result"><div class="br-emoji">🎉</div><h3 style="color:var(--green)">¡VICTORIA!</h3><p>Derrotaste a ${m.mobN}</p><button class="btn b2" style="width:100%" onclick="win()">🎁 ¡Abrir cofre!</button></div>`;return;}
-  if(s.pHp<=0){a.innerHTML=`<div class="battle-result"><div class="br-emoji">💀</div><h3 style="color:var(--red)">¡Caíste!</h3><p>${m.mobN} te derrotó. ¡Inténtalo de nuevo!</p><button class="btn b1" style="width:100%;margin-bottom:10px" onclick="startBattle(curM)">🔄 Reintentar</button><button class="btn b3" style="width:100%" onclick="flee()">← Huir</button></div>`;return;}
-
-  // Get next question
-  if(s.round>=s.pool.length){s.pool=shuf(m.pool());s.round=0;} // regenerate if exhausted
-  const q=s.pool[s.round];
-  const opts=shuf(q.opts.map((o,i)=>({...o,oi:i})));
-
-  a.innerHTML=`
-    <div class="battle-top">
-      <div class="battle-side"><div class="bs-label">TÚ</div><div class="bs-sprite" id="bPlayer">${av?av.e:'👾'}</div><div class="bs-hp" id="bpHp">${hpStr(s.pHp,3)}</div></div>
-      <div class="battle-vs">VS</div>
-      <div class="battle-side"><div class="bs-label">${m.mobN}</div><div class="bs-sprite" id="bMob">${mob}</div><div class="bs-hp" id="bmHp">${hpStr(s.mHp,3)}</div></div>
-    </div>
-    <div class="battle-round">Ronda ${s.used.length+1}</div>
-    <div class="battle-q">
-      <div class="bq-ask">${q.q}</div>
-      <div class="opts">${opts.map(o=>`<div class="opt" data-ok="${o.ok}" onclick="pickB(this,${o.ok})">${o.tx}</div>`).join('')}</div>
-      <div id="bFb"></div>
-    </div>`;
+function flee(){curM=null;gState=null;showS('island');}
+function loseLife(){
+  gState.lives--;$('gLives').textContent='❤️'.repeat(gState.lives)+'🖤'.repeat(3-gState.lives);
+  if(gState.lives<=0){setTimeout(function(){$('gArea').innerHTML='<div class="game-fb" style="color:var(--red)">💀 ¡Sin vidas!<br><br><button class="btn b1" style="margin:8px" onclick="launchGame(curM)">🔄 Reintentar</button><button class="btn b3" style="margin:8px" onclick="flee()">← Huir</button></div>';},600);}
 }
 
-function pickB(el,ok){
-  document.querySelectorAll('.opt').forEach(e=>e.style.pointerEvents='none');
-  const q=bState.pool[bState.round];
-  el.classList.add(ok?'ok':'no');
-
-  if(ok){
-    bState.mHp--;
-    $('bmHp').textContent=hpStr(bState.mHp,3);
-    $('bMob').classList.add('hit');
-    $('bFb').innerHTML=`<div class="fb fb-ok">✅ ${q.fb_ok}</div>`;
-  } else {
-    bState.pHp--;
-    $('bpHp').textContent=hpStr(bState.pHp,3);
-    $('bPlayer').classList.add('hit');
-    $('bFb').innerHTML=`<div class="fb fb-no">💥 ${q.fb_no}</div>`;
+// ===== 🔨 CONSTRUCTOR =====
+function initBuild(p){
+  var grid=[];for(var r=0;r<p.rows;r++){grid[r]=[];for(var c=0;c<p.cols;c++)grid[r][c]=0;}
+  if(p.goal==='mirror'){
+    // Show pattern on left half
+    for(var r2=0;r2<p.target.length;r2++)for(var c2=0;c2<p.target[r2].length;c2++)if(p.target[r2][c2])grid[r2][c2]=2;// 2=pattern (non-editable)
   }
-
-  bState.used.push(bState.round);
-  bState.round++;
-
-  setTimeout(()=>{
-    $('bMob').classList.remove('hit');
-    $('bPlayer').classList.remove('hit');
-    renderBattle();
-  },1800);
+  gState.grid=grid;gState.buildP=p;renderBuild();
+}
+function renderBuild(){
+  var p=gState.buildP,g=gState.grid,filled=0;
+  var html='<div class="build-grid" style="grid-template-columns:repeat('+p.cols+',1fr)">';
+  for(var r=0;r<p.rows;r++)for(var c=0;c<p.cols;c++){
+    var v=g[r][c],cls='build-cell';
+    if(v===2)cls+=' filled" style="background:var(--purp);cursor:default';
+    else if(v===1){cls+=' filled';filled++;}
+    var editable=(p.goal==='mirror')?c>=p.cols/2:true;
+    if(v===2)editable=false;
+    html+='<div class="'+cls+'" '+(editable?'onclick="toggleBuild('+r+','+c+')"':'')+' data-r="'+r+'" data-c="'+c+'"></div>';
+  }
+  html+='</div>';
+  // Counter
+  if(p.goal==='area')html+='<div class="game-counter">Bloques: '+filled+' / Objetivo: '+p.target+'</div>';
+  else if(p.goal==='perimeter'){var per=calcPerimeter(g,p.rows,p.cols);html+='<div class="game-counter">Perímetro actual: '+per+' / Objetivo: '+p.target+'</div>';}
+  else if(p.goal==='mirror')html+='<div class="game-counter">Copia el patrón morado en el lado derecho</div>';
+  html+='<div style="text-align:center;margin-top:8px"><button class="btn b2" onclick="checkBuild()">✅ Verificar</button> <button class="btn b3" onclick="clearBuild()" style="margin-left:8px">🗑️ Borrar</button></div>';
+  $('gArea').innerHTML=html;
+}
+function toggleBuild(r,c){if(gState.lives<=0)return;gState.grid[r][c]=gState.grid[r][c]===1?0:1;renderBuild();}
+function clearBuild(){var p=gState.buildP;for(var r=0;r<p.rows;r++)for(var c=0;c<p.cols;c++)if(gState.grid[r][c]===1)gState.grid[r][c]=0;renderBuild();}
+function checkBuild(){
+  var p=gState.buildP,g=gState.grid,ok=false;
+  if(p.goal==='area'){
+    var filled=0;for(var r=0;r<p.rows;r++)for(var c=0;c<p.cols;c++)if(g[r][c]===1)filled++;
+    if(filled!==p.target){loseLife();if(gState.lives>0)$('gCounter').textContent='❌ Tienes '+filled+' bloques, necesitas '+p.target;return;}
+    // Check if it's a rectangle
+    var minR=99,maxR=-1,minC=99,maxC=-1;
+    for(var r2=0;r2<p.rows;r2++)for(var c2=0;c2<p.cols;c2++)if(g[r2][c2]===1){minR=Math.min(minR,r2);maxR=Math.max(maxR,r2);minC=Math.min(minC,c2);maxC=Math.max(maxC,c2);}
+    var isRect=true,rectArea=(maxR-minR+1)*(maxC-minC+1);
+    if(rectArea!==filled)isRect=false;
+    else{for(var r3=minR;r3<=maxR;r3++)for(var c3=minC;c3<=maxC;c3++)if(g[r3][c3]!==1)isRect=false;}
+    if(!isRect){loseLife();if(gState.lives>0)$('gCounter').textContent='❌ Tiene '+filled+' bloques pero NO es un rectángulo';return;}
+    ok=true;
+  }else if(p.goal==='perimeter'){
+    var per=calcPerimeter(g,p.rows,p.cols);
+    if(per!==p.target){loseLife();if(gState.lives>0)$('gCounter').textContent='❌ Perímetro: '+per+', necesitas '+p.target;return;}
+    ok=true;
+  }else if(p.goal==='mirror'){
+    var half=p.cols/2;ok=true;
+    for(var r4=0;r4<p.rows;r4++)for(var c4=0;c4<half;c4++){
+      var patVal=p.target[r4][c4];var mirrorC=p.cols-1-c4;var mirVal=g[r4][mirrorC]===1?1:0;
+      if(patVal!==mirVal)ok=false;
+    }
+    if(!ok){loseLife();if(gState.lives>0)$('gCounter').textContent='❌ El espejo no coincide. ¡Fíjate bien!';return;}
+  }
+  if(ok)winGame();
+}
+function calcPerimeter(g,rows,cols){
+  var p=0;for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
+    if(g[r][c]===1){
+      if(r===0||g[r-1][c]!==1)p++;if(r===rows-1||g[r+1][c]!==1)p++;
+      if(c===0||g[r][c-1]!==1)p++;if(c===cols-1||g[r][c+1]!==1)p++;
+    }
+  }return p;
 }
 
-function flee(){curM=null;bState=null;showS('island');}
+// ===== 📋 ORDENA =====
+function initOrder(p){gState.sequence=[];gState.orderP=p;renderOrder();}
+function renderOrder(){
+  var p=gState.orderP,seq=gState.sequence;
+  // Sequence area (slots)
+  var html='<div class="ord-sequence">';
+  for(var i=0;i<p.correct.length;i++){
+    if(i<seq.length){var it=p.items.find(function(x){return x.id===seq[i];});html+='<div class="ord-slot filled" onclick="undoOrder('+i+')">'+it.emoji+'</div>';}
+    else html+='<div class="ord-slot">'+(i+1)+'</div>';
+  }
+  html+='</div>';
+  // Pool
+  html+='<div class="ord-pool">';
+  p.items.forEach(function(it){
+    var used=seq.indexOf(it.id)>=0;
+    html+='<div class="ord-card'+(used?' used':'')+'" onclick="pickOrder(\''+it.id+'\')">';
+    html+='<div class="oc-emoji">'+it.emoji+'</div><div class="oc-text">'+it.text+'</div></div>';
+  });
+  html+='</div>';
+  if(seq.length===p.correct.length)html+='<div style="text-align:center"><button class="btn b2" onclick="checkOrder()">✅ Verificar</button></div>';
+  $('gArea').innerHTML=html;$('gCounter').textContent='Paso '+seq.length+' de '+p.correct.length;
+}
+function pickOrder(id){if(gState.lives<=0)return;if(gState.sequence.indexOf(id)>=0)return;gState.sequence.push(id);renderOrder();}
+function undoOrder(i){gState.sequence=gState.sequence.slice(0,i);renderOrder();}
+function checkOrder(){
+  var p=gState.orderP,seq=gState.sequence,ok=true;
+  for(var i=0;i<p.correct.length;i++)if(seq[i]!==p.correct[i]){ok=false;break;}
+  if(ok)winGame();
+  else{loseLife();if(gState.lives>0){gState.sequence=[];$('gCounter').textContent='❌ Orden incorrecto. ¡Piensa de nuevo!';setTimeout(renderOrder,1200);}}
+}
 
-// ===== VICTORY =====
-function win(){
-  const m=curM;
+// ===== 🃏 MEMORY =====
+function initMemory(p){
+  var cards=[];
+  p.pairs.forEach(function(pair,i){
+    cards.push({id:i,side:'a',text:pair.a,pairId:i,flipped:false,matched:false});
+    cards.push({id:i,side:'b',text:pair.b,pairId:i,flipped:false,matched:false});
+  });
+  gState.cards=shuf(cards);gState.flipped=[];gState.moves=18;gState.matched=0;gState.totalPairs=p.pairs.length;gState.locked=false;
+  renderMemory();
+}
+function renderMemory(){
+  var cards=gState.cards,cols=Math.ceil(Math.sqrt(cards.length*1.5));if(cols>5)cols=5;
+  var html='<div class="mem-grid" style="grid-template-columns:repeat('+cols+',1fr)">';
+  cards.forEach(function(c,i){
+    var cls='mem-card';
+    if(c.matched)cls+=' matched';else if(c.flipped)cls+=' face-up';else cls+=' face-down';
+    html+='<div class="'+cls+'" data-i="'+i+'" onclick="flipCard('+i+')">'+(c.flipped||c.matched?c.text:'')+'</div>';
+  });
+  html+='</div>';
+  $('gArea').innerHTML=html;$('gCounter').textContent='Movimientos: '+gState.moves+' | Pares: '+gState.matched+'/'+gState.totalPairs;
+}
+function flipCard(i){
+  if(gState.locked||gState.lives<=0)return;
+  var c=gState.cards[i];if(c.flipped||c.matched)return;
+  c.flipped=true;gState.flipped.push(i);renderMemory();
+  if(gState.flipped.length===2){
+    gState.locked=true;gState.moves--;
+    var c1=gState.cards[gState.flipped[0]],c2=gState.cards[gState.flipped[1]];
+    if(c1.pairId===c2.pairId&&c1.side!==c2.side){
+      c1.matched=true;c2.matched=true;gState.matched++;gState.flipped=[];gState.locked=false;
+      renderMemory();
+      if(gState.matched===gState.totalPairs)setTimeout(winGame,600);
+    }else{
+      setTimeout(function(){
+        c1.flipped=false;c2.flipped=false;gState.flipped=[];gState.locked=false;
+        renderMemory();
+        if(gState.moves<=0){loseLife();if(gState.lives>0){gState.moves=18;gState.cards.forEach(function(x){if(!x.matched)x.flipped=false;});gState.cards=shuf(gState.cards);$('gCounter').textContent='❌ Sin movimientos. Las cartas se mezclaron.';setTimeout(renderMemory,1200);}}
+      },900);
+    }
+  }
+}
+
+// ===== WIN =====
+function winGame(){
+  var m=curM;
   S.done.push({id:m.id,f:todayS(),w:m.w});
-  if(S.diaria.id===m.id){S.diaria.c=true;updStr();}
-  S.inv.push({id:m.item.id,n:m.item.n,r:m.item.r,e:m.item.e});
-  save();
-  $('vEm').textContent=m.item.e;$('vNm').textContent=m.item.n;
-  const re=$('vRr');re.textContent=m.item.r.toUpperCase();re.className='vr vr-'+m.item.r[0];
-  $('vSt').textContent=S.racha.a>1?`🔥 Racha: ${S.racha.a} días`:'';
-  showS('victory');MS=genMissions();
+  if(S.diaria.id===m.id){S.diaria.c=true;var t=todayS(),y=yesterdayS();if(S.racha.u===y)S.racha.a++;else if(S.racha.u!==t)S.racha.a=1;S.racha.u=t;if(S.racha.a>S.racha.m)S.racha.m=S.racha.a;}
+  S.inv.push({id:m.item.id,n:m.item.n,e:m.item.e});save();
+  $('vEm').textContent=m.item.e;$('vNm').textContent=m.item.n;showS('victory');MS=genMissions();
 }
-function updStr(){const t=todayS(),y=yesterdayS();if(S.racha.u===y)S.racha.a++;else if(S.racha.u!==t)S.racha.a=1;S.racha.u=t;if(S.racha.a>S.racha.m)S.racha.m=S.racha.a;}
 
 // ===== PLACING =====
 function plVic(){plIt=S.inv[S.inv.length-1];showS('island');}
-function placeOn(r,c){if(!plIt||S.isla[r][c])return;S.isla[r][c]={id:plIt.id,n:plIt.n,e:plIt.e};const i=S.inv.findIndex(x=>x.id===plIt.id);if(i>-1)S.inv.splice(i,1);plIt=null;save();renderIsland();}
+function placeOn(r,c){if(!plIt||S.isla[r][c])return;S.isla[r][c]={id:plIt.id,n:plIt.n,e:plIt.e};var i=S.inv.findIndex(function(x){return x.id===plIt.id;});if(i>-1)S.inv.splice(i,1);plIt=null;save();renderIsland();}
 function cancelPl(){plIt=null;renderIsland();}
-function plFromInv(i){plIt=S.inv[i];showS('island');}
 
 // ===== INVENTORY =====
 function renderInv(){
-  const c=$('invC');
-  if(!S.inv.length){c.innerHTML='<div class="inv-empty">🎒 Vacío. ¡Completa misiones para ganar items!</div>';return;}
-  c.innerHTML=`<div class="invg">${S.inv.map((it,i)=>`<div class="invs" onclick="plFromInv(${i})">${it.e}<span class="invn">${it.n}</span></div>`).join('')}</div>`;
+  if(!S.inv.length){$('invC').innerHTML='<div class="inv-empty">🎒 Vacío — ¡completa misiones!</div>';return;}
+  $('invC').innerHTML='<div class="invg">'+S.inv.map(function(it,i){return'<div class="invs" onclick="plIt=S.inv['+i+'];showS(\'island\')">'+it.e+'<span class="invn">'+it.n+'</span></div>';}).join('')+'</div>';
 }
 
 // ===== PORTAL =====
 function renderPortal(){
-  $('wGr').innerHTML=WS.map(w=>{
-    const tot=MS.filter(m=>m.w===w.id).length,dn=S.done.filter(d=>d.w===w.id).length;
-    return`<div class="wc" onclick="openW('${w.id}')"><span class="wi">${w.i}</span><div class="winfo"><h3>${w.n}</h3><p>${w.d}</p></div><span class="wp">${dn}/${tot}</span></div>`;
+  $('wGr').innerHTML=WS.map(function(w){
+    var tot=MS.filter(function(m){return m.w===w.id;}).length;
+    var dn=S.done.filter(function(d){return d.w===w.id;}).length;
+    return'<div class="wc" onclick="openW(\''+w.id+'\')"><span class="wi">'+w.i+'</span><div class="winfo"><h3>'+w.n+'</h3><p>'+w.d+'</p></div><span class="wp">'+dn+'/'+tot+'</span></div>';
   }).join('');
 }
 function openW(wid){
-  const ms=MS.filter(m=>m.w===wid),w=WS.find(x=>x.id===wid);
-  let html='<button class="btn b3" onclick="renderPortal()" style="font-size:9px;padding:8px 12px;align-self:flex-start">← Mundos</button>';
+  var ms=MS.filter(function(m){return m.w===wid;}),w=WS.find(function(x){return x.id===wid;});
+  var html='<button class="btn b3" onclick="renderPortal()" style="font-size:9px;padding:8px 12px;align-self:flex-start">← Mundos</button>';
   html+='<h3 style="font-family:Press Start 2P;font-size:12px;color:#fff;margin:8px 0">'+w.i+' '+w.n+'</h3>';
-  ms.forEach(m=>{
-    const dn=S.done.find(d=>d.id===m.id);
-    if(dn) html+='<div class="wc" style="opacity:0.5"><span class="wi">'+m.item.e+'</span><div class="winfo"><h3 style="font-size:10px">'+m.titulo+'</h3><p>'+m.r.toUpperCase()+' · ⚔️</p></div><span class="wp">✅</span></div>';
-    else html+='<div class="wc" onclick="startMP(\''+m.id+'\')"><span class="wi">'+m.item.e+'</span><div class="winfo"><h3 style="font-size:10px">'+m.titulo+'</h3><p>'+m.r.toUpperCase()+' · ⚔️</p></div><span class="wp">▶️</span></div>';
+  ms.forEach(function(m){
+    var dn=S.done.find(function(d){return d.id===m.id;});
+    var typeLabel=m.type==='build'?'🔨 Construir':m.type==='order'?'📋 Ordenar':'🃏 Memory';
+    if(dn)html+='<div class="wc" style="opacity:0.5"><span class="wi">'+m.item.e+'</span><div class="winfo"><h3 style="font-size:10px">'+m.titulo+'</h3><p>'+typeLabel+'</p></div><span class="wp">✅</span></div>';
+    else html+='<div class="wc" onclick="startMP(\''+m.id+'\')"><span class="wi">'+m.item.e+'</span><div class="winfo"><h3 style="font-size:10px">'+m.titulo+'</h3><p>'+typeLabel+'</p></div><span class="wp">▶️</span></div>';
   });
   $('wGr').innerHTML=html;
 }
-function startMP(id){const m=MS.find(x=>x.id===id);if(m)startBattle(m);}
+function startMP(id){var m=MS.find(function(x){return x.id===id;});if(m)launchGame(m);}
 
 // ===== ADMIN =====
-function setupAdmin(){let t=0,ti;$('adTr').addEventListener('click',()=>{t++;clearTimeout(ti);if(t>=4){t=0;$('codeM').classList.add('on');document.querySelector('.cd').focus();}ti=setTimeout(()=>t=0,2000);});}
-function setupCodeIn(){document.querySelectorAll('.cd').forEach((inp,i)=>{inp.addEventListener('input',e=>{if(e.target.value.length>1)e.target.value=e.target.value.slice(-1);if(e.target.value&&i<3)document.querySelectorAll('.cd')[i+1].focus();});inp.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!e.target.value&&i>0)document.querySelectorAll('.cd')[i-1].focus();});});}
-function chkCode(){const c=Array.from(document.querySelectorAll('.cd')).map(d=>d.value).join('');if(c===CODE){clCode();showS('admin');}else{document.querySelectorAll('.cd').forEach(d=>{d.value='';d.style.borderColor='var(--red)';});setTimeout(()=>document.querySelectorAll('.cd').forEach(d=>d.style.borderColor=''),1000);document.querySelector('.cd').focus();}}
-function clCode(){$('codeM').classList.remove('on');document.querySelectorAll('.cd').forEach(d=>d.value='');}
-
+function setupAdmin(){var t=0,ti;$('adTr').addEventListener('click',function(){t++;clearTimeout(ti);if(t>=4){t=0;$('codeM').classList.add('on');document.querySelector('.cd').focus();}ti=setTimeout(function(){t=0;},2000);});}
+function setupCodeIn(){document.querySelectorAll('.cd').forEach(function(inp,i){inp.addEventListener('input',function(e){if(e.target.value.length>1)e.target.value=e.target.value.slice(-1);if(e.target.value&&i<3)document.querySelectorAll('.cd')[i+1].focus();});inp.addEventListener('keydown',function(e){if(e.key==='Backspace'&&!e.target.value&&i>0)document.querySelectorAll('.cd')[i-1].focus();});});}
+function chkCode(){var c=Array.from(document.querySelectorAll('.cd')).map(function(d){return d.value;}).join('');if(c===CODE){clCode();showS('admin');}else{document.querySelectorAll('.cd').forEach(function(d){d.value='';d.style.borderColor='var(--red)';});setTimeout(function(){document.querySelectorAll('.cd').forEach(function(d){d.style.borderColor='';});},1000);document.querySelector('.cd').focus();}}
+function clCode(){$('codeM').classList.remove('on');document.querySelectorAll('.cd').forEach(function(d){d.value='';});}
 function renderAdmin(){
-  const c=$('adC'),bw=WS.map(w=>({...w,c:S.done.filter(x=>x.w===w.id).length}));
-  c.innerHTML=`
-    <div class="as"><h3>📊 Estadísticas</h3>
-      <div class="sr"><span>Misiones completadas</span><span class="sv">${S.done.length} / ${MS.length}</span></div>
-      <div class="sr"><span>Racha actual</span><span class="sv">🔥 ${S.racha.a}</span></div>
-      <div class="sr"><span>Mejor racha</span><span class="sv">🏆 ${S.racha.m}</span></div>
-      <div class="sr"><span>Items en isla</span><span class="sv">${S.isla.flat().filter(Boolean).length}</span></div></div>
-    <div class="as"><h3>🌍 Por Mundo</h3>${bw.map(w=>`<div class="sr"><span>${w.i} ${w.n}</span><span class="sv">${w.c}</span></div>`).join('')}</div>
-    <div class="as"><h3>💾 Respaldo</h3><p style="font-size:13px;color:#999;margin-bottom:12px">Copia para no perder progreso.</p>
-      <button class="btn b2" onclick="expB()" style="width:100%;margin-bottom:8px;font-size:9px">📋 Copiar</button>
-      <button class="btn b3" onclick="impB()" style="width:100%;font-size:9px">📥 Restaurar</button></div>
-    <div class="as"><h3>⚠️ Peligro</h3><button class="btn" style="width:100%;font-size:9px;background:var(--red);color:#fff;border-color:#c0392b" onclick="resetG()">🗑️ Reiniciar</button></div>`;
+  var bw=WS.map(function(w){return{i:w.i,n:w.n,c:S.done.filter(function(x){return x.w===w.id;}).length};});
+  $('adC').innerHTML='<div class="as"><h3>📊 Stats</h3><div class="sr"><span>Misiones</span><span class="sv">'+S.done.length+' / '+MS.length+'</span></div><div class="sr"><span>Racha</span><span class="sv">🔥 '+S.racha.a+'</span></div><div class="sr"><span>Mejor</span><span class="sv">🏆 '+S.racha.m+'</span></div><div class="sr"><span>Items isla</span><span class="sv">'+S.isla.flat().filter(Boolean).length+'</span></div></div><div class="as"><h3>🌍 Mundos</h3>'+bw.map(function(w){return'<div class="sr"><span>'+w.i+' '+w.n+'</span><span class="sv">'+w.c+'</span></div>';}).join('')+'</div><div class="as"><h3>💾 Respaldo</h3><button class="btn b2" onclick="navigator.clipboard.writeText(JSON.stringify(S)).then(function(){alert(\'✅ Copiado\');}).catch(function(){prompt(\'Copia:\',JSON.stringify(S));})" style="width:100%;margin-bottom:8px;font-size:9px">📋 Copiar</button><button class="btn b3" onclick="var d=prompt(\'Pega:\');if(d){try{S=JSON.parse(d);save();location.reload();}catch(e){alert(\'❌\');}}" style="width:100%;font-size:9px">📥 Restaurar</button></div><div class="as"><h3>⚠️</h3><button class="btn" style="width:100%;font-size:9px;background:var(--red);color:#fff;border-color:#c0392b" onclick="if(confirm(\'¿Borrar TODO?\')){localStorage.removeItem(\'bq3\');location.reload();}">🗑️ Reset</button></div>';
 }
-function expB(){navigator.clipboard.writeText(JSON.stringify(S)).then(()=>alert('✅ Copiado')).catch(()=>prompt('Copia:',JSON.stringify(S)));}
-function impB(){const d=prompt('Pega:');if(d){try{S=JSON.parse(d);save();location.reload();}catch(e){alert('❌ No válido');}}}
-function resetG(){if(confirm('⚠️ ¿Borrar TODO?'))if(confirm('🔴 ÚLTIMA VEZ')){localStorage.removeItem('bq2');location.reload();}}
-
-function todayS(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-function yesterdayS(){const d=new Date();d.setDate(d.getDate()-1);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-
+function todayS(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function yesterdayS(){var d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 window.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
