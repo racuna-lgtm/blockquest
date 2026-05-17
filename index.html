@@ -7,1782 +7,559 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --grass: #5D8C2E;
-  --grass-dark: #4A7024;
-  --dirt: #8B6914;
-  --dirt-dark: #6B4F0E;
-  --sky: #7EC8E3;
-  --sky-dark: #5BA3C9;
-  --stone: #7F8C8D;
-  --gold: #F1C40F;
-  --gold-dark: #D4AC0D;
-  --roblox: #9B59B6;
-  --epic: #E74C3C;
-  --wood: #A0522D;
-  --water: #3498DB;
-  --text-dark: #2C3E50;
-  --text-light: #ECF0F1;
-  --chest-glow: #F39C12;
-  --bg-dark: #1a1a2e;
-  --bg-card: rgba(255,255,255,0.95);
-  --shadow: 0 4px 20px rgba(0,0,0,0.3);
-  --pixel-border: 3px solid #2C3E50;
-}
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-body {
-  font-family:'Nunito',sans-serif;
-  background: var(--bg-dark);
-  color: var(--text-dark);
-  min-height:100vh;
-  overflow-x:hidden;
-  user-select:none;
-}
-.pixel-font { font-family:'Press Start 2P',monospace; }
+:root{--grass:#5D8C2E;--grass-dark:#4A7024;--dirt:#8B6914;--dirt-dark:#6B4F0E;--sky:#7EC8E3;--sky-dark:#5BA3C9;--gold:#F1C40F;--gold-dark:#D4AC0D;--roblox:#9B59B6;--water:#3498DB;--text-dark:#2C3E50;--text-light:#ECF0F1;--bg-dark:#1a1a2e;--bg-card:rgba(255,255,255,0.95);--pixel-border:3px solid #2C3E50}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--bg-dark);color:var(--text-dark);min-height:100vh;overflow-x:hidden;user-select:none}
+.screen{display:none;min-height:100vh;position:relative}.screen.active{display:flex;flex-direction:column}
+#splash{background:linear-gradient(180deg,var(--sky) 0%,var(--sky-dark) 40%,var(--grass) 40%,var(--grass-dark) 60%,var(--dirt) 60%,var(--dirt-dark) 100%);align-items:center;justify-content:center;padding:20px;text-align:center}
+#splash h1{font-family:'Press Start 2P',monospace;font-size:clamp(28px,8vw,48px);color:#fff;text-shadow:4px 4px 0 var(--grass-dark);margin-bottom:8px;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+#splash .subtitle{font-family:'Press Start 2P',monospace;font-size:clamp(8px,2.5vw,12px);color:var(--gold);margin-bottom:30px;text-shadow:2px 2px 0 rgba(0,0,0,0.4)}
+.splash-box{background:var(--bg-card);border-radius:12px;padding:24px;width:100%;max-width:380px;border:var(--pixel-border)}
+.splash-box label{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
+.splash-box input[type="text"]{width:100%;padding:12px;border:var(--pixel-border);border-radius:8px;font-family:'Nunito',sans-serif;font-size:16px;margin-bottom:16px;outline:none}
+.avatar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.avatar-option{aspect-ratio:1;border:3px solid #ccc;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:36px;transition:all .2s;background:#f9f9f9}
+.avatar-option span{font-size:10px;margin-top:4px;font-weight:700}
+.avatar-option.selected{border-color:var(--grass);background:#e8f5e9;transform:scale(1.08)}
+.btn{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,14px);padding:14px 28px;border:none;border-radius:8px;cursor:pointer;transition:all .15s;border:var(--pixel-border)}
+.btn:active{transform:scale(0.95)}
+.btn-primary{background:var(--grass);color:#fff}.btn-gold{background:var(--gold);color:var(--text-dark)}.btn-secondary{background:#ecf0f1;color:var(--text-dark)}.btn-roblox{background:var(--roblox);color:#fff}
 
-/* ===== SCREENS ===== */
-.screen { display:none; min-height:100vh; position:relative; }
-.screen.active { display:flex; flex-direction:column; }
+/* Tutorial */
+.tut-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.tut-overlay.hidden{display:none}
+.tut-card{background:#fff;border-radius:16px;padding:28px 24px;max-width:360px;width:100%;text-align:center;border:var(--pixel-border)}
+.tut-card .te{font-size:56px;margin-bottom:12px}
+.tut-card h3{font-family:'Press Start 2P',monospace;font-size:13px;margin-bottom:12px;line-height:1.6}
+.tut-card p{font-size:15px;color:#555;margin-bottom:20px;line-height:1.6}
+.tut-dots{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.tut-dot{width:10px;height:10px;border-radius:50%;background:#ddd}.tut-dot.on{background:var(--grass)}
 
-/* ===== SPLASH ===== */
-#splash {
-  background: linear-gradient(180deg, var(--sky) 0%, var(--sky-dark) 40%, var(--grass) 40%, var(--grass-dark) 60%, var(--dirt) 60%, var(--dirt-dark) 100%);
-  align-items:center; justify-content:center; padding:20px; text-align:center;
-}
-#splash h1 {
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(28px,8vw,48px);
-  color:#fff;
-  text-shadow: 4px 4px 0 var(--grass-dark), -1px -1px 0 rgba(0,0,0,0.3);
-  margin-bottom:8px;
-  animation: titleBounce 2s ease-in-out infinite;
-}
-@keyframes titleBounce {
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-8px); }
-}
-#splash .subtitle {
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(8px,2.5vw,12px);
-  color:var(--gold);
-  margin-bottom:30px;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
-}
-.splash-box {
-  background:var(--bg-card);
-  border-radius:12px;
-  padding:24px;
-  width:100%;
-  max-width:380px;
-  border:var(--pixel-border);
-}
-.splash-box label {
-  display:block;
-  font-weight:700;
-  font-size:14px;
-  margin-bottom:8px;
-  color:var(--text-dark);
-}
-.splash-box input {
-  width:100%;
-  padding:12px;
-  border:var(--pixel-border);
-  border-radius:8px;
-  font-family:'Nunito',sans-serif;
-  font-size:16px;
-  margin-bottom:16px;
-  outline:none;
-}
-.splash-box input:focus { border-color:var(--grass); }
-.avatar-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:20px;
-}
-.avatar-option {
-  aspect-ratio:1;
-  border:3px solid #ccc;
-  border-radius:12px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:36px;
-  transition:all .2s;
-  background:#f9f9f9;
-}
-.avatar-option span { font-size:10px; margin-top:4px; font-weight:700; }
-.avatar-option.selected { border-color:var(--grass); background:#e8f5e9; transform:scale(1.08); }
-.avatar-option:active { transform:scale(0.95); }
+/* Island */
+#island{background:linear-gradient(180deg,var(--sky) 0%,var(--sky-dark) 35%,transparent 35%);background-color:var(--grass);padding-bottom:20px}
+.island-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between}
+.player-info{display:flex;align-items:center;gap:10px}
+.player-avatar{font-size:32px}
+.player-name{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,14px);color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,0.3)}
+.streak-badge{font-family:'Press Start 2P',monospace;font-size:11px;background:rgba(0,0,0,0.3);color:var(--gold);padding:6px 12px;border-radius:20px}
+.island-label{text-align:center;font-size:12px;color:rgba(255,255,255,0.6);padding:4px 0}
+.island-grid-wrapper{padding:4px 12px;display:flex;justify-content:center}
+.island-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:100%;max-width:340px;background:var(--dirt-dark);border:4px solid var(--dirt-dark);border-radius:8px;padding:2px}
+.island-cell{background:var(--grass);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(16px,4.5vw,24px);aspect-ratio:1;transition:all .15s}
+.island-cell.has-item{background:#4a8c1e}
+.island-cell.placeable{background:var(--grass-dark);cursor:pointer;animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:inset 0 0 0 rgba(241,196,15,0)}50%{box-shadow:inset 0 0 8px rgba(241,196,15,0.5)}}
 
-.btn {
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(10px,3vw,14px);
-  padding:14px 28px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  transition:all .15s;
-  border:var(--pixel-border);
-}
-.btn:active { transform:scale(0.95); }
-.btn-primary { background:var(--grass); color:#fff; }
-.btn-primary:hover { background:var(--grass-dark); }
-.btn-gold { background:var(--gold); color:var(--text-dark); }
-.btn-gold:hover { background:var(--gold-dark); }
-.btn-secondary { background:#ecf0f1; color:var(--text-dark); }
-.btn-roblox { background:var(--roblox); color:#fff; }
+.chest-area{padding:16px;display:flex;justify-content:center}
+.daily-chest{background:var(--bg-card);border:4px solid var(--gold);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;max-width:380px;width:100%;box-shadow:0 0 20px rgba(241,196,15,0.3)}
+.daily-chest:active{transform:scale(0.97)}
+.daily-chest.available{animation:glow 1.5s ease-in-out infinite}
+.daily-chest.completed{opacity:0.6;cursor:default;animation:none;border-color:#ccc;box-shadow:none}
+@keyframes glow{0%,100%{box-shadow:0 0 15px rgba(241,196,15,0.3)}50%{box-shadow:0 0 35px rgba(241,196,15,0.6)}}
+.chest-icon{font-size:44px}
+.chest-text h3{font-family:'Press Start 2P',monospace;font-size:12px;margin-bottom:6px}
+.chest-text p{font-size:14px;color:#666}
+.chest-arrow{margin-left:auto;font-size:28px;animation:arrowB 1s ease-in-out infinite}
+@keyframes arrowB{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.island-nav{padding:12px 16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.island-nav .btn{font-size:9px;padding:10px 16px;flex:1;max-width:180px}
+.placing-banner{background:var(--gold);color:var(--text-dark);text-align:center;padding:10px;font-family:'Press Start 2P',monospace;font-size:9px;line-height:1.5;display:none}
+.placing-banner.active{display:block}
 
-/* ===== ISLAND ===== */
-#island {
-  background: linear-gradient(180deg, var(--sky) 0%, var(--sky-dark) 35%, transparent 35%);
-  background-color: var(--grass);
-  padding-bottom: 20px;
-}
-.island-header {
-  padding:16px 16px 8px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.island-header .player-info {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.island-header .player-avatar { font-size:32px; }
-.island-header .player-name {
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(10px,3vw,14px);
-  color:#fff;
-  text-shadow:2px 2px 0 rgba(0,0,0,0.3);
-}
-.streak-badge {
-  font-family:'Press Start 2P',monospace;
-  font-size:11px;
-  background:rgba(0,0,0,0.3);
-  color:var(--gold);
-  padding:6px 12px;
-  border-radius:20px;
-}
-.island-grid-wrapper {
-  padding:8px 12px;
-  display:flex;
-  justify-content:center;
-}
-.island-grid {
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:3px;
-  width:100%;
-  max-width:380px;
-  aspect-ratio:1;
-  background:var(--dirt-dark);
-  border:4px solid var(--dirt-dark);
-  border-radius:8px;
-  padding:3px;
-}
-.island-cell {
-  background:var(--grass);
-  border-radius:4px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:clamp(18px,5vw,28px);
-  cursor:pointer;
-  transition:all .15s;
-  position:relative;
-  aspect-ratio:1;
-}
-.island-cell:hover { background:var(--grass-dark); }
-.island-cell.has-item { background:#4a8c1e; }
-.island-cell.empty-slot::after {
-  content:'';
-  width:30%;
-  height:30%;
-  border:2px dashed rgba(255,255,255,0.3);
-  border-radius:4px;
-}
-.chest-area {
-  padding:12px 16px;
-  display:flex;
-  justify-content:center;
-}
-.daily-chest {
-  background:var(--bg-card);
-  border:var(--pixel-border);
-  border-radius:12px;
-  padding:16px 24px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  cursor:pointer;
-  transition:all .2s;
-  max-width:380px;
-  width:100%;
-}
-.daily-chest:active { transform:scale(0.97); }
-.daily-chest.available {
-  animation: chestPulse 1.5s ease-in-out infinite;
-  border-color:var(--gold);
-  box-shadow: 0 0 20px rgba(241,196,15,0.4);
-}
-.daily-chest.completed {
-  opacity:0.6;
-  cursor:default;
-  animation:none;
-}
-@keyframes chestPulse {
-  0%,100%{ box-shadow: 0 0 10px rgba(241,196,15,0.3); }
-  50%{ box-shadow: 0 0 30px rgba(241,196,15,0.6); }
-}
-.chest-icon { font-size:40px; }
-.chest-text h3 {
-  font-family:'Press Start 2P',monospace;
-  font-size:11px;
-  margin-bottom:4px;
-}
-.chest-text p { font-size:13px; color:#666; }
+/* Mission */
+#mission{background:var(--bg-dark);color:var(--text-light);padding:16px;align-items:center}
+.mission-card{background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.15);border-radius:16px;padding:20px;max-width:440px;width:100%;margin-top:12px}
+.badge{font-family:'Press Start 2P',monospace;font-size:9px;padding:4px 10px;border-radius:12px;display:inline-block;margin-bottom:12px}
+.badge-c{background:var(--grass);color:#fff}.badge-r{background:var(--water);color:#fff}.badge-e{background:var(--roblox);color:#fff}
+.m-title{font-family:'Press Start 2P',monospace;font-size:clamp(12px,3.5vw,16px);margin-bottom:16px;line-height:1.6;color:var(--gold)}
+.m-narr{font-size:15px;line-height:1.7;margin-bottom:20px;color:#ccc;background:rgba(0,0,0,0.3);padding:16px;border-radius:10px;border-left:4px solid var(--gold)}
+.m-q{text-align:center;color:var(--gold);font-family:'Press Start 2P',monospace;font-size:10px;margin-bottom:16px;line-height:1.6}
+.mob{text-align:center;font-size:64px;margin:12px 0;animation:bounce 1s ease-in-out infinite}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 18px;font-size:15px;color:#fff;cursor:pointer;transition:all .2s;text-align:left;font-family:'Nunito',sans-serif;font-weight:600}
+.opt:hover{background:rgba(255,255,255,0.18)}
+.opt.ok{background:rgba(46,204,113,0.3)!important;border-color:#2ecc71!important}
+.opt.no{background:rgba(231,76,60,0.3)!important;border-color:#e74c3c!important;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.btn-flee{margin-top:16px;background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);font-size:11px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Nunito',sans-serif}
+.fb{padding:14px;border-radius:10px;margin-top:12px;font-size:14px;line-height:1.6}
+.fb-ok{background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);color:#2ecc71}
+.fb-no{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#e74c3c}
 
-.island-nav {
-  padding:12px 16px;
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.island-nav .btn { font-size:9px; padding:10px 16px; flex:1; max-width:180px; }
+/* Victory */
+#victory{background:radial-gradient(ellipse at center,#2c1654 0%,var(--bg-dark) 70%);align-items:center;justify-content:center;text-align:center;padding:20px}
+.v-chest{font-size:80px;animation:vb .8s ease-out}
+@keyframes vb{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.v-title{font-family:'Press Start 2P',monospace;font-size:clamp(16px,5vw,24px);color:var(--gold);margin:16px 0 8px;text-shadow:2px 2px 0 rgba(0,0,0,0.5)}
+.v-item{font-size:56px;margin:16px 0;animation:fl 2s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.v-name{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--text-light);margin-bottom:4px}
+.v-rar{font-size:11px;font-weight:700;margin-bottom:24px;padding:4px 12px;border-radius:12px;display:inline-block}
+.r-c{background:var(--grass);color:#fff}.r-r{background:var(--water);color:#fff}.r-e{background:var(--roblox);color:#fff}
+.v-streak{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);margin-bottom:20px}
+.v-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px}.v-btns .btn{width:100%}
 
-/* ===== MISSION ===== */
-#mission {
-  background:var(--bg-dark);
-  color:var(--text-light);
-  padding:16px;
-  align-items:center;
-}
-.mission-card {
-  background:rgba(255,255,255,0.08);
-  border:2px solid rgba(255,255,255,0.15);
-  border-radius:16px;
-  padding:20px;
-  max-width:440px;
-  width:100%;
-  margin-top:12px;
-}
-.mission-type-badge {
-  font-family:'Press Start 2P',monospace;
-  font-size:9px;
-  padding:4px 10px;
-  border-radius:12px;
-  display:inline-block;
-  margin-bottom:12px;
-}
-.badge-comun { background:var(--grass); color:#fff; }
-.badge-raro { background:var(--water); color:#fff; }
-.badge-epico { background:var(--roblox); color:#fff; }
-.mission-title {
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(12px,3.5vw,16px);
-  margin-bottom:16px;
-  line-height:1.6;
-  color:var(--gold);
-}
-.mission-narrative {
-  font-size:15px;
-  line-height:1.7;
-  margin-bottom:20px;
-  color:#ccc;
-  background:rgba(0,0,0,0.3);
-  padding:16px;
-  border-radius:10px;
-  border-left:4px solid var(--gold);
-}
-.mob-display {
-  text-align:center;
-  font-size:64px;
-  margin:16px 0;
-  animation: mobBounce 1s ease-in-out infinite;
-}
-@keyframes mobBounce {
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-6px); }
-}
-.combat-options {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.combat-option {
-  background:rgba(255,255,255,0.1);
-  border:2px solid rgba(255,255,255,0.2);
-  border-radius:10px;
-  padding:14px 18px;
-  font-size:15px;
-  color:#fff;
-  cursor:pointer;
-  transition:all .2s;
-  text-align:left;
-  font-family:'Nunito',sans-serif;
-  font-weight:600;
-}
-.combat-option:hover { background:rgba(255,255,255,0.18); }
-.combat-option:active { transform:scale(0.97); }
-.combat-option.correct {
-  background:rgba(46,204,113,0.3);
-  border-color:#2ecc71;
-  animation: correctFlash .5s;
-}
-.combat-option.incorrect {
-  background:rgba(231,76,60,0.3);
-  border-color:#e74c3c;
-  animation: shake .4s;
-}
-@keyframes correctFlash {
-  0%{ box-shadow:0 0 0 rgba(46,204,113,0); }
-  50%{ box-shadow:0 0 30px rgba(46,204,113,0.5); }
-  100%{ box-shadow:0 0 0 rgba(46,204,113,0); }
-}
-@keyframes shake {
-  0%,100%{ transform:translateX(0); }
-  25%{ transform:translateX(-8px); }
-  75%{ transform:translateX(8px); }
-}
-.exploration-text {
-  font-size:15px;
-  line-height:1.7;
-  margin-bottom:16px;
-  color:#ddd;
-  background:rgba(0,0,0,0.3);
-  padding:16px;
-  border-radius:10px;
-}
-.exploration-options {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.exploration-option {
-  background:rgba(155,89,182,0.15);
-  border:2px solid rgba(155,89,182,0.3);
-  border-radius:10px;
-  padding:14px 18px;
-  font-size:14px;
-  color:#fff;
-  cursor:pointer;
-  transition:all .2s;
-  text-align:left;
-  font-family:'Nunito',sans-serif;
-  font-weight:600;
-}
-.exploration-option:hover { background:rgba(155,89,182,0.25); }
-.exploration-option:active { transform:scale(0.97); }
+/* Inventory */
+#inventory{background:linear-gradient(180deg,var(--dirt) 0%,var(--dirt-dark) 100%);padding:16px}
+.inv-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.inv-h h2{font-family:'Press Start 2P',monospace;font-size:14px;color:#fff}
+.inv-empty{text-align:center;color:rgba(255,255,255,0.5);font-size:14px;padding:40px 20px;line-height:1.6}
+.inv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.inv-slot{aspect-ratio:1;background:rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.15);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:28px;cursor:pointer}
+.inv-slot .inv-n{font-size:7px;font-family:'Press Start 2P',monospace;color:rgba(255,255,255,0.7);margin-top:4px;text-align:center;line-height:1.3}
 
-.btn-flee {
-  margin-top:16px;
-  background:transparent;
-  border:2px solid rgba(255,255,255,0.2);
-  color:rgba(255,255,255,0.5);
-  font-size:11px;
-  padding:8px 16px;
-  border-radius:8px;
-  cursor:pointer;
-  font-family:'Nunito',sans-serif;
-}
-.btn-flee:hover { border-color:rgba(255,255,255,0.4); color:rgba(255,255,255,0.8); }
+/* Portal */
+#portal{background:var(--bg-dark);padding:16px}
+.portal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.portal-h h2{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--gold)}
+.wg{display:flex;flex-direction:column;gap:12px}
+.wc{background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.12);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s}
+.wc:active{transform:scale(0.98)}
+.wi{font-size:36px}
+.winfo h3{font-family:'Press Start 2P',monospace;font-size:10px;color:#fff;margin-bottom:4px}
+.winfo p{font-size:12px;color:#999}
+.wp{margin-left:auto;font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold)}
 
-.feedback-box {
-  padding:14px;
-  border-radius:10px;
-  margin-top:12px;
-  font-size:14px;
-  line-height:1.5;
-}
-.feedback-correct {
-  background:rgba(46,204,113,0.15);
-  border:1px solid rgba(46,204,113,0.3);
-  color:#2ecc71;
-}
-.feedback-incorrect {
-  background:rgba(231,76,60,0.15);
-  border:1px solid rgba(231,76,60,0.3);
-  color:#e74c3c;
-}
+/* Admin */
+#admin{background:#1a1a2e;padding:16px;color:#fff}
+.admin-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.admin-h h2{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--roblox)}
+.as{background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px}
+.as h3{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);margin-bottom:12px}
+.sr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:14px}
+.sv{font-weight:700;color:var(--gold)}
 
-/* ===== VICTORY ===== */
-#victory {
-  background: radial-gradient(ellipse at center, #2c1654 0%, var(--bg-dark) 70%);
-  align-items:center; justify-content:center; text-align:center; padding:20px;
-}
-.victory-chest {
-  font-size:80px;
-  animation: victoryBounce 0.8s ease-out;
-}
-@keyframes victoryBounce {
-  0%{ transform:scale(0) rotate(-20deg); opacity:0; }
-  60%{ transform:scale(1.2) rotate(5deg); }
-  100%{ transform:scale(1) rotate(0); opacity:1; }
-}
-.victory-title {
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(16px,5vw,24px);
-  color:var(--gold);
-  margin:16px 0 8px;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
-}
-.victory-item {
-  font-size:56px;
-  margin:16px 0;
-  animation: itemFloat 2s ease-in-out infinite;
-}
-@keyframes itemFloat {
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-10px); }
-}
-.victory-item-name {
-  font-family:'Press Start 2P',monospace;
-  font-size:12px;
-  color:var(--text-light);
-  margin-bottom:4px;
-}
-.victory-rarity {
-  font-size:11px;
-  font-weight:700;
-  margin-bottom:24px;
-  padding:4px 12px;
-  border-radius:12px;
-  display:inline-block;
-}
-.rarity-comun { background:var(--grass); color:#fff; }
-.rarity-raro { background:var(--water); color:#fff; }
-.rarity-epico { background:var(--roblox); color:#fff; }
-.victory-streak {
-  font-family:'Press Start 2P',monospace;
-  font-size:10px;
-  color:var(--gold);
-  margin-bottom:20px;
-}
-.victory-buttons { display:flex; flex-direction:column; gap:10px; width:100%; max-width:300px; }
-.victory-buttons .btn { width:100%; }
-
-/* ===== INVENTORY ===== */
-#inventory {
-  background: linear-gradient(180deg, var(--dirt) 0%, var(--dirt-dark) 100%);
-  padding:16px;
-}
-.inv-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:16px;
-}
-.inv-header h2 {
-  font-family:'Press Start 2P',monospace;
-  font-size:14px;
-  color:#fff;
-  text-shadow:2px 2px 0 rgba(0,0,0,0.3);
-}
-.inv-grid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-.inv-slot {
-  aspect-ratio:1;
-  background:rgba(0,0,0,0.3);
-  border:2px solid rgba(255,255,255,0.15);
-  border-radius:8px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  cursor:pointer;
-  transition:all .2s;
-}
-.inv-slot.filled:active { transform:scale(0.93); }
-.inv-slot .inv-name {
-  font-size:7px;
-  font-family:'Press Start 2P',monospace;
-  color:rgba(255,255,255,0.7);
-  margin-top:4px;
-  text-align:center;
-  line-height:1.3;
-  max-width:100%;
-  overflow:hidden;
-}
-.inv-empty { opacity:0.3; border-style:dashed; }
-
-/* ===== PORTAL ===== */
-#portal {
-  background:var(--bg-dark);
-  padding:16px;
-}
-.portal-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:16px;
-}
-.portal-header h2 {
-  font-family:'Press Start 2P',monospace;
-  font-size:13px;
-  color:var(--gold);
-}
-.worlds-grid {
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.world-card {
-  background:rgba(255,255,255,0.06);
-  border:2px solid rgba(255,255,255,0.12);
-  border-radius:12px;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  cursor:pointer;
-  transition:all .2s;
-}
-.world-card:hover { background:rgba(255,255,255,0.1); }
-.world-card:active { transform:scale(0.98); }
-.world-icon { font-size:36px; }
-.world-info h3 {
-  font-family:'Press Start 2P',monospace;
-  font-size:11px;
-  color:#fff;
-  margin-bottom:4px;
-}
-.world-info p { font-size:12px; color:#999; }
-.world-progress {
-  margin-left:auto;
-  font-family:'Press Start 2P',monospace;
-  font-size:10px;
-  color:var(--gold);
-}
-
-/* ===== ADMIN ===== */
-#admin {
-  background:#1a1a2e;
-  padding:16px;
-  color:#fff;
-}
-.admin-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:20px;
-}
-.admin-header h2 {
-  font-family:'Press Start 2P',monospace;
-  font-size:12px;
-  color:var(--roblox);
-}
-.admin-section {
-  background:rgba(255,255,255,0.05);
-  border-radius:12px;
-  padding:16px;
-  margin-bottom:16px;
-}
-.admin-section h3 {
-  font-family:'Press Start 2P',monospace;
-  font-size:10px;
-  color:var(--gold);
-  margin-bottom:12px;
-}
-.stat-row {
-  display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  font-size:14px;
-}
-.stat-value { font-weight:700; color:var(--gold); }
-
-/* ===== PLACE ITEM MODAL ===== */
-.modal-overlay {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  z-index:100;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.modal-overlay.active { display:flex; }
-.modal-box {
-  background:#fff;
-  border-radius:16px;
-  padding:24px;
-  text-align:center;
-  max-width:340px;
-  width:100%;
-  border:var(--pixel-border);
-}
-.modal-box h3 {
-  font-family:'Press Start 2P',monospace;
-  font-size:12px;
-  margin-bottom:8px;
-}
-.modal-item-preview { font-size:48px; margin:12px 0; }
-.modal-box p { font-size:14px; color:#666; margin-bottom:16px; }
-.modal-buttons { display:flex; gap:8px; justify-content:center; }
-.modal-buttons .btn { font-size:9px; padding:10px 14px; }
-
-/* ===== SECRET CODE MODAL ===== */
-.code-input {
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  margin:16px 0;
-}
-.code-input input {
-  width:48px;
-  height:48px;
-  text-align:center;
-  font-size:20px;
-  font-weight:700;
-  border:var(--pixel-border);
-  border-radius:8px;
-  outline:none;
-  font-family:'Nunito',sans-serif;
-}
-
-/* ===== RESPONSIVE ===== */
-@media(min-width:500px){
-  .island-grid { max-width:420px; }
-}
+/* Modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.mbox{background:#fff;border-radius:16px;padding:24px;text-align:center;max-width:340px;width:100%;border:var(--pixel-border)}
+.mbox h3{font-family:'Press Start 2P',monospace;font-size:12px;margin-bottom:8px}
+.mbox p{font-size:14px;color:#666;margin-bottom:16px}
+.mbtn{display:flex;gap:8px;justify-content:center}.mbtn .btn{font-size:9px;padding:10px 14px}
+.code-input{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.code-input input{width:48px;height:48px;text-align:center;font-size:20px;font-weight:700;border:var(--pixel-border);border-radius:8px;outline:none;font-family:'Nunito',sans-serif}
 </style>
 </head>
 <body>
 
-<!-- ===== SPLASH ===== -->
+<div class="tut-overlay hidden" id="tut">
+  <div class="tut-card">
+    <div class="te" id="tutE">🎁</div>
+    <h3 id="tutT"></h3>
+    <p id="tutP"></p>
+    <div class="tut-dots" id="tutD"></div>
+    <button class="btn btn-primary" onclick="nextTut()" id="tutB" style="width:100%"></button>
+  </div>
+</div>
+
 <div id="splash" class="screen active">
-  <h1 class="pixel-font">BlockQuest</h1>
+  <h1>BlockQuest</h1>
   <p class="subtitle">Tu isla, tus misiones</p>
   <div class="splash-box">
     <label>¿Cómo te llamas?</label>
-    <input type="text" id="playerName" placeholder="Tu nombre de aventurero/a" maxlength="16" autocomplete="off">
+    <input type="text" id="pName" placeholder="Tu nombre" maxlength="16" autocomplete="off">
     <label>Elige tu avatar</label>
-    <div class="avatar-grid" id="avatarGrid"></div>
+    <div class="avatar-grid" id="avGrid"></div>
     <button class="btn btn-primary" onclick="startGame()" style="width:100%">⚔️ ¡COMENZAR!</button>
   </div>
 </div>
 
-<!-- ===== ISLAND ===== -->
 <div id="island" class="screen">
+  <div class="placing-banner" id="pBanner">📍 Toca una celda verde para colocar tu item<br><span style="font-family:Nunito;font-size:12px;cursor:pointer;text-decoration:underline" onclick="cancelPlace()">Cancelar</span></div>
   <div class="island-header">
-    <div class="player-info">
-      <span class="player-avatar" id="islandAvatar"></span>
-      <span class="player-name" id="islandName"></span>
-    </div>
-    <div class="streak-badge" id="streakBadge">🔥 0</div>
+    <div class="player-info"><span class="player-avatar" id="iAv"></span><span class="player-name" id="iName"></span></div>
+    <div class="streak-badge" id="sBadge">🔥 0</div>
   </div>
-  <div class="island-grid-wrapper">
-    <div class="island-grid" id="islandGrid"></div>
-  </div>
+  <div class="island-label" id="iLabel">🏝️ Tu isla</div>
+  <div class="island-grid-wrapper"><div class="island-grid" id="iGrid"></div></div>
   <div class="chest-area">
-    <div class="daily-chest" id="dailyChest" onclick="openDailyMission()">
-      <span class="chest-icon" id="chestIcon">🎁</span>
-      <div class="chest-text">
-        <h3 id="chestTitle">Misión del Día</h3>
-        <p id="chestSubtitle">¡Toca para descubrir!</p>
-      </div>
+    <div class="daily-chest" id="dChest" onclick="openDaily()">
+      <span class="chest-icon" id="cIcon">🎁</span>
+      <div class="chest-text"><h3 id="cTitle">👆 TOCA AQUÍ 👆</h3><p id="cSub">Abre tu misión del día</p></div>
+      <span class="chest-arrow" id="cArr">▶</span>
     </div>
   </div>
   <div class="island-nav">
-    <button class="btn btn-gold" onclick="showScreen('portal')">🌍 Portal</button>
+    <button class="btn btn-gold" onclick="showScreen('portal')">🌍 Más Misiones</button>
     <button class="btn btn-secondary" onclick="showScreen('inventory')">🎒 Inventario</button>
   </div>
-  <div style="text-align:center;padding:8px;">
-    <span style="font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer;" id="adminTrigger">BlockQuest v1</span>
-  </div>
+  <div style="text-align:center;padding:8px"><span style="font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer" id="adTrig">BlockQuest v1.1</span></div>
 </div>
 
-<!-- ===== MISSION ===== -->
 <div id="mission" class="screen">
-  <button class="btn-flee" onclick="fleeMission()">← Huir</button>
-  <div class="mission-card" id="missionCard"></div>
+  <button class="btn-flee" onclick="flee()">← Volver</button>
+  <div class="mission-card" id="mCard"></div>
 </div>
 
-<!-- ===== VICTORY ===== -->
 <div id="victory" class="screen">
-  <div class="victory-chest">🎁</div>
-  <h2 class="victory-title">¡Misión Cumplida!</h2>
-  <div class="victory-item" id="victoryItemEmoji"></div>
-  <div class="victory-item-name" id="victoryItemName"></div>
-  <div class="victory-rarity" id="victoryItemRarity"></div>
-  <div class="victory-streak" id="victoryStreak"></div>
-  <div class="victory-buttons">
-    <button class="btn btn-gold" onclick="placeItemFromVictory()">🏝️ Poner en mi isla</button>
-    <button class="btn btn-secondary" onclick="saveToInventory()">🎒 Guardar para después</button>
+  <div class="v-chest">🎁</div>
+  <h2 class="v-title">¡Misión Cumplida!</h2>
+  <div class="v-item" id="vEmoji"></div>
+  <div class="v-name" id="vName"></div>
+  <div class="v-rar" id="vRar"></div>
+  <div class="v-streak" id="vStreak"></div>
+  <div class="v-btns">
+    <button class="btn btn-gold" onclick="placeFromVictory()">🏝️ Poner en mi isla</button>
+    <button class="btn btn-secondary" onclick="showScreen('island')">🎒 Guardar</button>
   </div>
 </div>
 
-<!-- ===== INVENTORY ===== -->
 <div id="inventory" class="screen">
-  <div class="inv-header">
-    <h2>🎒 Inventario</h2>
-    <button class="btn btn-secondary" onclick="showScreen('island')" style="font-size:9px;padding:8px 12px;">← Isla</button>
-  </div>
-  <div class="inv-grid" id="invGrid"></div>
+  <div class="inv-h"><h2>🎒 Inventario</h2><button class="btn btn-secondary" onclick="showScreen('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div>
+  <div id="invC"></div>
 </div>
 
-<!-- ===== PORTAL ===== -->
 <div id="portal" class="screen">
-  <div class="portal-header">
-    <h2>🌍 Portal de Aventuras</h2>
-    <button class="btn btn-secondary" onclick="showScreen('island')" style="font-size:9px;padding:8px 12px;">← Isla</button>
-  </div>
-  <div class="worlds-grid" id="worldsGrid"></div>
+  <div class="portal-h"><h2>🌍 Portal de Aventuras</h2><button class="btn btn-secondary" onclick="showScreen('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div>
+  <div class="wg" id="wGrid"></div>
 </div>
 
-<!-- ===== ADMIN ===== -->
 <div id="admin" class="screen">
-  <div class="admin-header">
-    <h2>🔮 Panel Mamá</h2>
-    <button class="btn btn-secondary" onclick="showScreen('island')" style="font-size:9px;padding:8px 12px;">← Isla</button>
-  </div>
-  <div id="adminContent"></div>
+  <div class="admin-h"><h2>🔮 Panel Mamá</h2><button class="btn btn-secondary" onclick="showScreen('island')" style="font-size:9px;padding:8px 12px">← Isla</button></div>
+  <div id="adC"></div>
 </div>
 
-<!-- ===== PLACE ITEM MODAL ===== -->
-<div class="modal-overlay" id="placeModal">
-  <div class="modal-box">
-    <h3>Colocar item</h3>
-    <div class="modal-item-preview" id="modalItemPreview"></div>
-    <p id="modalItemText"></p>
-    <div class="modal-buttons">
-      <button class="btn btn-primary" onclick="confirmPlace()">✅ Aquí</button>
-      <button class="btn btn-secondary" onclick="cancelPlace()">❌ Cancelar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SECRET CODE MODAL ===== -->
-<div class="modal-overlay" id="codeModal">
-  <div class="modal-box">
-    <h3>🔒 Código Secreto</h3>
-    <p>Ingresa el código de 4 dígitos</p>
-    <div class="code-input">
-      <input type="number" maxlength="1" class="code-digit" data-idx="0">
-      <input type="number" maxlength="1" class="code-digit" data-idx="1">
-      <input type="number" maxlength="1" class="code-digit" data-idx="2">
-      <input type="number" maxlength="1" class="code-digit" data-idx="3">
-    </div>
-    <div class="modal-buttons">
-      <button class="btn btn-roblox" onclick="checkCode()">Entrar</button>
-      <button class="btn btn-secondary" onclick="closeCodeModal()">Cancelar</button>
-    </div>
+<div class="modal" id="codeM">
+  <div class="mbox">
+    <h3>🔒 Código Secreto</h3><p>Ingresa 4 dígitos</p>
+    <div class="code-input"><input type="number" maxlength="1" class="cd" data-i="0"><input type="number" maxlength="1" class="cd" data-i="1"><input type="number" maxlength="1" class="cd" data-i="2"><input type="number" maxlength="1" class="cd" data-i="3"></div>
+    <div class="mbtn"><button class="btn btn-roblox" onclick="checkCode()">Entrar</button><button class="btn btn-secondary" onclick="closeCode()">Cancelar</button></div>
   </div>
 </div>
 
 <script>
-// ===== CONSTANTES Y CONFIGURACIÓN =====
-const ADMIN_CODE = '2017'; // Año de nacimiento Magda
-const AVATARS = [
-  {id:'creeper', emoji:'👾', name:'Creeper'},
-  {id:'warrior', emoji:'⚔️', name:'Guerrera'},
-  {id:'cat', emoji:'🐱', name:'Gatita'},
-  {id:'star', emoji:'⭐', name:'Estrella'},
-  {id:'flower', emoji:'🌸', name:'Flor'},
-  {id:'dragon', emoji:'🐉', name:'Dragón'}
+const CODE='2017';
+const AVS=[{id:'creeper',e:'👾',n:'Creeper'},{id:'warrior',e:'⚔️',n:'Guerrera'},{id:'cat',e:'🐱',n:'Gatita'},{id:'star',e:'⭐',n:'Estrella'},{id:'flower',e:'🌸',n:'Flor'},{id:'dragon',e:'🐉',n:'Dragón'}];
+const WS=[{id:'lab',n:'Laboratorio de Pociones',i:'⚗️',d:'Lógica y números'},{id:'castillo',n:'Castillo Antiguo',i:'🏰',d:'Civilizaciones y geografía'},{id:'volcan',n:'Volcán de Fuego',i:'🌋',d:'Naturaleza y ciencia'},{id:'biblioteca',n:'Biblioteca Encantada',i:'📜',d:'Palabras y textos'},{id:'tierra',n:'Tierra Desconocida',i:'🗺️',d:'English adventures'}];
+const MOBS={alquimista:'🧙',creeper:'💚',capitan:'🏴‍☠️',virus:'🦠',libro:'📖',fantasma:'👻',trickster:'🎭'};
+
+const TUT=[
+  {e:'🎁',t:'¡Cada día un cofre!',p:'Todos los días aparece una misión nueva. Toca el cofre dorado para empezar.'},
+  {e:'⚔️',t:'Resuelve el desafío',p:'Lee la historia y elige la respuesta correcta. ¡Cuidado, el orden cambia cada vez!'},
+  {e:'🏝️',t:'Construye tu isla',p:'Cada misión te da un item. ¡Ponlo en tu isla y mírala crecer!'},
+  {e:'🌍',t:'Explora los mundos',p:'Toca "Más Misiones" para elegir qué mundo explorar.'}
 ];
+let tStep=0;
+function showTut(){tStep=0;document.getElementById('tut').classList.remove('hidden');renderTut();}
+function renderTut(){const s=TUT[tStep];document.getElementById('tutE').textContent=s.e;document.getElementById('tutT').textContent=s.t;document.getElementById('tutP').textContent=s.p;document.getElementById('tutB').textContent=tStep<TUT.length-1?'Siguiente →':'¡A jugar! 🎮';document.getElementById('tutD').innerHTML=TUT.map((_,i)=>`<div class="tut-dot ${i===tStep?'on':''}"></div>`).join('');}
+function nextTut(){tStep++;if(tStep>=TUT.length){document.getElementById('tut').classList.add('hidden');S.tutDone=true;save();}else renderTut();}
 
-const WORLDS = [
-  {id:'lab', name:'Laboratorio de Pociones', icon:'⚗️', desc:'Lógica y números', materia:'matematicas'},
-  {id:'castillo', name:'Castillo Antiguo', icon:'🏰', desc:'Civilizaciones y geografía', materia:'historia'},
-  {id:'volcan', name:'Volcán de Fuego', icon:'🌋', desc:'Naturaleza y ciencia', materia:'ciencias'},
-  {id:'biblioteca', name:'Biblioteca Encantada', icon:'📜', desc:'Palabras y textos', materia:'lenguaje'},
-  {id:'tierra', name:'Tierra Desconocida', icon:'🗺️', desc:'English adventures', materia:'ingles'}
-];
+function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 
-const MOBS = {
-  alquimista:'🧙', creeper:'💚', balanza:'⚖️', guerrero:'🦅',
-  capitan:'🏴‍☠️', troll:'👹', golem:'🗿', virus:'🦠',
-  esqueleto:'💀', libro:'📖', fantasma:'👻', puente:'🌉',
-  gate:'🚪', trickster:'🎭', diary:'📔'
-};
+function genBank(){
+  return[
+    {id:'lab_001',w:'lab',t:'combate',r:'epico',titulo:'El Patrón del Alquimista',
+     narr:'El Alquimista tiene una secuencia mágica:\n\n2, 6, 18, 54...\n\nCada número se obtiene haciendo LO MISMO con el anterior. ¿Cuál es el siguiente?',
+     combat:{mob:'alquimista',q:'¿Qué número sigue?',
+       opts:[{tx:'162',ok:true},{tx:'108',ok:false},{tx:'72',ok:false}],
+       fOk:'¡Exacto! Cada número se multiplica por 3: 2→6→18→54→162.',
+       fNo:'Fíjate: 2×3=6, 6×3=18, 18×3=54... ¿qué operación se repite?'},
+     item:{id:'estrella_1',n:'Estrella Guía',r:'epico',e:'⭐'}},
+    (function(){const tot=ri(15,40)*8,q=6,r=tot/q,tr=tot/8;
+      return{id:'lab_002',w:'lab',t:'combate',r:'epico',titulo:'El Inventario Imposible',
+        narr:`Tienes ${tot} bloques de oro para repartir en 8 cofres. Un creeper destruye 2 cofres ANTES de repartir.\n\nAhora repartes los mismos ${tot} bloques en ${q} cofres. ¿Cuántos por cofre?`,
+        combat:{mob:'creeper',q:'¿Cuántos bloques por cofre?',
+          opts:[{tx:`${r}`,ok:true},{tx:`${tr}`,ok:false},{tx:`${tr+2}`,ok:false}],
+          fOk:`¡Bien! ${tot} ÷ ${q} = ${r}. El truco: los cofres pasaron de 8 a ${q}.`,
+          fNo:`El creeper destruyó 2 cofres → quedan ${q}. Divide ${tot} ÷ ${q}.`},
+        item:{id:'dragon_1',n:'Huevo de Dragón',r:'epico',e:'🐉'}};})(),
+    {id:'lab_003',w:'lab',t:'explo',r:'raro',titulo:'La Poción Fraccionaria',
+     explo:{nodos:[
+       {tx:'El caldero necesita 1 litro. Ya echaste 3/8 de agua lunar y 2/8 de polvo estelar.\n\nTu asistente dice: "¡Ya pasamos la mitad!"\n\nPista: la mitad de 8/8 es 4/8. ¿Tiene razón?',
+        opts:[{tx:'Sí: 3/8 + 2/8 = 5/8, y 5/8 > 4/8',sig:1,ok:true},{tx:'No, todavía falta',sig:null,ok:false,fb:'Suma: 3/8 + 2/8 = 5/8. La mitad es 4/8. ¿5/8 es más que 4/8?'}]},
+       {tx:'¡Bien! 5/8 > 4/8 = ½\n\nSi agregas 2/8 más, ¿cuánto falta para 8/8?',
+        opts:[{tx:'1/8',sig:'win',ok:true},{tx:'3/8',sig:null,ok:false,fb:'5/8 + 2/8 = 7/8. De 7/8 a 8/8 falta...'},{tx:'2/8',sig:null,ok:false,fb:'Ya tienes 7/8 (5/8+2/8). Para llegar a 8/8 falta...'}]}
+     ]},item:{id:'cristal_1',n:'Cristal Azul',r:'raro',e:'💎'}},
 
-// ===== BANCO DE MISIONES =====
-function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+    {id:'cas_001',w:'castillo',t:'explo',r:'epico',titulo:'El Juicio de los Imperios',
+     explo:{nodos:[
+       {tx:'Tres civilizaciones presentan su mayor logro:\n\n🟢 MAYA: "Creamos jeroglíficos y descubrimos el cero."\n🔴 AZTECA: "Construimos Tenochtitlán sobre un lago."\n🟡 INCA: "40.000 km de caminos SIN rueda."\n\nSolo UNA desarrolló escritura. ¿Cuál?',
+        opts:[{tx:'Los mayas',sig:1,ok:true},{tx:'Los incas',sig:null,ok:false,fb:'Los incas NO tenían escritura. Usaban quipus (cuerdas con nudos). ¿Quiénes tenían jeroglíficos?'}]},
+       {tx:'¡Correcto! Los incas usaban quipus: cuerdas con nudos para registrar cantidades.\n\nSi servían para contar datos con nudos... ¿a qué se parecen más?',
+        opts:[{tx:'A una planilla de cálculo',sig:'win',ok:true},{tx:'A un libro',sig:null,ok:false,fb:'Un libro necesita escritura. Los quipus registraban NÚMEROS.'},{tx:'A un dibujo',sig:null,ok:false,fb:'Los quipus no eran visuales: cada nudo = una cantidad.'}]}
+     ]},item:{id:'fenix_1',n:'Huevo de Fénix',r:'epico',e:'🔥'}},
+    {id:'cas_002',w:'castillo',t:'combate',r:'raro',titulo:'El Mapa Viviente',
+     narr:'Tu isla: 33° Sur, 70° Oeste.\nUn mensaje: "Estoy en 0° de latitud, 78° Oeste."\n\n0° latitud = línea del Ecuador.\nTú estás en 33° SUR (bien abajo).\n\n¿Hacia dónde viajas?',
+     combat:{mob:'capitan',q:'¿Hacia dónde?',
+       opts:[{tx:'Norte (subir al Ecuador)',ok:true},{tx:'Sur (bajar más)',ok:false},{tx:'Este',ok:false}],
+       fOk:'¡Sí! El Ecuador está al NORTE de Chile. Y 33°S, 70°W es... ¡Santiago!',
+       fNo:'El Ecuador (0°) está ARRIBA de Chile (33°S). Para subir en el mapa vas al...'},
+     item:{id:'jardin_1',n:'Jardín Encantado',r:'raro',e:'🌺'}},
+    {id:'cas_003',w:'castillo',t:'explo',r:'raro',titulo:'¿Renovable o Perdido?',
+     explo:{nodos:[
+       {tx:'Tu aldea necesita energía:\n\n⛏️ Carbón (rinde mucho, se acaba)\n💨 Molinos de viento (no se acaba)\n🌲 Cortar TODOS los árboles (tardan 20 años)\n\n¿Cuál NO se renueva, cuál sí, y cuál SOLO si la cuidas?',
+        opts:[{tx:'Carbón=no renovable, Viento=renovable, Árboles=renovable si replanto',sig:1,ok:true},{tx:'Los tres son renovables',sig:null,ok:false,fb:'El carbón tardó MILLONES de años en formarse. Eso lo hace NO renovable.'}]},
+       {tx:'Si un recurso tarda MILLONES de años en formarse (petróleo), ¿se puede considerar renovable?',
+        opts:[{tx:'No, millones de años supera toda escala humana',sig:'win',ok:true},{tx:'Sí, eventualmente se forma',sig:null,ok:false,fb:'300 millones de años > toda la historia humana. Nadie puede esperar eso.'}]}
+     ]},item:{id:'fuente_1',n:'Fuente de Agua',r:'raro',e:'🌊'}},
 
-function generateBank(){
-  return [
-    // ⚗️ LABORATORIO — Matemáticas (con parámetros variables)
-    (function(){
-      const total = randInt(12,36)*10; // 120-360
-      const cofres = randInt(6,9);
-      const destruidos = randInt(2,3);
-      const quedan = cofres - destruidos;
-      const resp = total / quedan;
-      const trampa1 = total / cofres;
-      const trampa2 = Math.round(total / cofres) + destruidos;
-      return {
-        id:'lab_001', mundo:'lab', tipo:'combate', rareza:'epico',
-        titulo:'El Patrón del Alquimista',
-        narrativa:`El Alquimista tiene una secuencia mágica para activar los calderos. Los primeros números son: 2, 6, 18, 54... Cada número se obtiene haciendo LO MISMO con el anterior. ¿Cuál es el siguiente?`,
-        combate:{
-          mob:'alquimista',
-          pregunta:'¿Qué número sigue en la secuencia?',
-          opciones:[
-            {texto:'⚔️ 162', correcto:true},
-            {texto:'🗡️ 108', correcto:false},
-            {texto:'🏹 72', correcto:false}
-          ],
-          feedbackOk:'¡Exacto! Cada número se multiplica por 3. El patrón es ×3.',
-          feedbackFail:'Fíjate: 2×3=6, 6×3=18, 18×3=54... ¿qué operación se repite?'
-        },
-        item:{id:'estrella_1', nombre:'Estrella Guía', rareza:'epico', emoji:'⭐'},
-        _materia:'matematicas', _tema:'patrones'
-      };
-    })(),
-    (function(){
-      const total = randInt(15,40)*8; // divisible por 8
-      const cofres = 8;
-      const destruidos = 2;
-      const quedan = cofres - destruidos;
-      const resp = total / quedan;
-      const trampa1 = total / cofres;
-      return {
-        id:'lab_002', mundo:'lab', tipo:'combate', rareza:'epico',
-        titulo:'El Inventario Imposible',
-        narrativa:`Tienes ${total} bloques de oro. Necesitas repartir en partes iguales entre ${cofres} cofres. Pero un creeper explota y destruye ${destruidos} cofres ANTES de que termines. Ahora tienes que repartir los MISMOS ${total} bloques en los ${quedan} cofres que quedan. ¿Cuántos bloques van en cada cofre?`,
-        combate:{
-          mob:'creeper',
-          pregunta:`¿Cuántos bloques por cofre?`,
-          opciones:[
-            {texto:`⚔️ ${resp} bloques`, correcto:true},
-            {texto:`🗡️ ${trampa1} bloques`, correcto:false},
-            {texto:`🏹 ${trampa1 + destruidos} bloques`, correcto:false}
-          ],
-          feedbackOk:`¡Bien razonado! ${total} ÷ ${quedan} cofres = ${resp}. El truco era darse cuenta de que los cofres destruidos cambian la división.`,
-          feedbackFail:`Cuidado: el creeper destruyó ${destruidos} cofres, así que ya no son ${cofres} sino ${quedan}. Divide ${total} ÷ ${quedan}.`
-        },
-        item:{id:'dragon_1', nombre:'Huevo de Dragón', rareza:'epico', emoji:'🐉'},
-        _materia:'matematicas', _tema:'division_multistep'
-      };
-    })(),
-    {
-      id:'lab_003', mundo:'lab', tipo:'exploracion', rareza:'raro',
-      titulo:'La Poción Fraccionaria',
-      exploracion:{
-        nodos:[
-          {
-            texto:`El caldero necesita exactamente 1 litro de poción. Ya echaste 3/8 de litro de agua lunar y 2/8 de polvo estelar. Tu asistente dice: "¡Ya pasamos la mitad!" ¿Tiene razón?`,
-            opciones:[
-              {texto:'Sí tiene razón: 5/8 es más que la mitad (4/8)', siguiente:1, correcto:true},
-              {texto:'No, todavía no llegamos a la mitad', siguiente:null, correcto:false,
-               feedback:'Piensa: la mitad de 8/8 es 4/8. Si tienes 5/8, ¿es más o menos que 4/8?'}
-            ]
-          },
-          {
-            texto:`¡Bien razonado! 5/8 > 4/8 = 1/2. Ahora: si agregas 2/8 más al caldero, ¿cuánto te falta para llegar a 8/8 (el litro completo)?`,
-            opciones:[
-              {texto:'1/8', siguiente:'victoria', correcto:true},
-              {texto:'3/8', siguiente:null, correcto:false,
-               feedback:'Veamos: 5/8 + 2/8 = 7/8. Si el total es 8/8, ¿cuánto falta?'},
-              {texto:'2/8', siguiente:null, correcto:false,
-               feedback:'Cuidado: ya tienes 5/8 y sumas 2/8 = 7/8. Ahora calcula cuánto falta para 8/8.'}
-            ]
-          }
-        ]
-      },
-      item:{id:'cristal_1', nombre:'Cristal Azul', rareza:'raro', emoji:'💎'},
-      _materia:'matematicas', _tema:'fracciones'
-    },
+    {id:'vol_001',w:'volcan',t:'explo',r:'epico',titulo:'Diseña tu Mob',
+     explo:{nodos:[
+       {tx:'Spawneaste en tundra helada. Diseña un mob.\n\nOso polar: blanco y grueso.\nCamaleón del desierto: delgado.\n\n¿Por qué el oso NO es delgado y verde?',
+        opts:[{tx:'Blanco para camuflarse, grueso para retener calor',sig:1,ok:true},{tx:'Los osos siempre son así',sig:null,ok:false,fb:'Se ADAPTARON al frío durante miles de generaciones.'}]},
+       {tx:'Zorros del Ártico: orejas PEQUEÑAS.\nZorros del desierto: orejas ENORMES.\n\nOrejas grandes = soltar calor.\n¿Qué orejas le pones a tu mob de tundra?',
+        opts:[{tx:'Pequeñas (conserva calor)',sig:'win',ok:true},{tx:'Grandes (mejor audición)',sig:null,ok:false,fb:'En el frío, perder calor por orejas grandes es peligroso.'}]}
+     ]},item:{id:'gato_1',n:'Gatito Pixelado',r:'epico',e:'🐱'}},
+    {id:'vol_002',w:'volcan',t:'combate',r:'raro',titulo:'La Cadena Rota',
+     narr:'Cadena alimentaria:\n🌿 Pasto → 🐰 Conejo → 🦊 Zorro → 🦁 Puma\n\nUn virus eliminó a TODOS los conejos.\n\nPiensa en DOS direcciones:\n↑ Sin conejos, ¿qué come el zorro?\n↓ Sin conejos, ¿qué pasa con el pasto?',
+     combat:{mob:'virus',q:'¿Qué pasa sin conejos?',
+       opts:[{tx:'Zorros bajan Y pasto crece sin control',ok:true},{tx:'Solo los zorros mueren',ok:false},{tx:'El puma come pasto',ok:false}],
+       fOk:'¡Perfecto! Sin conejos → menos zorros (arriba) Y más pasto (abajo). Todo conectado.',
+       fNo:'Piensa arriba Y abajo: ¿quién se queda sin comida? ¿quién deja de ser comido?'},
+     item:{id:'arbol_1',n:'Árbol Gigante',r:'raro',e:'🌳'}},
+    {id:'vol_003',w:'volcan',t:'explo',r:'raro',titulo:'Terremoto en la Mina',
+     explo:{nodos:[
+       {tx:'La mina tiembla. "La corteza terrestre está rota en placas. Chile está donde DOS placas se empujan."\n\nSi se empujan como dos manos... ¿qué pasa donde chocan?',
+        opts:[{tx:'La energía se libera de golpe = terremoto',sig:1,ok:true},{tx:'Las placas se rompen y desaparecen',sig:null,ok:false,fb:'Imagina dos libros empujados: acumulan presión hasta que uno salta.'}]},
+       {tx:'Si el terremoto ocurre bajo el mar, provoca una ola gigante. ¿Cómo se llama?',
+        opts:[{tx:'Tsunami',sig:'win',ok:true},{tx:'Huracán',sig:null,ok:false,fb:'Los huracanes son tormentas de viento. La ola de un terremoto submarino = TSUNAMI.'},{tx:'Erupción',sig:null,ok:false,fb:'Eso es de volcanes. La ola = TSUNAMI.'}]}
+     ]},item:{id:'cabana_1',n:'Cabaña Pequeña',r:'raro',e:'🏠'}},
 
-    // 🏰 CASTILLO — Historia
-    {
-      id:'cas_001', mundo:'castillo', tipo:'exploracion', rareza:'epico',
-      titulo:'El Juicio de los Imperios',
-      exploracion:{
-        nodos:[
-          {
-            texto:`Eres jueza en un torneo entre tres civilizaciones.\n\n🟢 MAYA: "Creamos un sistema de escritura con jeroglíficos y descubrimos el concepto del cero."\n🔴 AZTECA: "Construimos Tenochtitlán, una ciudad de 200.000 personas sobre un lago, con canales y puentes."\n🟡 INCA: "Conectamos 40.000 km de caminos por montañas de 4.000 metros, SIN usar la rueda."\n\nSolo UNA desarrolló un sistema de escritura completo. ¿Cuál?`,
-            opciones:[
-              {texto:'Los mayas', siguiente:1, correcto:true},
-              {texto:'Los incas', siguiente:null, correcto:false,
-               feedback:'Justamente los incas lograron un imperio enorme SIN escritura. Usaban quipus (cuerdas con nudos). ¿Quiénes tenían jeroglíficos?'}
-            ]
-          },
-          {
-            texto:`¡Correcto! Los incas NO tenían escritura, pero inventaron los quipus: cuerdas con nudos para llevar registros y cuentas. Si los quipus servían para contar y registrar datos con nudos... ¿a qué se parecen más?`,
-            opciones:[
-              {texto:'A una planilla de cálculo', siguiente:'victoria', correcto:true},
-              {texto:'A un libro', siguiente:null, correcto:false,
-               feedback:'Un libro necesita escritura. Los quipus registraban NÚMEROS y cantidades con nudos, como una hoja de cálculo antigua.'},
-              {texto:'A un dibujo', siguiente:null, correcto:false,
-               feedback:'Los quipus no eran visuales sino numéricos: cada nudo representaba una cantidad. Piensa en algo que organice datos...'}
-            ]
-          }
-        ]
-      },
-      item:{id:'dragon_2', nombre:'Huevo de Fénix', rareza:'epico', emoji:'🔥'},
-      _materia:'historia', _tema:'civilizaciones'
-    },
-    {
-      id:'cas_002', mundo:'castillo', tipo:'combate', rareza:'raro',
-      titulo:'El Mapa Viviente',
-      narrativa:`Un mapa mágico muestra que tu isla está en 33° Sur, 70° Oeste. Un mensaje en una botella dice: "Ayuda, estoy en 0° de latitud, 78° Oeste."\n\nSi 0° de latitud es la línea del Ecuador, y tú estás en 33° SUR (bien abajo del Ecuador)... ¿hacia dónde tienes que viajar para llegar al mensaje?`,
-      combate:{
-        mob:'capitan',
-        pregunta:'¿Hacia dónde viajas?',
-        opciones:[
-          {texto:'⚔️ Hacia el norte (subir al Ecuador)', correcto:true},
-          {texto:'🗡️ Hacia el sur (bajar más)', correcto:false},
-          {texto:'🏹 Hacia el este', correcto:false}
-        ],
-        feedbackOk:'¡Sí! El Ecuador está al NORTE de Chile. Si estás en 33°S y quieres llegar a 0°, subes hacia el norte. De hecho, esas coordenadas (33°S, 70°W) son Santiago de Chile.',
-        feedbackFail:'Piensa en un mapa: el Ecuador (0°) está ARRIBA de Chile (33° Sur). Para ir de abajo hacia arriba en un mapa, ¿en qué dirección vas?'
-      },
-      item:{id:'jardin_1', nombre:'Jardín Encantado', rareza:'raro', emoji:'🌺'},
-      _materia:'historia', _tema:'coordenadas'
-    },
-    {
-      id:'cas_003', mundo:'castillo', tipo:'exploracion', rareza:'raro',
-      titulo:'¿Renovable o Perdido?',
-      exploracion:{
-        nodos:[
-          {
-            texto:`Tu aldea necesita energía. Tres opciones:\n\n⛏️ Quemar carbón de la mina (rinde mucho pero se va a acabar)\n💨 Poner molinos de viento (rinde menos pero el viento no se acaba)\n🌲 Cortar TODOS los árboles para leña (rinde bien pero tardan 20 años en crecer)\n\n¿Cuál es NO renovable, cuál es renovable, y cuál es renovable SOLO si la cuidas?`,
-            opciones:[
-              {texto:'Carbón = no renovable, Viento = renovable, Árboles = renovable si los replanto', siguiente:1, correcto:true},
-              {texto:'Los tres son renovables porque la Tierra los produce', siguiente:null, correcto:false,
-               feedback:'El carbón tardó MILLONES de años en formarse bajo tierra. Cuando se acaba, no puedes esperar millones de años. Eso lo hace NO renovable.'}
-            ]
-          },
-          {
-            texto:`¡Perfecto! Ahora la pregunta difícil: si un recurso tarda MILLONES de años en formarse (como el petróleo), ¿se puede considerar renovable aunque técnicamente se vuelva a formar algún día?`,
-            opciones:[
-              {texto:'No, porque el tiempo supera toda escala humana', siguiente:'victoria', correcto:true},
-              {texto:'Sí, porque eventualmente se forma', siguiente:null, correcto:false,
-               feedback:'En teoría sí se forma, pero si tarda 300 millones de años... nadie puede esperar eso. Por eso se clasifica como NO renovable.'}
-            ]
-          }
-        ]
-      },
-      item:{id:'fuente_1', nombre:'Fuente de Agua', rareza:'raro', emoji:'🌊'},
-      _materia:'historia', _tema:'recursos'
-    },
+    {id:'bib_001',w:'biblioteca',t:'explo',r:'epico',titulo:'El Diario Misterioso',
+     explo:{nodos:[
+       {tx:'"Día 12. Las provisiones se acaban. El barco no aparece. Vi humo en la isla de enfrente pero no tengo cómo cruzar. Tallé otra marca en el árbol — ya son doce."\n\n¿Dónde está esta persona?',
+        opts:[{tx:'En una isla, náufraga',sig:1,ok:true},{tx:'En un barco',sig:null,ok:false,fb:'"El barco no aparece" (lo espera) y "no tengo cómo cruzar". Si estuviera en un barco, podría cruzar.'}]},
+       {tx:'"Tallé otra marca en el árbol — ya son doce."\n\n¿Para qué hace marcas?',
+        opts:[{tx:'Para contar los días',sig:'win',ok:true},{tx:'Para decorar',sig:null,ok:false,fb:'"Ya son doce" y es "Día 12". Coincidencia? No.'},{tx:'Para cortar el árbol',sig:null,ok:false,fb:'"Tallé una MARCA" = señal. "Ya son doce" = lleva la cuenta.'}]}
+     ]},item:{id:'estrella_2',n:'Estrella del Norte',r:'epico',e:'🌟'}},
+    {id:'bib_002',w:'biblioteca',t:'combate',r:'raro',titulo:'Ortografía de Combate',
+     narr:'UNA oración está perfecta. Las otras tienen error:\n\nA) "El médico dijo que ahí hay una farmácia."\nB) "Mi mamá compró un plátano y un limón."\nC) "Ahi hay un árbol que da sombra."',
+     combat:{mob:'fantasma',q:'¿Cuál está perfecta?',
+       opts:[{tx:'B: mamá, plátano, limón',ok:true},{tx:'A: médico, farmácia',ok:false},{tx:'C: Ahi, árbol',ok:false}],
+       fOk:'¡Sí! A: "farmacia" NO lleva tilde (grave terminada en vocal). C: "ahí" necesita tilde.',
+       fNo:'"Farmácia" no existe (es grave+vocal = sin tilde). "Ahi" → "ahí". Solo B está bien.'},
+     item:{id:'arcoiris_1',n:'Arcoíris',r:'raro',e:'🌈'}},
+    {id:'bib_003',w:'biblioteca',t:'combate',r:'raro',titulo:'El Cuento Desordenado',
+     narr:'Páginas mezcladas:\n\n1) "Tomó su espada y salió del castillo."\n2) "Después de vencer al dragón, volvió como héroe."\n3) "Había una vez un caballero que recibió una misión."\n\n¿En qué ORDEN van?',
+     combat:{mob:'libro',q:'¿Orden correcto?',
+       opts:[{tx:'3 → 1 → 2',ok:true},{tx:'1 → 3 → 2',ok:false},{tx:'2 → 3 → 1',ok:false}],
+       fOk:'Recibe misión (3) → sale (1) → vuelve héroe (2). Inicio → desarrollo → cierre.',
+       fNo:'"Había una vez" = INICIO. Volver como héroe = FINAL. ¿Qué pasa entre medio?'},
+     item:{id:'cofre_1',n:'Cofre de Madera',r:'raro',e:'📦'}},
 
-    // 🌋 VOLCÁN — Ciencias
-    {
-      id:'vol_001', mundo:'volcan', tipo:'exploracion', rareza:'epico',
-      titulo:'Diseña tu Mob',
-      exploracion:{
-        nodos:[
-          {
-            texto:`Spawneaste en un bioma de tundra helada. Quieres diseñar un mob que sobreviva acá.\n\nUn oso polar tiene pelaje blanco y grueso. Un camaleón del desierto es delgado y cambia de color.\n\n¿Por qué el oso NO es delgado y verde?`,
-            opciones:[
-              {texto:'Blanco para camuflarse en la nieve y grueso para retener calor', siguiente:1, correcto:true},
-              {texto:'Porque los osos siempre son así', siguiente:null, correcto:false,
-               feedback:'¡Los osos no siempre fueron así! Se ADAPTARON al frío durante miles de generaciones. Piensa: en un lugar helado, ¿qué necesitas para sobrevivir?'}
-            ]
-          },
-          {
-            texto:`¡Exacto! Ahora las orejas. Los zorros del Ártico tienen orejas PEQUEÑAS y los zorros del desierto tienen orejas ENORMES.\n\nSi las orejas grandes ayudan a SOLTAR calor... ¿qué orejas le pones a tu mob de tundra?`,
-            opciones:[
-              {texto:'Pequeñas (conserva calor)', siguiente:'victoria', correcto:true},
-              {texto:'Grandes (más audición)', siguiente:null, correcto:false,
-               feedback:'La audición importa, pero en un bioma helado PERDER calor por orejas grandes es peligroso. Los zorros árticos tienen orejas chicas justamente para no perder calor.'}
-            ]
-          }
-        ]
-      },
-      item:{id:'gato_1', nombre:'Gatito Pixelado', rareza:'epico', emoji:'🐱'},
-      _materia:'ciencias', _tema:'adaptaciones'
-    },
-    {
-      id:'vol_002', mundo:'volcan', tipo:'combate', rareza:'raro',
-      titulo:'La Cadena Rota',
-      narrativa:`En tu bioma hay esta cadena alimentaria:\n\n🌿 Pasto → 🐰 Conejo → 🦊 Zorro → 🦁 Puma\n\nUn virus misterioso eliminó a TODOS los conejos. ¿Qué le pasa al resto de la cadena?\n\nPiensa: sin conejos, ¿qué come el zorro? Y si hay menos zorros... ¿qué pasa con el pasto que ya nadie se come?`,
-      combate:{
-        mob:'virus',
-        pregunta:'¿Qué pasa si desaparecen los conejos?',
-        opciones:[
-          {texto:'⚔️ Zorros bajan (sin comida) Y el pasto crece sin control', correcto:true},
-          {texto:'🗡️ Solo los zorros mueren, el resto no cambia', correcto:false},
-          {texto:'🏹 El puma come pasto en vez de zorros', correcto:false}
-        ],
-        feedbackOk:'¡Perfecto! La cadena completa se desbalancea: sin conejos → menos zorros Y más pasto sin control. Todo está conectado.',
-        feedbackFail:'Piensa en las DOS direcciones: hacia arriba (¿quién se queda sin comida?) y hacia abajo (¿quién deja de ser comido?). La cadena afecta a todos.'
-      },
-      item:{id:'arbol_1', nombre:'Árbol Gigante', rareza:'raro', emoji:'🌳'},
-      _materia:'ciencias', _tema:'cadena_alimentaria'
-    },
-    {
-      id:'vol_003', mundo:'volcan', tipo:'exploracion', rareza:'raro',
-      titulo:'Terremoto en la Mina',
-      exploracion:{
-        nodos:[
-          {
-            texto:`La mina tiembla. Un geólogo te explica: "La Tierra tiene corteza, manto y núcleo. La corteza está rota en pedazos gigantes llamados placas tectónicas. Chile está donde DOS placas se empujan."\n\nSi las placas se empujan como dos manos haciendo fuerza, ¿qué pasa en el borde donde chocan?`,
-            opciones:[
-              {texto:'La energía acumulada se libera de golpe — eso es un terremoto', siguiente:1, correcto:true},
-              {texto:'Las placas se rompen y se destruyen', siguiente:null, correcto:false,
-               feedback:'No se destruyen. Imagina que empujas dos libros uno contra otro: acumulan presión hasta que uno salta. Esa liberación de energía es el terremoto.'}
-            ]
-          },
-          {
-            texto:`¡Sí! Si un terremoto ocurre bajo el mar, puede provocar algo aún más peligroso. El agua del mar se mueve como una ola gigante. ¿Cómo se llama?`,
-            opciones:[
-              {texto:'Tsunami', siguiente:'victoria', correcto:true},
-              {texto:'Huracán', siguiente:null, correcto:false,
-               feedback:'Los huracanes son tormentas de viento. Lo que produce un terremoto submarino es una ola gigante: un TSUNAMI.'},
-              {texto:'Erupción', siguiente:null, correcto:false,
-               feedback:'Una erupción es de un volcán. La ola gigante causada por un terremoto bajo el mar se llama TSUNAMI.'}
-            ]
-          }
-        ]
-      },
-      item:{id:'cabana_1', nombre:'Cabaña Pequeña', rareza:'raro', emoji:'🏠'},
-      _materia:'ciencias', _tema:'tectonica'
-    },
-
-    // 📜 BIBLIOTECA — Lenguaje
-    {
-      id:'bib_001', mundo:'biblioteca', tipo:'exploracion', rareza:'epico',
-      titulo:'El Diario Misterioso',
-      exploracion:{
-        nodos:[
-          {
-            texto:`Encuentras un diario viejo. La última página dice:\n\n"Día 12. Las provisiones se acaban. El barco no aparece. Ayer vi humo en la isla de enfrente pero no tengo cómo cruzar. Tallé otra marca en el árbol — ya son doce. Si no viene nadie esta semana, tendré que construir algo para flotar."\n\n¿Dónde está la persona que escribió esto?`,
-            opciones:[
-              {texto:'En una isla, probablemente náufraga', siguiente:1, correcto:true},
-              {texto:'En un barco en el mar', siguiente:null, correcto:false,
-               feedback:'Fíjate: dice "el barco no aparece" (lo espera desde afuera) y "no tengo cómo cruzar" a otra isla. Si estuviera EN un barco, podría cruzar...'}
-            ]
-          },
-          {
-            texto:`¡Buena inferencia! El texto dice "tallé otra marca en el árbol — ya son doce." ¿Para qué hace marcas en el árbol?`,
-            opciones:[
-              {texto:'Para contar los días que lleva ahí', siguiente:'victoria', correcto:true},
-              {texto:'Para decorar', siguiente:null, correcto:false,
-               feedback:'¿Decorar estando náufrago? Fíjate que dice "ya son doce" y el diario dice "Día 12". Esos números coinciden por una razón...'},
-              {texto:'Para cortar el árbol', siguiente:null, correcto:false,
-               feedback:'Si quisiera cortar el árbol diría eso directamente. "Tallé otra MARCA" es una señal, y "ya son doce" = lleva la cuenta de algo...'}
-            ]
-          }
-        ]
-      },
-      item:{id:'estrella_2', nombre:'Estrella del Norte', rareza:'epico', emoji:'🌟'},
-      _materia:'lenguaje', _tema:'inferencia'
-    },
-    {
-      id:'bib_002', mundo:'biblioteca', tipo:'combate', rareza:'raro',
-      titulo:'Ortografía de Combate',
-      narrativa:`El fantasma bibliotecario te reta: "Una de estas oraciones tiene TODO bien escrito. Las otras dos tienen un error escondido. ¡Encuéntrala!"\n\nA) "El médico dijo que ahí hay una farmácia."\nB) "Mi mamá compró un plátano y un limón."\nC) "Ahi hay un árbol que da sombra."`,
-      combate:{
-        mob:'fantasma',
-        pregunta:'¿Cuál oración está perfecta?',
-        opciones:[
-          {texto:'⚔️ La B: mamá, plátano, limón', correcto:true},
-          {texto:'🗡️ La A: médico, ahí, farmácia', correcto:false},
-          {texto:'🏹 La C: Ahi, árbol', correcto:false}
-        ],
-        feedbackOk:'¡Sí! B está perfecta. A tiene error: "farmacia" NO lleva tilde (es grave terminada en vocal). C tiene error: "ahí" lleva tilde y falta.',
-        feedbackFail:'Revisa las tildes: "farmácia" no existe (farmacia es grave terminada en vocal, no lleva tilde). "Ahi" necesita tilde → "ahí". Solo la B tiene todas las tildes correctas.'
-      },
-      item:{id:'arcoiris_1', nombre:'Arcoíris Permanente', rareza:'raro', emoji:'🌈'},
-      _materia:'lenguaje', _tema:'ortografia'
-    },
-    {
-      id:'bib_003', mundo:'biblioteca', tipo:'combate', rareza:'raro',
-      titulo:'El Cuento Desordenado',
-      narrativa:`Un libro se cayó y las páginas se mezclaron. Tres escenas:\n\n1) "Tomó su espada y salió del castillo hacia el bosque oscuro."\n2) "Después de vencer al dragón, volvió como héroe y el reino celebró."\n3) "Había una vez un caballero que recibió una misión del rey."\n\n¿En qué ORDEN van para que la historia tenga sentido?`,
-      combate:{
-        mob:'libro',
-        pregunta:'¿Cuál es el orden correcto?',
-        opciones:[
-          {texto:'⚔️ 3 → 1 → 2', correcto:true},
-          {texto:'🗡️ 1 → 3 → 2', correcto:false},
-          {texto:'🏹 2 → 3 → 1', correcto:false}
-        ],
-        feedbackOk:'¡Perfecto! Primero recibe la misión (3), luego sale a cumplirla (1), finalmente vuelve victorioso (2). Inicio → desarrollo → desenlace.',
-        feedbackFail:'Piensa en la estructura: ¿qué pasa PRIMERO? "Había una vez" siempre es el inicio. ¿Y qué pasa AL FINAL? Volver como héroe es el cierre.'
-      },
-      item:{id:'cofre_1', nombre:'Cofre de Madera', rareza:'raro', emoji:'📦'},
-      _materia:'lenguaje', _tema:'secuencia'
-    },
-
-    // 🗺️ TIERRA DESCONOCIDA — Inglés (nivel bilingüe)
-    {
-      id:'tie_001', mundo:'tierra', tipo:'exploracion', rareza:'raro',
-      titulo:'The Riddle Gate',
-      exploracion:{
-        nodos:[
-          {
-            texto:`A stone gate blocks your path. There's a riddle carved on it:\n\n"I have cities, but no houses.\nI have forests, but no trees.\nI have rivers, but no water.\nWhat am I?"\n\nThink: what SHOWS all those things without actually HAVING them?`,
-            opciones:[
-              {texto:'A map', siguiente:1, correcto:true},
-              {texto:'A dream', siguiente:null, correcto:false,
-               feedback:'Good thinking, but a dream can have real trees and water in it. What REPRESENTS those things without having the real ones?'}
-            ]
-          },
-          {
-            texto:`The gate opens! Inside, another riddle:\n\n"The more you take, the more you leave behind. What are they?"`,
-            opciones:[
-              {texto:'Footsteps', siguiente:'victoria', correcto:true},
-              {texto:'Coins', siguiente:null, correcto:false,
-               feedback:'If you take coins, you leave FEWER behind, not more. Think about something where taking a step actually CREATES something behind you...'},
-              {texto:'Blocks', siguiente:null, correcto:false,
-               feedback:'Taking blocks means fewer blocks left. Think about something where each one you "take" actually LEAVES a mark behind you...'}
-            ]
-          }
-        ]
-      },
-      item:{id:'cabana_2', nombre:'Cabaña del Explorador', rareza:'raro', emoji:'🏡'},
-      _materia:'ingles', _tema:'riddles'
-    },
-    {
-      id:'tie_002', mundo:'tierra', tipo:'exploracion', rareza:'epico',
-      titulo:'The Unreliable Diary',
-      exploracion:{
-        nodos:[
-          {
-            texto:`You find a diary in the dungeon:\n\n"June 15. I've been walking for three days. My shoes are worn out and my backpack feels heavier every hour. I thought I heard wolves last night but it might have been the wind. Tomorrow I'll reach the mountain pass — if the weather holds."\n\nIs the writer SURE they heard wolves?`,
-            opciones:[
-              {texto:'No — they said "it might have been the wind"', siguiente:1, correcto:true},
-              {texto:'Yes — they heard wolves', siguiente:null, correcto:false,
-               feedback:'Read carefully: "it MIGHT have been the wind." The word "might" means they\'re not certain. That\'s an important difference!'}
-            ]
-          },
-          {
-            texto:`Great inference! "Might have been" shows uncertainty.\n\nNow: the writer says "if the weather holds." What does that tell you about reaching the mountain pass?`,
-            opciones:[
-              {texto:'They\'re not sure — bad weather could stop them', siguiente:'victoria', correcto:true},
-              {texto:'They\'re confident they\'ll arrive', siguiente:null, correcto:false,
-               feedback:'"IF the weather holds" is a condition — it means their plan depends on something they can\'t control. That\'s uncertainty, not confidence.'}
-            ]
-          }
-        ]
-      },
-      item:{id:'torre_1', nombre:'Torre de Vigía', rareza:'epico', emoji:'🏰'},
-      _materia:'ingles', _tema:'inference'
-    },
-    {
-      id:'tie_003', mundo:'tierra', tipo:'combate', rareza:'raro',
-      titulo:'The Grammar Trap',
-      narrativa:`The Trickster challenges you with sentences that SOUND right but might be wrong.\n\n"Each of the players _____ their own strategy."\n\nThe tricky part: "each" is SINGULAR even though it talks about many players. So the verb must match "each," not "players."`,
-      combate:{
-        mob:'trickster',
-        pregunta:'Which is correct?',
-        opciones:[
-          {texto:'⚔️ "has"', correcto:true},
-          {texto:'🗡️ "have"', correcto:false},
-          {texto:'🏹 "are having"', correcto:false}
-        ],
-        feedbackOk:'Correct! "Each" is always singular → "each HAS." It\'s a classic grammar trap because "players" is right next to the blank and sounds plural.',
-        feedbackFail:'"Each" is always singular, even when followed by "of the players." The verb matches the subject (each), not the prepositional phrase (of the players).'
-      },
-      item:{id:'planta_1', nombre:'Planta Misteriosa', rareza:'raro', emoji:'🌿'},
-      _materia:'ingles', _tema:'grammar'
-    }
+    {id:'tie_001',w:'tierra',t:'explo',r:'raro',titulo:'The Riddle Gate',
+     explo:{nodos:[
+       {tx:'A stone gate with a riddle:\n\n"I have cities, but no houses.\nI have forests, but no trees.\nI have rivers, but no water.\nWhat am I?"\n\nWhat SHOWS those things without HAVING them?',
+        opts:[{tx:'A map',sig:1,ok:true},{tx:'A dream',sig:null,ok:false,fb:'A dream can have real trees. What REPRESENTS them without having the real ones?'}]},
+       {tx:'The gate opens! Another riddle:\n\n"The more you take, the more you leave behind. What are they?"',
+        opts:[{tx:'Footsteps',sig:'win',ok:true},{tx:'Coins',sig:null,ok:false,fb:'Taking coins = fewer left. What CREATES more the more you take?'},{tx:'Blocks',sig:null,ok:false,fb:'Taking blocks = fewer. What LEAVES a mark each time?'}]}
+     ]},item:{id:'cabana_2',n:'Explorer\'s Cabin',r:'raro',e:'🏡'}},
+    {id:'tie_002',w:'tierra',t:'explo',r:'epico',titulo:'The Unreliable Diary',
+     explo:{nodos:[
+       {tx:'"June 15. Walking for three days. Shoes worn out. I thought I heard wolves but it might have been the wind. Tomorrow I\'ll reach the pass — if the weather holds."\n\nIs the writer SURE they heard wolves?',
+        opts:[{tx:'No — "might have been the wind"',sig:1,ok:true},{tx:'Yes, they heard wolves',sig:null,ok:false,fb:'"MIGHT have been" = not certain. Important difference!'}]},
+       {tx:'"If the weather holds" — what does that tell you?',
+        opts:[{tx:'Not sure — weather could stop them',sig:'win',ok:true},{tx:'Confident they\'ll arrive',sig:null,ok:false,fb:'"IF" = condition. Plan depends on something they can\'t control.'}]}
+     ]},item:{id:'torre_1',n:'Watchtower',r:'epico',e:'🏰'}},
+    {id:'tie_003',w:'tierra',t:'combate',r:'raro',titulo:'The Grammar Trap',
+     narr:'"Each of the players _____ their own strategy."\n\nTricky: "each" is SINGULAR even though "players" is plural.\nThe verb must match "each."',
+     combat:{mob:'trickster',q:'Which is correct?',
+       opts:[{tx:'"has"',ok:true},{tx:'"have"',ok:false},{tx:'"are having"',ok:false}],
+       fOk:'"Each" = singular → "each HAS." The trap: "players" sounds plural.',
+       fNo:'"Each" is always singular. Verb matches "each," not "of the players."'},
+     item:{id:'planta_1',n:'Mystery Plant',r:'raro',e:'🌿'}}
   ];
 }
 
-// ===== ESTADO DEL JUEGO =====
-let STATE = {};
-let BANK = [];
-let currentMission = null;
-let currentExplorationNode = 0;
-let placingItem = null;
-let placingCell = null;
+// STATE
+let S={},BANK=[],curM=null,curN=0,plItem=null;
+function defS(){return{perfil:null,isla:Array(6).fill(null).map(()=>Array(6).fill(null)),inv:[],done:[],racha:{a:0,m:0,u:null},diaria:{f:null,id:null,c:false},tutDone:false};}
+function load(){try{const s=localStorage.getItem('bq');S=s?JSON.parse(s):defS();}catch(e){S=defS();}}
+function save(){localStorage.setItem('bq',JSON.stringify(S));}
 
-function defaultState(){
-  return {
-    perfil: null,
-    isla: Array(6).fill(null).map(()=>Array(6).fill(null)),
-    inventario: [],
-    completadas: [],
-    racha: {actual:0, mejor:0, ultima_fecha:null},
-    diaria: {fecha:null, id_mision:null, completada:false}
-  };
-}
-
-function loadState(){
-  try {
-    const saved = localStorage.getItem('bq_state');
-    if(saved) STATE = JSON.parse(saved);
-    else STATE = defaultState();
-  } catch(e){ STATE = defaultState(); }
-}
-function saveState(){ localStorage.setItem('bq_state', JSON.stringify(STATE)); }
-
-// ===== INICIALIZACIÓN =====
 function init(){
-  loadState();
-  BANK = generateBank();
-  if(STATE.perfil){
-    renderIsland();
-    showScreen('island');
-  } else {
-    renderAvatars();
-    showScreen('splash');
-  }
-  setupAdminTrigger();
-  setupCodeInputs();
+  load();BANK=genBank();
+  if(S.perfil){renderIsland();showScreen('island');if(!S.tutDone)showTut();}
+  else{renderAv();showScreen('splash');}
+  setupAdmin();setupCode();
 }
 
-function renderAvatars(){
-  const grid = document.getElementById('avatarGrid');
-  grid.innerHTML = AVATARS.map(a=>`
-    <div class="avatar-option" data-id="${a.id}" onclick="selectAvatar('${a.id}')">
-      ${a.emoji}<span>${a.name}</span>
-    </div>
-  `).join('');
-}
-
-let selectedAvatar = null;
-function selectAvatar(id){
-  selectedAvatar = id;
-  document.querySelectorAll('.avatar-option').forEach(el=>{
-    el.classList.toggle('selected', el.dataset.id===id);
-  });
-}
-
+function renderAv(){document.getElementById('avGrid').innerHTML=AVS.map(a=>`<div class="avatar-option" data-id="${a.id}" onclick="selAv('${a.id}')">${a.e}<span>${a.n}</span></div>`).join('');}
+let selAvatar=null;
+function selAv(id){selAvatar=id;document.querySelectorAll('.avatar-option').forEach(el=>el.classList.toggle('selected',el.dataset.id===id));}
 function startGame(){
-  const name = document.getElementById('playerName').value.trim();
-  if(!name){ document.getElementById('playerName').focus(); return; }
-  if(!selectedAvatar){ return; }
-  STATE.perfil = { nombre:name, avatar:selectedAvatar, fecha_inicio:todayStr() };
-  // Poner un arbolito inicial en la isla
-  STATE.isla[2][3] = {id:'arbol_inicio', nombre:'Árbol Inicial', emoji:'🌲'};
-  saveState();
-  renderIsland();
-  showScreen('island');
+  const n=document.getElementById('pName').value.trim();
+  if(!n||!selAvatar)return;
+  S.perfil={nombre:n,avatar:selAvatar,fi:todayS()};
+  S.isla[2][3]={id:'arbol_0',n:'Árbol Inicial',e:'🌲'};
+  save();renderIsland();showScreen('island');showTut();
 }
 
-// ===== PANTALLAS =====
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  if(id==='island') renderIsland();
-  if(id==='inventory') renderInventory();
-  if(id==='portal') renderPortal();
-  if(id==='admin') renderAdmin();
+  if(id==='island')renderIsland();if(id==='inventory')renderInv();if(id==='portal')renderPortal();if(id==='admin')renderAdmin();
   window.scrollTo(0,0);
 }
 
-// ===== ISLA =====
+// ISLAND
 function renderIsland(){
-  if(!STATE.perfil) return;
-  const av = AVATARS.find(a=>a.id===STATE.perfil.avatar);
-  document.getElementById('islandAvatar').textContent = av?av.emoji:'👾';
-  document.getElementById('islandName').textContent = STATE.perfil.nombre;
-  document.getElementById('streakBadge').textContent = `🔥 ${STATE.racha.actual}`;
-  // Render grid
-  const grid = document.getElementById('islandGrid');
-  grid.innerHTML = '';
-  for(let r=0;r<6;r++){
-    for(let c=0;c<6;c++){
-      const cell = document.createElement('div');
-      cell.className = 'island-cell';
-      const item = STATE.isla[r][c];
-      if(item){
-        cell.textContent = item.emoji;
-        cell.classList.add('has-item');
-      } else {
-        cell.classList.add('empty-slot');
-      }
-      cell.dataset.row = r;
-      cell.dataset.col = c;
-      cell.onclick = ()=> onCellClick(r,c);
-      grid.appendChild(cell);
-    }
+  if(!S.perfil)return;
+  const av=AVS.find(a=>a.id===S.perfil.avatar);
+  document.getElementById('iAv').textContent=av?av.e:'👾';
+  document.getElementById('iName').textContent=S.perfil.nombre;
+  document.getElementById('sBadge').textContent=`🔥 ${S.racha.a}`;
+  const g=document.getElementById('iGrid');g.innerHTML='';
+  for(let r=0;r<6;r++)for(let c=0;c<6;c++){
+    const cell=document.createElement('div');cell.className='island-cell';
+    const it=S.isla[r][c];
+    if(it){cell.textContent=it.e;cell.classList.add('has-item');}
+    if(plItem&&!it){cell.classList.add('placeable');cell.onclick=()=>placeOn(r,c);}
+    g.appendChild(cell);
   }
-  // Daily chest
-  updateDailyChest();
+  document.getElementById('pBanner').classList.toggle('active',!!plItem);
+  document.getElementById('iLabel').textContent=plItem?'':'🏝️ Tu isla — completa misiones para llenarla';
+  updateChest();
 }
 
-function updateDailyChest(){
-  const today = todayStr();
-  const chest = document.getElementById('dailyChest');
-  const icon = document.getElementById('chestIcon');
-  const title = document.getElementById('chestTitle');
-  const sub = document.getElementById('chestSubtitle');
-
-  if(!STATE.diaria.fecha || STATE.diaria.fecha !== today){
-    // Nueva misión diaria
-    const available = BANK.filter(m=> !STATE.completadas.find(c=>c.id_mision===m.id));
-    if(available.length === 0){
-      icon.textContent = '✅';
-      title.textContent = '¡Todo conquistado!';
-      sub.textContent = 'Pide nuevas misiones a mamá 😄';
-      chest.classList.remove('available');
-      chest.classList.add('completed');
-      return;
-    }
-    const chosen = available[Math.floor(Math.random()*available.length)];
-    STATE.diaria = {fecha:today, id_mision:chosen.id, completada:false};
-    saveState();
+function updateChest(){
+  const today=todayS(),ch=document.getElementById('dChest'),ic=document.getElementById('cIcon'),ti=document.getElementById('cTitle'),su=document.getElementById('cSub'),ar=document.getElementById('cArr');
+  if(!S.diaria.f||S.diaria.f!==today){
+    const avail=BANK.filter(m=>!S.done.find(d=>d.id===m.id));
+    if(!avail.length){ic.textContent='✅';ti.textContent='¡Todo conquistado!';su.textContent='Pide nuevas misiones a mamá 😄';ch.classList.remove('available');ch.classList.add('completed');ar.textContent='';return;}
+    const pick=avail[Math.floor(Math.random()*avail.length)];
+    S.diaria={f:today,id:pick.id,c:false};save();
   }
-
-  if(STATE.diaria.completada){
-    icon.textContent = '✅';
-    title.textContent = 'Misión Cumplida';
-    sub.textContent = 'Vuelve mañana por otra';
-    chest.classList.remove('available');
-    chest.classList.add('completed');
-  } else {
-    const mission = BANK.find(m=>m.id===STATE.diaria.id_mision);
-    const rarityEmoji = mission && mission.rareza==='epico' ? '🟣' : mission && mission.rareza==='raro' ? '🔵' : '🟢';
-    icon.textContent = '🎁';
-    title.textContent = `${rarityEmoji} Misión del Día`;
-    sub.textContent = '¡Toca para descubrir!';
-    chest.classList.add('available');
-    chest.classList.remove('completed');
-  }
+  if(S.diaria.c){ic.textContent='✅';ti.textContent='¡Misión cumplida!';su.textContent='Vuelve mañana o toca "Más Misiones"';ch.classList.remove('available');ch.classList.add('completed');ar.textContent='';}
+  else{ic.textContent='🎁';ti.textContent='👆 TOCA AQUÍ 👆';su.textContent='Abre tu misión del día';ch.classList.add('available');ch.classList.remove('completed');ar.textContent='▶';}
 }
 
-function openDailyMission(){
-  if(STATE.diaria.completada) return;
-  const mission = BANK.find(m=>m.id===STATE.diaria.id_mision);
-  if(!mission) return;
-  startMission(mission);
+function openDaily(){if(S.diaria.c)return;const m=BANK.find(b=>b.id===S.diaria.id);if(m)startM(m);}
+
+// MISSIONS
+function startM(m){curM=m;curN=0;showScreen('mission');renderM();}
+function renderM(){
+  const c=document.getElementById('mCard'),m=curM;
+  const bc=m.r==='epico'?'badge-e':m.r==='raro'?'badge-r':'badge-c';
+  const bl=m.r==='epico'?'ÉPICO':m.r==='raro'?'RARO':'COMÚN';
+  if(m.t==='combate'){
+    const mob=MOBS[m.combat.mob]||'👾';
+    const opts=shuf(m.combat.opts.map((o,i)=>({...o,oi:i})));
+    c.innerHTML=`<span class="badge ${bc}">${bl}</span><div class="m-title">${m.titulo}</div><div class="m-narr">${m.narr.replace(/\n/g,'<br>')}</div><div class="mob">${mob}</div><p class="m-q">${m.combat.q}</p><div class="opts" id="copts">${opts.map(o=>`<div class="opt" data-ok="${o.ok}" onclick="pickC(this)">${o.tx}</div>`).join('')}</div><div id="cfb"></div>`;
+  } else renderExplo();
 }
 
-// ===== MISIONES =====
-function startMission(mission){
-  currentMission = mission;
-  currentExplorationNode = 0;
-  showScreen('mission');
-  renderMission();
+function pickC(el){
+  const ok=el.dataset.ok==='true';
+  document.querySelectorAll('.opt').forEach(e=>e.style.pointerEvents='none');
+  el.classList.add(ok?'ok':'no');
+  document.getElementById('cfb').innerHTML=ok
+    ?`<div class="fb fb-ok">✅ ${curM.combat.fOk}</div><button class="btn btn-gold" style="width:100%;margin-top:16px" onclick="win()">🎁 ¡Abrir cofre!</button>`
+    :`<div class="fb fb-no">💥 ${curM.combat.fNo}</div><button class="btn btn-secondary" style="width:100%;margin-top:12px" onclick="renderM()">🔄 Intentar de nuevo</button>`;
 }
 
-function renderMission(){
-  const card = document.getElementById('missionCard');
-  const m = currentMission;
-  const rarityClass = m.rareza==='epico'?'badge-epico':m.rareza==='raro'?'badge-raro':'badge-comun';
-  const rarityLabel = m.rareza==='epico'?'ÉPICO':m.rareza==='raro'?'RARO':'COMÚN';
-  const worldInfo = WORLDS.find(w=>w.id===m.mundo);
+function renderExplo(){
+  const c=document.getElementById('mCard'),m=curM,nd=m.explo.nodos[curN];
+  const bc=m.r==='epico'?'badge-e':m.r==='raro'?'badge-r':'badge-c';
+  const bl=m.r==='epico'?'ÉPICO':m.r==='raro'?'RARO':'COMÚN';
+  const opts=shuf(nd.opts.map((o,i)=>({...o,oi:i})));
+  c.innerHTML=`<span class="badge ${bc}">${bl}</span><div class="m-title">${m.titulo}</div><div class="m-narr">${nd.tx.replace(/\n/g,'<br>')}</div><div class="opts">${opts.map(o=>`<div class="opt" onclick="pickE(this,${o.oi})">${o.tx}</div>`).join('')}</div><div id="efb"></div>`;
+}
 
-  if(m.tipo==='combate'){
-    const mobEmoji = MOBS[m.combate.mob] || '👾';
-    card.innerHTML = `
-      <span class="mission-type-badge ${rarityClass}">${rarityLabel}</span>
-      <div class="mission-title">${m.titulo}</div>
-      <div class="mission-narrative">${m.narrativa.replace(/\n/g,'<br>')}</div>
-      <div class="mob-display">${mobEmoji}</div>
-      <p style="text-align:center;color:var(--gold);font-family:'Press Start 2P';font-size:10px;margin-bottom:16px;">${m.combate.pregunta}</p>
-      <div class="combat-options" id="combatOptions">
-        ${m.combate.opciones.map((o,i)=>`
-          <div class="combat-option" data-idx="${i}" onclick="selectCombatOption(${i})">${o.texto}</div>
-        `).join('')}
-      </div>
-      <div id="combatFeedback"></div>
-    `;
-  } else if(m.tipo==='exploracion'){
-    renderExplorationNode();
+function pickE(el,oi){
+  const nd=curM.explo.nodos[curN],sel=nd.opts[oi];
+  document.querySelectorAll('.opt').forEach(e=>e.style.pointerEvents='none');
+  if(sel.ok){
+    el.classList.add('ok');
+    if(sel.sig==='win') document.getElementById('efb').innerHTML=`<div class="fb fb-ok">✅ ¡Correcto!</div><button class="btn btn-gold" style="width:100%;margin-top:16px" onclick="win()">🎁 ¡Abrir cofre!</button>`;
+    else{curN=sel.sig;setTimeout(renderExplo,800);}
+  } else{
+    el.classList.add('no');
+    document.getElementById('efb').innerHTML=`<div class="fb fb-no">💥 ${sel.fb}</div><button class="btn btn-secondary" style="width:100%;margin-top:12px" onclick="renderExplo()">🔄 Intentar de nuevo</button>`;
   }
 }
 
-function selectCombatOption(idx){
-  const opts = currentMission.combate.opciones;
-  const selected = opts[idx];
-  const optionEls = document.querySelectorAll('.combat-option');
+function flee(){curM=null;showScreen('island');}
 
-  // Desactivar todos
-  optionEls.forEach(el=> el.style.pointerEvents='none');
-
-  if(selected.correcto){
-    optionEls[idx].classList.add('correct');
-    document.getElementById('combatFeedback').innerHTML = `
-      <div class="feedback-box feedback-correct">
-        ✅ ${currentMission.combate.feedbackOk}
-      </div>
-      <button class="btn btn-gold" style="width:100%;margin-top:16px;" onclick="missionVictory()">🎁 ¡Abrir cofre!</button>
-    `;
-  } else {
-    optionEls[idx].classList.add('incorrect');
-    document.getElementById('combatFeedback').innerHTML = `
-      <div class="feedback-box feedback-incorrect">
-        💥 ${currentMission.combate.feedbackFail}
-      </div>
-      <button class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="retryCombat()">🔄 Intentar de nuevo</button>
-    `;
-  }
+// VICTORY
+function win(){
+  const m=curM;
+  S.done.push({id:m.id,f:todayS(),w:m.w});
+  if(S.diaria.id===m.id){S.diaria.c=true;updStreak();}
+  S.inv.push({id:m.item.id,n:m.item.n,r:m.item.r,e:m.item.e});
+  save();
+  document.getElementById('vEmoji').textContent=m.item.e;
+  document.getElementById('vName').textContent=m.item.n;
+  const re=document.getElementById('vRar');re.textContent=m.item.r.toUpperCase();re.className='v-rar r-'+m.item.r[0];
+  document.getElementById('vStreak').textContent=S.racha.a>1?`🔥 Racha: ${S.racha.a} días`:'';
+  showScreen('victory');BANK=genBank();
 }
 
-function retryCombat(){
-  renderMission();
+function updStreak(){
+  const t=todayS(),y=yesterdayS();
+  if(S.racha.u===y)S.racha.a+=1;else if(S.racha.u!==t)S.racha.a=1;
+  S.racha.u=t;if(S.racha.a>S.racha.m)S.racha.m=S.racha.a;
 }
 
-function renderExplorationNode(){
-  const card = document.getElementById('missionCard');
-  const m = currentMission;
-  const nodo = m.exploracion.nodos[currentExplorationNode];
-  const rarityClass = m.rareza==='epico'?'badge-epico':m.rareza==='raro'?'badge-raro':'badge-comun';
-  const rarityLabel = m.rareza==='epico'?'ÉPICO':m.rareza==='raro'?'RARO':'COMÚN';
+// PLACING
+function placeFromVictory(){plItem=S.inv[S.inv.length-1];showScreen('island');}
+function placeOn(r,c){
+  if(!plItem||S.isla[r][c])return;
+  S.isla[r][c]={id:plItem.id,n:plItem.n,e:plItem.e};
+  const i=S.inv.findIndex(x=>x.id===plItem.id);if(i>-1)S.inv.splice(i,1);
+  plItem=null;save();renderIsland();
+}
+function cancelPlace(){plItem=null;renderIsland();}
+function placeFromInv(i){plItem=S.inv[i];showScreen('island');}
 
-  card.innerHTML = `
-    <span class="mission-type-badge ${rarityClass}">${rarityLabel}</span>
-    <div class="mission-title">${m.titulo}</div>
-    <div class="exploration-text">${nodo.texto.replace(/\n/g,'<br>')}</div>
-    <div class="exploration-options" id="exploOptions">
-      ${nodo.opciones.map((o,i)=>`
-        <div class="exploration-option" data-idx="${i}" onclick="selectExploOption(${i})">${o.texto}</div>
-      `).join('')}
-    </div>
-    <div id="exploFeedback"></div>
-  `;
+// INVENTORY
+function renderInv(){
+  const c=document.getElementById('invC');
+  if(!S.inv.length){c.innerHTML='<div class="inv-empty">🎒 Vacío.<br><br>Completa misiones para ganar items.</div>';return;}
+  c.innerHTML=`<div class="inv-grid">${S.inv.map((it,i)=>`<div class="inv-slot" onclick="placeFromInv(${i})">${it.e}<span class="inv-n">${it.n}</span></div>`).join('')}</div>`;
 }
 
-function selectExploOption(idx){
-  const nodo = currentMission.exploracion.nodos[currentExplorationNode];
-  const selected = nodo.opciones[idx];
-  const optionEls = document.querySelectorAll('.exploration-option');
-  optionEls.forEach(el=> el.style.pointerEvents='none');
-
-  if(selected.correcto){
-    if(selected.siguiente === 'victoria'){
-      optionEls[idx].style.borderColor='#2ecc71';
-      optionEls[idx].style.background='rgba(46,204,113,0.2)';
-      document.getElementById('exploFeedback').innerHTML = `
-        <div class="feedback-box feedback-correct">✅ ¡Correcto!</div>
-        <button class="btn btn-gold" style="width:100%;margin-top:16px;" onclick="missionVictory()">🎁 ¡Abrir cofre!</button>
-      `;
-    } else {
-      optionEls[idx].style.borderColor='#2ecc71';
-      optionEls[idx].style.background='rgba(46,204,113,0.2)';
-      currentExplorationNode = selected.siguiente;
-      setTimeout(()=> renderExplorationNode(), 800);
-    }
-  } else {
-    optionEls[idx].style.borderColor='#e74c3c';
-    optionEls[idx].style.background='rgba(231,76,60,0.2)';
-    document.getElementById('exploFeedback').innerHTML = `
-      <div class="feedback-box feedback-incorrect">
-        💥 ${selected.feedback}
-      </div>
-      <button class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="retryExploration()">🔄 Intentar de nuevo</button>
-    `;
-  }
-}
-
-function retryExploration(){
-  renderExplorationNode();
-}
-
-function fleeMission(){
-  currentMission = null;
-  showScreen('island');
-}
-
-// ===== VICTORIA =====
-function missionVictory(){
-  const m = currentMission;
-  // Registrar completada
-  STATE.completadas.push({
-    id_mision: m.id,
-    fecha: todayStr(),
-    mundo: m.mundo
-  });
-  // Marcar diaria completada
-  if(STATE.diaria.id_mision === m.id){
-    STATE.diaria.completada = true;
-    updateStreak();
-  }
-  // Guardar item en inventario
-  STATE.inventario.push({...m.item});
-  saveState();
-
-  // Mostrar pantalla de victoria
-  document.getElementById('victoryItemEmoji').textContent = m.item.emoji;
-  document.getElementById('victoryItemName').textContent = m.item.nombre;
-  const rarityEl = document.getElementById('victoryItemRarity');
-  rarityEl.textContent = m.item.rareza.toUpperCase();
-  rarityEl.className = 'victory-rarity rarity-'+m.item.rareza;
-  document.getElementById('victoryStreak').textContent = STATE.racha.actual > 1 ? `🔥 Racha: ${STATE.racha.actual} días` : '';
-
-  showScreen('victory');
-  // Regenerar banco (para parámetros variables de mate)
-  BANK = generateBank();
-}
-
-function updateStreak(){
-  const today = todayStr();
-  const yesterday = yesterdayStr();
-  if(STATE.racha.ultima_fecha === yesterday){
-    STATE.racha.actual += 1;
-  } else if(STATE.racha.ultima_fecha !== today){
-    STATE.racha.actual = 1;
-  }
-  STATE.racha.ultima_fecha = today;
-  if(STATE.racha.actual > STATE.racha.mejor) STATE.racha.mejor = STATE.racha.actual;
-}
-
-function placeItemFromVictory(){
-  const item = STATE.inventario[STATE.inventario.length - 1];
-  placingItem = item;
-  showScreen('island');
-  // Mostrar mensaje
-  document.getElementById('modalItemPreview').textContent = item.emoji;
-  document.getElementById('modalItemText').textContent = `Toca una celda vacía en tu isla para colocar: ${item.nombre}`;
-  document.getElementById('placeModal').classList.add('active');
-}
-
-function saveToInventory(){
-  showScreen('island');
-}
-
-function onCellClick(r,c){
-  if(placingItem && !STATE.isla[r][c]){
-    placingCell = {r,c};
-    confirmPlace();
-  }
-}
-
-function confirmPlace(){
-  if(!placingItem || !placingCell) return;
-  STATE.isla[placingCell.r][placingCell.c] = {
-    id: placingItem.id,
-    nombre: placingItem.nombre,
-    emoji: placingItem.emoji
-  };
-  // Quitar del inventario
-  const idx = STATE.inventario.findIndex(i=>i.id===placingItem.id);
-  if(idx>-1) STATE.inventario.splice(idx,1);
-  placingItem = null;
-  placingCell = null;
-  document.getElementById('placeModal').classList.remove('active');
-  saveState();
-  renderIsland();
-}
-
-function cancelPlace(){
-  placingItem = null;
-  placingCell = null;
-  document.getElementById('placeModal').classList.remove('active');
-}
-
-// ===== INVENTARIO =====
-function renderInventory(){
-  const grid = document.getElementById('invGrid');
-  const items = STATE.inventario;
-  let html = '';
-  for(let i=0;i<Math.max(items.length,12);i++){
-    if(i<items.length){
-      html += `<div class="inv-slot filled" onclick="placeFromInventory(${i})">
-        ${items[i].emoji}
-        <span class="inv-name">${items[i].nombre}</span>
-      </div>`;
-    } else {
-      html += `<div class="inv-slot inv-empty"></div>`;
-    }
-  }
-  grid.innerHTML = html;
-}
-
-function placeFromInventory(idx){
-  placingItem = STATE.inventario[idx];
-  document.getElementById('modalItemPreview').textContent = placingItem.emoji;
-  document.getElementById('modalItemText').textContent = `Toca una celda vacía en tu isla para colocar: ${placingItem.nombre}`;
-  showScreen('island');
-  document.getElementById('placeModal').classList.add('active');
-}
-
-// ===== PORTAL =====
+// PORTAL
 function renderPortal(){
-  const grid = document.getElementById('worldsGrid');
-  grid.innerHTML = WORLDS.map(w=>{
-    const total = BANK.filter(m=>m.mundo===w.id).length;
-    const done = STATE.completadas.filter(c=>{
-      const m = BANK.find(b=>b.id===c.id_mision);
-      return m && m.mundo===w.id;
-    }).length;
-    // Contar completadas de este mundo (pueden estar en bancos anteriores)
-    const doneCount = STATE.completadas.filter(c=>c.mundo===w.id).length;
-    return `
-      <div class="world-card" onclick="openWorld('${w.id}')">
-        <span class="world-icon">${w.icon}</span>
-        <div class="world-info">
-          <h3>${w.name}</h3>
-          <p>${w.desc}</p>
-        </div>
-        <span class="world-progress">${doneCount}/${total}</span>
-      </div>
-    `;
+  document.getElementById('wGrid').innerHTML=WS.map(w=>{
+    const tot=BANK.filter(m=>m.w===w.id).length,dn=S.done.filter(d=>d.w===w.id).length;
+    return`<div class="wc" onclick="openW('${w.id}')"><span class="wi">${w.i}</span><div class="winfo"><h3>${w.n}</h3><p>${w.d}</p></div><span class="wp">${dn}/${tot}</span></div>`;
   }).join('');
 }
-
-function openWorld(worldId){
-  const missions = BANK.filter(m=>m.mundo===worldId);
-  const grid = document.getElementById('worldsGrid');
-  const world = WORLDS.find(w=>w.id===worldId);
-  grid.innerHTML = `
-    <button class="btn btn-secondary" onclick="renderPortal()" style="font-size:9px;padding:8px 12px;align-self:flex-start;">← Mundos</button>
-    <h3 style="font-family:'Press Start 2P';font-size:12px;color:#fff;margin:8px 0;">${world.icon} ${world.name}</h3>
-    ${missions.map(m=>{
-      const done = STATE.completadas.find(c=>c.id_mision===m.id);
-      const rarityClass = m.rareza==='epico'?'badge-epico':m.rareza==='raro'?'badge-raro':'badge-comun';
-      return `
-        <div class="world-card ${done?'':'available'}" onclick="${done?'':'startMissionFromPortal(\"'+m.id+'\")'}" style="${done?'opacity:0.5;':''}">
-          <span class="world-icon">${m.item.emoji}</span>
-          <div class="world-info">
-            <h3 style="font-size:10px;">${m.titulo}</h3>
-            <p><span class="mission-type-badge ${rarityClass}" style="font-size:7px;">${m.rareza.toUpperCase()}</span> ${m.tipo==='combate'?'⚔️ Combate':'🗺️ Exploración'}</p>
-          </div>
-          <span class="world-progress">${done?'✅':'▶️'}</span>
-        </div>
-      `;
-    }).join('')}
-  `;
+function openW(wid){
+  const ms=BANK.filter(m=>m.w===wid),w=WS.find(x=>x.id===wid);
+  document.getElementById('wGrid').innerHTML=`
+    <button class="btn btn-secondary" onclick="renderPortal()" style="font-size:9px;padding:8px 12px;align-self:flex-start">← Mundos</button>
+    <h3 style="font-family:'Press Start 2P';font-size:12px;color:#fff;margin:8px 0">${w.i} ${w.n}</h3>
+    ${ms.map(m=>{
+      const dn=S.done.find(d=>d.id===m.id);
+      const bc=m.r==='epico'?'badge-e':m.r==='raro'?'badge-r':'badge-c';
+      return`<div class="wc" onclick="${dn?'':'startMP(\"'+m.id+'\")'}" style="${dn?'opacity:0.5':''}"><span class="wi">${m.item.e}</span><div class="winfo"><h3 style="font-size:10px">${m.titulo}</h3><p><span class="badge ${bc}" style="font-size:7px">${m.r.toUpperCase()}</span> ${m.t==='combate'?'⚔️':'🗺️'}</p></div><span class="wp">${dn?'✅':'▶️'}</span></div>`;
+    }).join('')}`;
 }
+function startMP(id){const m=BANK.find(b=>b.id===id);if(m)startM(m);}
 
-function startMissionFromPortal(id){
-  const mission = BANK.find(m=>m.id===id);
-  if(mission) startMission(mission);
-}
-
-// ===== ADMIN =====
-function setupAdminTrigger(){
-  let taps = 0;
-  let timer;
-  document.getElementById('adminTrigger').addEventListener('click', ()=>{
-    taps++;
-    clearTimeout(timer);
-    if(taps>=4){
-      taps=0;
-      document.getElementById('codeModal').classList.add('active');
-      document.querySelector('.code-digit').focus();
-    }
-    timer = setTimeout(()=>taps=0, 2000);
-  });
-}
-
-function setupCodeInputs(){
-  const digits = document.querySelectorAll('.code-digit');
-  digits.forEach((input,i)=>{
-    input.addEventListener('input', (e)=>{
-      const val = e.target.value;
-      if(val.length > 1) e.target.value = val.slice(-1);
-      if(val && i<3) digits[i+1].focus();
-    });
-    input.addEventListener('keydown', (e)=>{
-      if(e.key==='Backspace' && !e.target.value && i>0) digits[i-1].focus();
-    });
-  });
-}
-
-function checkCode(){
-  const digits = document.querySelectorAll('.code-digit');
-  const code = Array.from(digits).map(d=>d.value).join('');
-  if(code===ADMIN_CODE){
-    closeCodeModal();
-    showScreen('admin');
-  } else {
-    digits.forEach(d=>{d.value=''; d.style.borderColor='#e74c3c';});
-    setTimeout(()=> digits.forEach(d=>d.style.borderColor=''), 1000);
-    digits[0].focus();
-  }
-}
-
-function closeCodeModal(){
-  document.getElementById('codeModal').classList.remove('active');
-  document.querySelectorAll('.code-digit').forEach(d=>d.value='');
-}
+// ADMIN
+function setupAdmin(){let t=0,ti;document.getElementById('adTrig').addEventListener('click',()=>{t++;clearTimeout(ti);if(t>=4){t=0;document.getElementById('codeM').classList.add('active');document.querySelector('.cd').focus();}ti=setTimeout(()=>t=0,2000);});}
+function setupCode(){document.querySelectorAll('.cd').forEach((inp,i)=>{inp.addEventListener('input',e=>{if(e.target.value.length>1)e.target.value=e.target.value.slice(-1);if(e.target.value&&i<3)document.querySelectorAll('.cd')[i+1].focus();});inp.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!e.target.value&&i>0)document.querySelectorAll('.cd')[i-1].focus();});});}
+function checkCode(){const c=Array.from(document.querySelectorAll('.cd')).map(d=>d.value).join('');if(c===CODE){closeCode();showScreen('admin');}else{document.querySelectorAll('.cd').forEach(d=>{d.value='';d.style.borderColor='#e74c3c';});setTimeout(()=>document.querySelectorAll('.cd').forEach(d=>d.style.borderColor=''),1000);document.querySelector('.cd').focus();}}
+function closeCode(){document.getElementById('codeM').classList.remove('active');document.querySelectorAll('.cd').forEach(d=>d.value='');}
 
 function renderAdmin(){
-  const content = document.getElementById('adminContent');
-  const totalDone = STATE.completadas.length;
-  const byWorld = WORLDS.map(w=>{
-    const count = STATE.completadas.filter(c=>c.mundo===w.id).length;
-    return {name:w.name, icon:w.icon, count, materia:w.materia};
-  });
-  const totalMissions = BANK.length;
-  const itemsOnIsland = STATE.isla.flat().filter(Boolean).length;
-  const itemsInInv = STATE.inventario.length;
-
-  content.innerHTML = `
-    <div class="admin-section">
-      <h3>📊 Estadísticas Generales</h3>
-      <div class="stat-row"><span>Misiones completadas</span><span class="stat-value">${totalDone} / ${totalMissions}</span></div>
-      <div class="stat-row"><span>Racha actual</span><span class="stat-value">🔥 ${STATE.racha.actual} días</span></div>
-      <div class="stat-row"><span>Mejor racha</span><span class="stat-value">🏆 ${STATE.racha.mejor} días</span></div>
-      <div class="stat-row"><span>Items en isla</span><span class="stat-value">🏝️ ${itemsOnIsland}</span></div>
-      <div class="stat-row"><span>Items en inventario</span><span class="stat-value">🎒 ${itemsInInv}</span></div>
-      <div class="stat-row"><span>Jugando desde</span><span class="stat-value">${STATE.perfil?STATE.perfil.fecha_inicio:'—'}</span></div>
+  const c=document.getElementById('adC'),bw=WS.map(w=>({...w,c:S.done.filter(x=>x.w===w.id).length}));
+  c.innerHTML=`
+    <div class="as"><h3>📊 Estadísticas</h3>
+      <div class="sr"><span>Misiones completadas</span><span class="sv">${S.done.length} / ${BANK.length}</span></div>
+      <div class="sr"><span>Racha actual</span><span class="sv">🔥 ${S.racha.a}</span></div>
+      <div class="sr"><span>Mejor racha</span><span class="sv">🏆 ${S.racha.m}</span></div>
+      <div class="sr"><span>Items en isla</span><span class="sv">${S.isla.flat().filter(Boolean).length}</span></div>
     </div>
-    <div class="admin-section">
-      <h3>🌍 Progreso por Mundo (Materia)</h3>
-      ${byWorld.map(w=>`
-        <div class="stat-row"><span>${w.icon} ${w.name}</span><span class="stat-value">${w.count} completadas</span></div>
-      `).join('')}
-    </div>
-    <div class="admin-section">
-      <h3>📋 Historial de Misiones</h3>
-      ${STATE.completadas.length===0?'<p style="color:#999;font-size:13px;">Aún no hay misiones completadas.</p>':''}
-      ${STATE.completadas.slice().reverse().map(c=>{
-        const world = WORLDS.find(w=>w.id===c.mundo);
-        return `<div class="stat-row">
-          <span>${world?world.icon:'❓'} ${c.id_mision}</span>
-          <span style="color:#999;font-size:12px;">${c.fecha}</span>
-        </div>`;
-      }).join('')}
-    </div>
-    <div class="admin-section">
-      <h3>💾 Respaldo</h3>
-      <p style="font-size:13px;color:#999;margin-bottom:12px;">Copia el progreso de Magdalena para no perderlo si se limpia el caché.</p>
-      <button class="btn btn-gold" onclick="exportBackup()" style="width:100%;margin-bottom:8px;font-size:9px;">📋 Copiar respaldo</button>
-      <button class="btn btn-secondary" onclick="importBackup()" style="width:100%;font-size:9px;">📥 Restaurar respaldo</button>
-    </div>
-    <div class="admin-section">
-      <h3>⚠️ Zona de peligro</h3>
-      <button class="btn" style="width:100%;font-size:9px;background:#e74c3c;color:#fff;border-color:#c0392b;" onclick="resetGame()">🗑️ Reiniciar todo</button>
-    </div>
-  `;
+    <div class="as"><h3>🌍 Por Mundo</h3>${bw.map(w=>`<div class="sr"><span>${w.i} ${w.n}</span><span class="sv">${w.c}</span></div>`).join('')}</div>
+    <div class="as"><h3>💾 Respaldo</h3><p style="font-size:13px;color:#999;margin-bottom:12px">Copia el progreso.</p>
+      <button class="btn btn-gold" onclick="expB()" style="width:100%;margin-bottom:8px;font-size:9px">📋 Copiar</button>
+      <button class="btn btn-secondary" onclick="impB()" style="width:100%;font-size:9px">📥 Restaurar</button></div>
+    <div class="as"><h3>⚠️ Peligro</h3><button class="btn" style="width:100%;font-size:9px;background:#e74c3c;color:#fff;border-color:#c0392b" onclick="resetG()">🗑️ Reiniciar</button></div>`;
 }
+function expB(){navigator.clipboard.writeText(JSON.stringify(S)).then(()=>alert('✅ Copiado')).catch(()=>prompt('Copia:',JSON.stringify(S)));}
+function impB(){const d=prompt('Pega el respaldo:');if(d){try{S=JSON.parse(d);save();location.reload();}catch(e){alert('❌ No válido');}}}
+function resetG(){if(confirm('⚠️ ¿Borrar TODO?'))if(confirm('🔴 ÚLTIMA OPORTUNIDAD')){localStorage.removeItem('bq');location.reload();}}
 
-function exportBackup(){
-  const data = JSON.stringify(STATE);
-  navigator.clipboard.writeText(data).then(()=>{
-    alert('✅ Respaldo copiado al portapapeles. Guárdalo en un lugar seguro.');
-  }).catch(()=>{
-    prompt('Copia este texto:', data);
-  });
-}
+function todayS(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function yesterdayS(){const d=new Date();d.setDate(d.getDate()-1);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 
-function importBackup(){
-  const data = prompt('Pega aquí el texto de respaldo:');
-  if(data){
-    try {
-      STATE = JSON.parse(data);
-      saveState();
-      alert('✅ Respaldo restaurado. La app se va a recargar.');
-      location.reload();
-    } catch(e){
-      alert('❌ El texto no es un respaldo válido.');
-    }
-  }
-}
-
-function resetGame(){
-  if(confirm('⚠️ ¿Estás segura? Se borrará TODO el progreso de Magdalena.')){
-    if(confirm('🔴 ÚLTIMA OPORTUNIDAD. ¿Realmente quieres borrar todo?')){
-      localStorage.removeItem('bq_state');
-      location.reload();
-    }
-  }
-}
-
-// ===== UTILIDADES =====
-function todayStr(){
-  const d=new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-function yesterdayStr(){
-  const d=new Date();
-  d.setDate(d.getDate()-1);
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-// ===== ARRANCAR =====
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
