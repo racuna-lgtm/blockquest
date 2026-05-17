@@ -220,11 +220,12 @@ function qPatterns(){
   return ops[ri(0,ops.length-1)]();
 }
 function qDivision(){
-  const tot=ri(10,50)*6,cofres=ri(6,9),dest=ri(1,3),q2=cofres-dest,r=tot/q2,tr=tot/cofres;
-  return{q:`Tienes ${tot} bloques para ${cofres} cofres. Un creeper destruye ${dest}. Repartes los ${tot} en los ${q2} que quedan. ¿Cuántos por cofre?`,
-    opts:[{tx:''+r,ok:1},{tx:''+tr,ok:0},{tx:''+(tr+dest),ok:0}],
-    fb_ok:`${tot} ÷ ${q2} = ${r}. Hay que recalcular con los cofres que quedan.`,
-    fb_no:`Quedan ${q2} cofres, no ${cofres}. Divide ${tot} ÷ ${q2}.`};
+  const dest=ri(1,3),q2=ri(4,7),cofres=q2+dest,r=ri(5,20),tot=r*q2,tr=Math.round(tot/cofres);
+  const wrong2=tr===r?r+dest:tr+dest;
+  return{q:'Tienes '+tot+' bloques para '+cofres+' cofres. Un creeper destruye '+dest+'. Repartes los '+tot+' en los '+q2+' que quedan. ¿Cuántos por cofre?',
+    opts:[{tx:''+r,ok:1},{tx:''+tr,ok:0},{tx:''+wrong2,ok:0}],
+    fb_ok:tot+' ÷ '+q2+' = '+r+'. El truco: los cofres pasaron de '+cofres+' a '+q2+'.',
+    fb_no:'Quedan '+q2+' cofres, no '+cofres+'. Divide '+tot+' ÷ '+q2+'.'};
 }
 function qFractions(){
   const d=[4,5,6,8,10][ri(0,4)],n1=ri(1,d-2),n2=ri(1,d-n1-1),sum=n1+n2,falta=d-sum;
@@ -459,14 +460,16 @@ function renderPortal(){
 }
 function openW(wid){
   const ms=MS.filter(m=>m.w===wid),w=WS.find(x=>x.id===wid);
-  $('wGr').innerHTML=`
-    <button class="btn b3" onclick="renderPortal()" style="font-size:9px;padding:8px 12px;align-self:flex-start">← Mundos</button>
-    <h3 style="font-family:'Press Start 2P';font-size:12px;color:#fff;margin:8px 0">${w.i} ${w.n}</h3>
-    ${ms.map(m=>{
-      const dn=S.done.find(d=>d.id===m.id);
-      return`<div class="wc" onclick="${dn?'':'startBattle(MS.find(x=>x.id===\\''+m.id+'\\'))'}" style="${dn?'opacity:0.5':''}"><span class="wi">${m.item.e}</span><div class="winfo"><h3 style="font-size:10px">${m.titulo}</h3><p>${m.r.toUpperCase()} · ⚔️ Batalla</p></div><span class="wp">${dn?'✅':'▶️'}</span></div>`;
-    }).join('')}`;
+  let html='<button class="btn b3" onclick="renderPortal()" style="font-size:9px;padding:8px 12px;align-self:flex-start">← Mundos</button>';
+  html+='<h3 style="font-family:Press Start 2P;font-size:12px;color:#fff;margin:8px 0">'+w.i+' '+w.n+'</h3>';
+  ms.forEach(m=>{
+    const dn=S.done.find(d=>d.id===m.id);
+    if(dn) html+='<div class="wc" style="opacity:0.5"><span class="wi">'+m.item.e+'</span><div class="winfo"><h3 style="font-size:10px">'+m.titulo+'</h3><p>'+m.r.toUpperCase()+' · ⚔️</p></div><span class="wp">✅</span></div>';
+    else html+='<div class="wc" onclick="startMP(\''+m.id+'\')"><span class="wi">'+m.item.e+'</span><div class="winfo"><h3 style="font-size:10px">'+m.titulo+'</h3><p>'+m.r.toUpperCase()+' · ⚔️</p></div><span class="wp">▶️</span></div>';
+  });
+  $('wGr').innerHTML=html;
 }
+function startMP(id){const m=MS.find(x=>x.id===id);if(m)startBattle(m);}
 
 // ===== ADMIN =====
 function setupAdmin(){let t=0,ti;$('adTr').addEventListener('click',()=>{t++;clearTimeout(ti);if(t>=4){t=0;$('codeM').classList.add('on');document.querySelector('.cd').focus();}ti=setTimeout(()=>t=0,2000);});}
